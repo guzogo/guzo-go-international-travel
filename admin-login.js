@@ -1,9 +1,11 @@
 import { auth } from "./firebase.js";
 
-import {
-signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+console.log("admin-login.js loaded");
+console.log(auth);
 
+import {
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 const email = document.getElementById("email");
 
 const password = document.getElementById("password");
@@ -40,8 +42,6 @@ console.log(userCredential);
 alert("Login Success");
 
 window.location.href = "admin.html";
-
-window.location.href="admin.html";
 
 }catch(err){
 
