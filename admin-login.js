@@ -42,6 +42,7 @@ window.location.href="admin.html";
 error.innerHTML="❌ Invalid Email or Password.";
 
 console.error(err);
+alert(err.code + "\n" + err.message);
 
 }
 
