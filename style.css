@@ -1150,3 +1150,14 @@ transform:translateY(-5px);
 background:linear-gradient(45deg,#00AEEF,#00B894);
 
 }
+.contact-box a{
+    color:#003366;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.contact-box a:hover{
+    color:#00AEEF;
+    text-decoration:underline;
+}
