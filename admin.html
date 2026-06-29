@@ -44,7 +44,8 @@
 <button id="logoutBtn">Logout</button>
 
 </div>
-  <div class="cards">
+
+<div class="cards">
 
 <div class="card">
 
@@ -87,8 +88,8 @@ type="text"
 id="searchInput"
 placeholder="🔍 Search by Applicant ID or Name">
 
-</div>
- <table>
+  </div>
+<table>
 
 <thead>
 
@@ -114,15 +115,30 @@ placeholder="🔍 Search by Applicant ID or Name">
 
 </table>
 
-<footer>
+<!-- View Details Modal -->
+
+<div id="detailsModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<h2>Applicant Details</h2>
+
+<div id="detailsContent"></div>
+
+</div>
+
+  </div>
+  <footer>
 
 <p>© 2026 Guzo Go International Travel & Visa Consultancy</p>
 
-</footer> 
+</footer>
+
 </div>
 
 <script type="module" src="admin.js"></script>
-
 </body>
 
   </html>
