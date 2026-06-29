@@ -1,37 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply Now | Guzo Go International Travel & Visa Consultancy</title>
+<title>Apply | Guzo Go International Travel & Visa Consultancy</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f7fb;
+}
+
+header{
+background:#003366;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+header h1{
+margin-bottom:10px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 12px;
+font-weight:bold;
+}
+
+.hero{
+background:linear-gradient(rgba(0,51,102,.8),rgba(0,51,102,.8));
+padding:60px 20px;
+text-align:center;
+color:white;
+}
+
+.hero h2{
+font-size:36px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+}
+
+.container{
+max-width:900px;
+margin:40px auto;
+background:white;
+padding:35px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.container h2{
+text-align:center;
+color:#003366;
+margin-bottom:30px;
+}
+
+.form-group{
+margin-bottom:20px;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:bold;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:14px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+textarea{
+resize:vertical;
+min-height:100px;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+@media(max-width:768px){
+.row{
+grid-template-columns:1fr;
+}
+}
+
+button{
+width:100%;
+padding:16px;
+background:#00a86b;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#00895a;
+}
+
+</style>
 
 </head>
 
 <body>
 
-<header class="header">
+<header>
 
-<div class="container">
-
-<div class="logo">
-
-<h1>🌍 Guzo Go International</h1>
-
-<p>Travel & Visa Consultancy</p>
-
-</div>
+<h1>Guzo Go International Travel & Visa Consultancy</h1>
 
 <nav>
 
 <a href="index.html">Home</a>
 
-<a href="apply.html" class="active">Apply</a>
+<a href="apply.html">Apply</a>
 
 <a href="verify.html">Verify</a>
 
@@ -39,497 +144,236 @@
 
 </nav>
 
-</div>
-
 </header>
 
 <section class="hero">
 
-<div class="hero-content">
-
-<h1>Online Visa Application</h1>
+<h2>Online Visa Application</h2>
 
 <p>
-
-Complete the form below carefully.
-
-Your information will be reviewed by our Visa Officers.
-
+Complete the form below carefully. Your application will be reviewed by our team.
 </p>
-
-</div>
 
 </section>
 
-<section class="application">
-
 <div class="container">
 
-<h2>Applicant Information</h2>
+<h2>Application Form</h2>
 
 <form id="applicationForm">
+  <div class="row">
 
-<div class="row">
-
-<div class="input-box">
-
-<label>Full Name</label>
-
+<div class="form-group">
+<label>Full Name *</label>
 <input
+type="text"
 id="fullName"
-type="text"
+placeholder="Enter your full name"
 required>
-
 </div>
 
-<div class="input-box">
-
-<label>Email Address</label>
-
+<div class="form-group">
+<label>Phone Number *</label>
 <input
-id="email"
-type="email"
-required>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Phone Number</label>
-
-<input
-id="phone"
 type="tel"
+id="phone"
+placeholder="+2519XXXXXXXX"
 required>
-
-</div>
-
-<div class="input-box">
-
-<label>Date of Birth</label>
-
-<input
-id="dob"
-type="date"
-required>
-
 </div>
 
 </div>
 
 <div class="row">
 
-<div class="input-box">
-
-<label>Gender</label>
-
-<select id="gender" required>
-
-<option value="">Select</option>
-
-<option>Male</option>
-
-<option>Female</option>
-
-</select>
-
+<div class="form-group">
+<label>Email Address *</label>
+<input
+type="email"
+id="email"
+placeholder="example@email.com"
+required>
 </div>
 
-<div class="input-box">
-
-<label>Nationality</label>
-
+<div class="form-group">
+<label>Passport Number *</label>
 <input
-id="nationality"
 type="text"
-required>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Passport Number</label>
-
-<input
 id="passport"
-type="text"
+placeholder="Passport Number"
 required>
+</div>
 
 </div>
 
-<div class="input-box">
+<div class="row">
 
-<label>Country Applying For</label>
+<div class="form-group">
+<label>Destination Country *</label>
 
 <select id="country" required>
 
-<option value="">Choose Country</option>
+<option value="">Select Country</option>
 
-<option>Canada</option>
+<option>🇨🇦 Canada</option>
 
-<option>Saudi Arabia</option>
+<option>🇸🇦 Saudi Arabia</option>
 
-<option>Kuwait</option>
+<option>🇰🇼 Kuwait</option>
 
-<option>Dubai (UAE)</option>
+<option>🇦🇪 Dubai (UAE)</option>
 
 </select>
+
+</div>
+
+<div class="form-group">
+<label>Date of Birth *</label>
+
+<input
+type="date"
+id="dob"
+required>
 
 </div>
 
   </div>
-<div class="row">
+  <div class="row">
 
-<div class="input-box">
+<div class="form-group">
+<label>Gender *</label>
 
-<label>Visa Type</label>
-
-<select id="visaType" required>
-
-<option value="">Select Visa Type</option>
-
-<option>Work Visa</option>
-
-<option>Visit Visa</option>
-
-<option>Student Visa</option>
-
-<option>Business Visa</option>
-
+<select id="gender" required>
+<option value="">Select Gender</option>
+<option>Male</option>
+<option>Female</option>
 </select>
 
 </div>
 
-<div class="input-box">
-
-<label>Marital Status</label>
-
-<select id="maritalStatus" required>
-
-<option value="">Select Status</option>
-
-<option>Single</option>
-
-<option>Married</option>
-
-<option>Divorced</option>
-
-<option>Widowed</option>
-
-</select>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Current Occupation</label>
+<div class="form-group">
+<label>Occupation *</label>
 
 <input
-id="occupation"
 type="text"
+id="occupation"
 placeholder="Your Occupation"
 required>
 
 </div>
 
-<div class="input-box">
-
-<label>Current Address</label>
-
-<input
-id="address"
-type="text"
-placeholder="City, Sub City, Country"
-required>
-
 </div>
 
-</div>
+<div class="form-group">
 
-<h2>Upload Required Documents</h2>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Passport Photo</label>
-
-<input
-id="passportPhoto"
-type="file"
-accept="image/*"
-required>
-
-</div>
-
-<div class="input-box">
-
-<label>Passport Scan</label>
-
-<input
-id="passportScan"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png"
-required>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Curriculum Vitae (CV)</label>
-
-<input
-id="cvFile"
-type="file"
-accept=".pdf,.doc,.docx"
-required>
-
-</div>
-
-<div class="input-box">
-
-<label>Educational Certificate</label>
-
-<input
-id="educationFile"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png">
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Work Experience Certificate</label>
-
-<input
-id="experienceFile"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png">
-
-</div>
-
-<div class="input-box">
-
-<label>Medical Certificate</label>
-
-<input
-id="medicalFile"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png">
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Police Clearance Certificate</label>
-
-<input
-id="policeFile"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png">
-
-</div>
-
-<div class="input-box">
-
-<label>National ID (Optional)</label>
-
-<input
-id="nationalId"
-type="file"
-accept=".pdf,.jpg,.jpeg,.png">
-
-</div>
-
-  </div>
-<h2>Emergency Contact</h2>
-
-<div class="row">
-
-<div class="input-box">
-
-<label>Emergency Contact Name</label>
-
-<input
-id="emergencyName"
-type="text"
-placeholder="Full Name"
-required>
-
-</div>
-
-<div class="input-box">
-
-<label>Emergency Contact Phone</label>
-
-<input
-id="emergencyPhone"
-type="tel"
-placeholder="+251..."
-required>
-
-</div>
-
-</div>
-
-<div class="row">
-
-<div class="input-box" style="width:100%;">
-
-<label>Additional Information</label>
+<label>Current Address *</label>
 
 <textarea
-id="additionalInfo"
-rows="5"
-placeholder="Write additional information here..."></textarea>
+id="address"
+placeholder="Enter your full address"
+required></textarea>
 
 </div>
 
-</div>
+<div class="form-group">
 
-<h2>Declaration</h2>
-
-<div class="checkbox-area">
-
-<label>
+<label>Upload Passport Copy</label>
 
 <input
-id="agree"
-type="checkbox"
-required>
-
-I confirm that all information provided is true and correct.
-
-</label>
-
-<br><br>
-
-<label>
-
-<input
-id="privacy"
-type="checkbox"
-required>
-
-I agree to the Terms & Conditions and Privacy Policy.
-
-</label>
+type="file"
+id="passportFile"
+accept=".jpg,.jpeg,.png,.pdf">
 
 </div>
 
-<br>
+<div class="form-group">
 
-<button
-id="submitBtn"
-class="btn"
-type="submit">
+<label>Additional Notes</label>
+
+<textarea
+id="notes"
+placeholder="Write any additional information (optional)"></textarea>
+
+</div>
+
+<div id="message" style="margin:20px 0;"></div>
+
+<button type="submit">
 
 Submit Application
 
-</button>
-
-</form>
-
-<div
-id="successMessage"
-style="display:none;">
-
-<h2>✅ Application Submitted Successfully</h2>
-
-<p>
-
-Your application has been received successfully.
-
-</p>
-
-<p>
-
-Your Applicant ID will be generated automatically after review.
-
-</p>
-
-<p>
-
-Please keep checking the Verification page.
-
-</p>
+  </button>
+  </form>
 
 </div>
 
-</div>
-
-  </section>
-  <footer class="footer">
-
-<div class="container">
-
-<div class="footer-content">
-
-<h3>🌍 Guzo Go International Travel & Visa Consultancy</h3>
-
-<p>
-Professional Visa Processing & International Recruitment Services
-</p>
-
-<p>
-🇨🇦 Canada &nbsp; | &nbsp;
-🇸🇦 Saudi Arabia &nbsp; | &nbsp;
-🇰🇼 Kuwait &nbsp; | &nbsp;
-🇦🇪 Dubai
-</p>
-
-<p>
-📧 Email: info@guzogotravel.com
-</p>
-
-<p>
-📞 Phone: +251 9XX XXX XXX
-</p>
-
-<p>
-📍 Addis Ababa, Ethiopia
-</p>
-
-<hr>
-
-<p>
-
+<footer style="background:#003366;color:white;text-align:center;padding:20px;margin-top:40px;">
 © 2026 Guzo Go International Travel & Visa Consultancy
-
-</p>
-
-</div>
-
-</div>
-
 </footer>
 
-<script type="module" src="firebase.js"></script>
-<script src="app.js"></script>
+<script type="module">
+
+import { saveApplication } from "./firebase.js";
+
+const form = document.getElementById("applicationForm");
+const message = document.getElementById("message");
+
+form.addEventListener("submit", async (e)=>{
+
+e.preventDefault();
+
+const data = {
+
+fullName: document.getElementById("fullName").value,
+
+phone: document.getElementById("phone").value,
+
+email: document.getElementById("email").value,
+
+passport: document.getElementById("passport").value,
+
+country: document.getElementById("country").value,
+
+dob: document.getElementById("dob").value,
+
+gender: document.getElementById("gender").value,
+
+occupation: document.getElementById("occupation").value,
+
+address: document.getElementById("address").value,
+
+notes: document.getElementById("notes").value
+
+};
+
+const result = await saveApplication(data);
+
+if(result.success){
+
+message.innerHTML = `
+<div style="background:#d4edda;padding:20px;border-radius:10px;color:#155724;">
+<h3>✅ Application Submitted Successfully!</h3>
+<p><strong>Applicant ID:</strong> ${result.applicantId}</p>
+<p>Please save your Applicant ID for verification.</p>
+</div>
+`;
+
+form.reset();
+
+}else{
+
+message.innerHTML = `
+<div style="background:#f8d7da;padding:20px;border-radius:10px;color:#721c24;">
+❌ Failed to submit application.<br>
+${result.message}
+</div>
+`;
+
+}
+
+});
+
+</script>
 
 </body>
-</html>
+
+  </html>
