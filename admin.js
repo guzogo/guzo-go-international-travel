@@ -9,9 +9,9 @@ import {
   signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// =====================
-// Elements
-// =====================
+// ===========================
+// HTML Elements
+// ===========================
 
 const table = document.getElementById("applicationsTable");
 
@@ -20,14 +20,14 @@ const approvedApps = document.getElementById("approvedApps");
 const pendingApps = document.getElementById("pendingApps");
 const rejectedApps = document.getElementById("rejectedApps");
 
-const logoutBtn = document.getElementById("logoutBtn");
 const searchInput = document.getElementById("searchInput");
+const logoutBtn = document.getElementById("logoutBtn");
 
 // Store all applications
 let allApplications = [];
-// =====================
+// ===========================
 // Check Admin Login
-// =====================
+// ===========================
 
 onAuthStateChanged(auth, (user) => {
 
@@ -35,13 +35,17 @@ onAuthStateChanged(auth, (user) => {
 
     window.location.href = "admin-login.html";
 
+    return;
+
   }
+
+  loadApplications();
 
 });
 
-// =====================
+// ===========================
 // Load Applications
-// =====================
+// ===========================
 
 async function loadApplications() {
 
@@ -50,9 +54,9 @@ async function loadApplications() {
   displayApplications(allApplications);
 
 }
-// =====================
+// ===========================
 // Display Applications
-// =====================
+// ===========================
 
 function displayApplications(applications) {
 
@@ -65,7 +69,9 @@ function displayApplications(applications) {
   applications.forEach((app) => {
 
     if (app.status === "Approved") approved++;
+
     if (app.status === "Pending") pending++;
+
     if (app.status === "Rejected") rejected++;
 
     table.innerHTML += `
@@ -81,6 +87,10 @@ function displayApplications(applications) {
         <td>${app.status}</td>
 
         <td>
+
+          <button class="view" data-id="${app.id}">
+            View
+          </button>
 
           <button class="approve" data-id="${app.id}">
             Approve
@@ -104,9 +114,9 @@ function displayApplications(applications) {
   rejectedApps.innerText = rejected;
 
   }
-// =====================
+// ===========================
 // Search Applications
-// =====================
+// ===========================
 
 searchInput.addEventListener("input", () => {
 
@@ -115,8 +125,11 @@ searchInput.addEventListener("input", () => {
   const filtered = allApplications.filter((app) => {
 
     return (
+
       app.applicantId.toLowerCase().includes(keyword) ||
+
       app.fullName.toLowerCase().includes(keyword)
+
     );
 
   });
@@ -125,12 +138,44 @@ searchInput.addEventListener("input", () => {
 
 });
 
-// =====================
-// Approve / Reject
-// =====================
+// ===========================
+// Button Actions
+// ===========================
 
 document.addEventListener("click", async (e) => {
 
+  // View Applicant
+  if (e.target.classList.contains("view")) {
+
+    const id = e.target.dataset.id;
+
+    const applicant = allApplications.find(app => app.id === id);
+
+    if (applicant) {
+
+      alert(
+
+`Applicant ID : ${applicant.applicantId}
+
+Full Name : ${applicant.fullName}
+
+Phone : ${applicant.phone}
+
+Email : ${applicant.email}
+
+Passport : ${applicant.passport}
+
+Country : ${applicant.country}
+
+Status : ${applicant.status}`
+
+      );
+
+    }
+
+  }
+
+  // Approve
   if (e.target.classList.contains("approve")) {
 
     const id = e.target.dataset.id;
@@ -138,11 +183,14 @@ document.addEventListener("click", async (e) => {
     const success = await updateApplicationStatus(id, "Approved");
 
     if (success) {
+
       loadApplications();
+
     }
 
   }
 
+  // Reject
   if (e.target.classList.contains("reject")) {
 
     const id = e.target.dataset.id;
@@ -150,16 +198,18 @@ document.addEventListener("click", async (e) => {
     const success = await updateApplicationStatus(id, "Rejected");
 
     if (success) {
+
       loadApplications();
+
     }
 
   }
 
 });
 
-// =====================
+// ===========================
 // Logout
-// =====================
+// ===========================
 
 logoutBtn.addEventListener("click", async () => {
 
@@ -168,9 +218,3 @@ logoutBtn.addEventListener("click", async () => {
   window.location.href = "admin-login.html";
 
 });
-
-// =====================
-// Start App
-// =====================
-
-loadApplications();
