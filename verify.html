@@ -141,8 +141,11 @@ Check Status
 <div id="result"></div>
 
 </section>
-  <script>
-function verifyApplication(){
+  <script type="module">
+
+import { findApplication } from "./firebase.js";
+
+window.verifyApplication = async function(){
 
 const applicationId =
 document.getElementById("applicationId").value.trim();
@@ -151,44 +154,52 @@ const result =
 document.getElementById("result");
 
 if(applicationId===""){
+
 result.style.display="block";
 result.style.background="#ffe5e5";
 result.style.color="#d63031";
 result.innerHTML="❌ Please enter your Application ID.";
+
 return;
+
 }
 
-if(applicationId==="GG-2026-0001"){
+const application =
+await findApplication(applicationId);
+
+if(application){
+
 result.style.display="block";
 result.style.background="#d4edda";
 result.style.color="#155724";
+
 result.innerHTML=`
 <h3>✅ Application Found</h3>
-<p><strong>Status:</strong> Approved</p>
-<p><strong>Destination:</strong> Canada</p>
-<p><strong>Next Step:</strong> Our office will contact you shortly.</p>
+
+<p><strong>Name:</strong> ${application.fullName}</p>
+
+<p><strong>Country:</strong> ${application.country}</p>
+
+<p><strong>Status:</strong> ${application.status}</p>
+
 `;
-}else if(applicationId==="GG-2026-0002"){
-result.style.display="block";
-result.style.background="#fff3cd";
-result.style.color="#856404";
-result.innerHTML=`
-<h3>⏳ Application Processing</h3>
-<p>Your application is currently under review.</p>
-`;
+
 }else{
+
 result.style.display="block";
 result.style.background="#ffe5e5";
 result.style.color="#d63031";
+
 result.innerHTML=`
 <h3>❌ Application Not Found</h3>
-<p>Please check your Application ID and try again.</p>
+<p>Please check your Application ID.</p>
 `;
+
 }
 
 }
-</script>
 
+  </script>
 <footer>
 © 2026 Guzo Go International Travel & Visa Consultancy
 </footer>
