@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Visa Application | Guzo Go International Travel</title>
+<title>Apply Now | Guzo Go International Travel & Visa Consultancy</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -13,331 +15,174 @@
 
 <body>
 
-<header>
+<header class="header">
 
-<h1>Guzo Go International Travel & Visa Consultancy</h1>
+<div class="container">
 
-<p>Online Visa Application Form</p>
+<div class="logo">
+
+<h1>🌍 Guzo Go International</h1>
+
+<p>Travel & Visa Consultancy</p>
+
+</div>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="apply.html" class="active">Apply</a>
+
+<a href="verify.html">Verify</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+</div>
 
 </header>
 
+<section class="hero">
+
+<div class="hero-content">
+
+<h1>Online Visa Application</h1>
+
+<p>
+
+Complete the form below carefully.
+
+Your information will be reviewed by our Visa Officers.
+
+</p>
+
+</div>
+
+</section>
+
 <section class="application">
 
-<h2>Application Form</h2>
+<div class="container">
+
+<h2>Applicant Information</h2>
 
 <form id="applicationForm">
 
+<div class="row">
+
+<div class="input-box">
+
 <label>Full Name</label>
+
 <input
+id="fullName"
 type="text"
-placeholder="Enter your full name"
 required>
+
+</div>
+
+<div class="input-box">
 
 <label>Email Address</label>
+
 <input
+id="email"
 type="email"
-placeholder="example@gmail.com"
 required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-box">
 
 <label>Phone Number</label>
+
 <input
+id="phone"
 type="tel"
-placeholder="+251..."
 required>
 
+</div>
+
+<div class="input-box">
+
 <label>Date of Birth</label>
+
 <input
+id="dob"
 type="date"
 required>
 
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-box">
+
 <label>Gender</label>
 
-<select required>
+<select id="gender" required>
 
-<option value="">
-Select Gender
-</option>
+<option value="">Select</option>
 
-<option>
-Male
-</option>
+<option>Male</option>
 
-<option>
-Female
-</option>
+<option>Female</option>
 
 </select>
+
+</div>
+
+<div class="input-box">
 
 <label>Nationality</label>
 
 <input
+id="nationality"
 type="text"
-placeholder="Nationality"
 required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-box">
 
 <label>Passport Number</label>
 
 <input
+id="passport"
 type="text"
-placeholder="Passport Number"
 required>
+
+</div>
+
+<div class="input-box">
 
 <label>Country Applying For</label>
 
-<select required>
+<select id="country" required>
 
-<option value="">
-Choose Country
-</option>
+<option value="">Choose Country</option>
 
-<option>
-Canada
-</option>
+<option>Canada</option>
 
-<option>
-Saudi Arabia
-</option>
+<option>Saudi Arabia</option>
 
-<option>
-Kuwait
-</option>
+<option>Kuwait</option>
 
-<option>
-Dubai (UAE)
-</option>
+<option>Dubai (UAE)</option>
 
 </select>
 
-<label>Visa Type</label>
-
-<select required>
-
-<option value="">
-Select Visa
-</option>
-
-<option>
-Work Visa
-</option>
-
-<option>
-Visit Visa
-</option>
-
-<option>
-Student Visa
-</option>
-
-<option>
-Business Visa
-</option>
-
-</select>
-
-<label>Current Address</label>
-
-<textarea
-rows="4"
-placeholder="Enter your address"
-required></textarea>
-<label>Passport Photo</label>
-
-<input
-type="file"
-accept="image/*"
-required>
-
-<label>Passport Scan</label>
-
-<input
-type="file"
-accept=".pdf,.jpg,.jpeg,.png"
-required>
-
-<label>Curriculum Vitae (CV)</label>
-
-<input
-type="file"
-accept=".pdf,.doc,.docx"
-required>
-
-<label>Educational Certificate</label>
-
-<input
-type="file"
-accept=".pdf,.jpg,.png">
-
-<label>Work Experience Certificate</label>
-
-<input
-type="file"
-accept=".pdf,.jpg,.png">
-
-<label>Police Clearance Certificate</label>
-
-<input
-type="file"
-accept=".pdf,.jpg,.png">
-
-<label>Medical Certificate</label>
-
-<input
-type="file"
-accept=".pdf,.jpg,.png">
-
-<label>Marital Status</label>
-
-<select required>
-
-<option value="">
-Select Status
-</option>
-
-<option>Single</option>
-
-<option>Married</option>
-
-<option>Divorced</option>
-
-<option>Widowed</option>
-
-</select>
-
-<label>Occupation</label>
-
-<input
-type="text"
-placeholder="Current Occupation"
-required>
-
-<label>Emergency Contact Name</label>
-
-<input
-type="text"
-placeholder="Emergency Contact"
-required>
-
-<label>Emergency Contact Phone</label>
-
-<input
-type="tel"
-placeholder="+251..."
-required>
-
-<label>Additional Information</label>
-
-<textarea
-rows="5"
-placeholder="Write any additional information here..."></textarea>
-<h3>Declaration</h3>
-
-<label class="checkbox">
-
-<input
-type="checkbox"
-required>
-
-I confirm that all the information I have provided is true and correct. I understand that providing false information may result in rejection of my application.
-
-</label>
-
-<br><br>
-
-<label class="checkbox">
-
-<input
-type="checkbox"
-required>
-
-I agree to the Terms & Conditions and Privacy Policy of Guzo Go International Travel & Visa Consultancy.
-
-</label>
-
-<br><br>
-
-<button
-type="submit"
-class="btn">
-
-Submit Application
-
-</button>
-
-</form>
-
-</section>
-
-<section class="application-status">
-
-<h2>Application Status</h2>
-
-<div class="status-card">
-
-<h3>After Submission</h3>
-
-<p>
-
-Your application will be reviewed by our team.
-
-</p>
-
-<p>
-
-A unique Applicant ID and QR Code will be generated after approval.
-
-</p>
-
-<p>
-
-You can use your Applicant ID to check your application status on the Verify page.
-
-</p>
-
-<div id="applicationResult">
-
 </div>
 
-</div>
-
-  </section>
-  <footer>
-
-<div class="footer-content">
-
-<h3>Guzo Go International Travel & Visa Consultancy</h3>
-
-<p>
-Professional Visa Processing & International Recruitment Services
-</p>
-
-<p>
-Countries:
-🇨🇦 Canada |
-🇸🇦 Saudi Arabia |
-🇰🇼 Kuwait |
-🇦🇪 Dubai
-</p>
-
-<p>
-Email:
-info@guzogotravel.com
-</p>
-
-<p>
-Phone:
-+251 XXX XXX XXX
-</p>
-
-<p>
-© 2026 Guzo Go International Travel & Visa Consultancy
-</p>
-
-</div>
-
-</footer>
-
-<script type="module" src="firebase.js"></script>
-<script src="app.js"></script>
-
-</body>
-</html>
+  </div>
