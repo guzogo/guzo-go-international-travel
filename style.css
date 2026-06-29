@@ -189,44 +189,60 @@ nav a:hover::after{
     width:100%;
 
 }
-/* ==========================================
-   MODERN HERO SECTION
-========================================== */
+
+/* ==========================
+   HERO SECTION
+========================== */
 
 .hero{
-
+    position:relative;
     min-height:100vh;
-
-    background:linear-gradient(
-    135deg,
-    rgba(0,51,102,.92),
-    rgba(0,174,239,.75)
-    );
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
+    overflow:hidden;
 
-    padding:120px 8% 80px;
+    background:
+    linear-gradient(rgba(0,25,60,.60),rgba(0,25,60,.60)),
+    url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1800&q=80");
 
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
 }
 
 .hero-content{
-
-    max-width:1250px;
-
-    width:100%;
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:60px;
-
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+    display:flex;
     align-items:center;
+    justify-content:flex-start;
+}
 
+.hero-text{
+    max-width:650px;
+    color:#fff;
+}
+
+.hero-text h1{
+    font-size:72px;
+    font-weight:800;
+    line-height:1.1;
+    margin-bottom:25px;
+}
+
+.hero-text p{
+    font-size:22px;
+    line-height:1.8;
+    color:#f2f2f2;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
 }
 
 .hero-text h2{
