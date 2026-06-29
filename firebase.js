@@ -1,4 +1,7 @@
+// =====================================
 // Firebase Configuration
+// =====================================
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 
 import {
@@ -7,11 +10,14 @@ collection,
 addDoc,
 getDocs,
 doc,
-getDoc,
 updateDoc,
 query,
 where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+import {
+getAuth
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 const firebaseConfig = {
 
@@ -35,10 +41,12 @@ const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
 
-export { db };
+const auth = getAuth(app);
 
-
+export { app, db, auth };
+// =====================================
 // Generate Applicant ID
+// =====================================
 
 export function generateApplicantId(){
 
@@ -47,9 +55,10 @@ const number = Date.now().toString().slice(-6);
 return "GG-" + number;
 
 }
-// ===============================
-// Save Application to Firestore
-// ===============================
+
+// =====================================
+// Save Application
+// =====================================
 
 export async function saveApplication(data){
 
@@ -59,31 +68,31 @@ const applicantId = generateApplicantId();
 
 const application = {
 
-applicantId: applicantId,
+applicantId,
 
-fullName: data.fullName,
+fullName:data.fullName,
 
-phone: data.phone,
+phone:data.phone,
 
-email: data.email,
+email:data.email,
 
-passport: data.passport,
+passport:data.passport,
 
-country: data.country,
+country:data.country,
 
-status: "Pending",
+status:"Pending",
 
-createdAt: new Date().toISOString()
+createdAt:new Date().toISOString()
 
 };
 
-await addDoc(collection(db,"applications"), application);
+await addDoc(collection(db,"applications"),application);
 
-return {
+return{
 
 success:true,
 
-applicantId: applicantId
+applicantId
 
 };
 
@@ -102,9 +111,9 @@ message:error.message
 }
 
 }
-// ===============================
-// Find Application by Applicant ID
-// ===============================
+// =====================================
+// Find Application
+// =====================================
 
 export async function findApplication(applicantId){
 
@@ -135,10 +144,9 @@ return null;
 
 }
 
-
-// ===============================
+// =====================================
 // Get All Applications
-// ===============================
+// =====================================
 
 export async function getApplications(){
 
@@ -150,13 +158,13 @@ collection(db,"applications")
 
 const applications = [];
 
-snapshot.forEach((doc)=>{
+snapshot.forEach((docItem)=>{
 
 applications.push({
 
-id:doc.id,
+id:docItem.id,
 
-...doc.data()
+...docItem.data()
 
 });
 
@@ -173,19 +181,25 @@ return [];
 }
 
 }
-// ===============================
+// =====================================
 // Update Application Status
-// ===============================
+// =====================================
 
-export async function updateApplicationStatus(id, status){
+export async function updateApplicationStatus(id,status){
 
 try{
 
-await updateDoc(doc(db,"applications",id),{
+await updateDoc(
+
+doc(db,"applications",id),
+
+{
 
 status:status
 
-});
+}
+
+);
 
 return true;
 
@@ -197,4 +211,10 @@ return false;
 
 }
 
-  }
+}
+
+// =====================================
+// Authentication
+// =====================================
+
+export { auth };
