@@ -4,12 +4,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const button = document.querySelector(".btn");
 
-    button.addEventListener("click", function (e) {
-        e.preventDefault();
+    if (button) {
+        button.addEventListener("click", function (e) {
+            e.preventDefault();
 
-        alert(
-            "Welcome to Guzo Go International Travel & Visa Consultancy!\n\nThank you for choosing us.\nOur online application system is coming soon."
-        );
-    });
+            // Go to application page
+            window.location.href = "apply.html";
+        });
+    }
 
 });
