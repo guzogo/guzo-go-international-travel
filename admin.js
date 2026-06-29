@@ -1,4 +1,7 @@
-import { getApplications } from "./firebase.js";
+import {
+  getApplications,
+  updateApplicationStatus
+} from "./firebase.js";
 
 const table = document.getElementById("applicationsTable");
 
@@ -39,11 +42,11 @@ table.innerHTML += `
 
 <td>
 
-<button class="approve">
+<button class="approve" data-id="${app.id}">
 Approve
 </button>
 
-<button class="reject">
+<button class="reject" data-id="${app.id}">
 Reject
 </button>
 
@@ -61,5 +64,32 @@ pendingApps.innerText = pending;
 rejectedApps.innerText = rejected;
 
 }
+document.addEventListener("click", async (e)=>{
+
+if(e.target.classList.contains("approve")){
+
+const id = e.target.dataset.id;
+
+const success = await updateApplicationStatus(id,"Approved");
+
+if(success){
+loadApplications();
+}
+
+}
+
+if(e.target.classList.contains("reject")){
+
+const id = e.target.dataset.id;
+
+const success = await updateApplicationStatus(id,"Rejected");
+
+if(success){
+loadApplications();
+}
+
+}
+
+});
 
 loadApplications();
