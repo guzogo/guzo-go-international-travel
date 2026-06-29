@@ -214,15 +214,17 @@ nav a:hover::after{
 .hero-content{
     width:90%;
     max-width:1200px;
-    margin:auto;
+    margin:0 auto;
     display:flex;
-    align-items:center;
     justify-content:flex-start;
+    align-items:center;
+    min-height:100vh;
 }
 
 .hero-text{
     max-width:650px;
     color:#fff;
+    z-index:2;
 }
 
 .hero-text h1{
@@ -327,44 +329,6 @@ nav a:hover::after{
 
 }
 
-.hero-image{
-
-    text-align:center;
-
-}
-
-.hero-image img{
-
-    width:100%;
-
-    max-width:560px;
-
-    animation:float 4s ease-in-out infinite;
-
-}
-
-@keyframes float{
-
-0%{
-
-transform:translateY(0);
-
-}
-
-50%{
-
-transform:translateY(-18px);
-
-}
-
-100%{
-
-transform:translateY(0);
-
-}
-
-}
-   }
 /* ==========================================
    GUZO GO INTERNATIONAL TRAVEL
    MODERN WEBSITE CSS
