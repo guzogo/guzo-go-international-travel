@@ -189,32 +189,19 @@ nav a:hover::after{
     width:100%;
 
 }
-
-/* ==========================
-   HERO SECTION
-========================== */
+/* ==========================================
+   MODERN HERO SECTION
+========================================== */
 
 .hero{
 
-    width:100%;
+    min-height:100vh;
 
-    height:100vh;
-
-    background:
-
-    linear-gradient(
-
-    rgba(0,0,0,.55),
-
-    rgba(0,0,0,.55)
-
-    ),
-
-    url("images/hero.jpg");
-
-    background-size:cover;
-
-    background-position:center;
+    background:linear-gradient(
+    135deg,
+    rgba(0,51,102,.92),
+    rgba(0,174,239,.75)
+    );
 
     display:flex;
 
@@ -222,35 +209,43 @@ nav a:hover::after{
 
     justify-content:center;
 
-    text-align:center;
+    padding:120px 8% 80px;
 
 }
 
-.overlay{
+.hero-content{
 
-    max-width:850px;
+    max-width:1250px;
 
-    padding:20px;
+    width:100%;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:60px;
+
+    align-items:center;
 
 }
 
-.overlay h2{
+.hero-text h2{
 
-    color:white;
+    color:#fff;
 
-    font-size:62px;
-
-    font-weight:800;
+    font-size:60px;
 
     line-height:1.2;
+
+    font-weight:800;
 
     margin-bottom:25px;
 
 }
 
-.overlay p{
+.hero-text p{
 
-    color:#f1f5f9;
+    color:#eef7ff;
 
     font-size:20px;
 
@@ -260,40 +255,99 @@ nav a:hover::after{
 
 }
 
-/* ==========================
-   BUTTON
-========================== */
+.hero-buttons{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
 
 .btn{
 
     display:inline-block;
 
-    padding:16px 40px;
-
-    background:var(--accent);
-
-    color:white;
-
-    text-decoration:none;
+    padding:16px 34px;
 
     border-radius:12px;
 
-    font-weight:600;
+    text-decoration:none;
 
-    font-size:18px;
+    font-weight:600;
 
     transition:.35s;
 
-    box-shadow:0 12px 25px rgba(24,210,110,.35);
+}
+
+.btn-primary{
+
+    background:#18d26e;
+
+    color:white;
 
 }
 
-.btn:hover{
+.btn-primary:hover{
 
-    transform:translateY(-5px);
+    transform:translateY(-4px);
 
-    background:#13b85d;
+    background:#12b85c;
 
+}
+
+.btn-secondary{
+
+    background:white;
+
+    color:#003366;
+
+}
+
+.btn-secondary:hover{
+
+    transform:translateY(-4px);
+
+}
+
+.hero-image{
+
+    text-align:center;
+
+}
+
+.hero-image img{
+
+    width:100%;
+
+    max-width:560px;
+
+    animation:float 4s ease-in-out infinite;
+
+}
+
+@keyframes float{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-18px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
    }
 /* ==========================================
    GUZO GO INTERNATIONAL TRAVEL
