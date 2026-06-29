@@ -1,9 +1,17 @@
-import { auth, getApplications, updateApplicationStatus } from "./firebase.js";
+import {
+  auth,
+  getApplications,
+  updateApplicationStatus
+} from "./firebase.js";
 
 import {
-onAuthStateChanged,
-signOut
+  onAuthStateChanged,
+  signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+// =====================
+// Elements
+// =====================
 
 const table = document.getElementById("applicationsTable");
 
@@ -13,108 +21,156 @@ const pendingApps = document.getElementById("pendingApps");
 const rejectedApps = document.getElementById("rejectedApps");
 
 const logoutBtn = document.getElementById("logoutBtn");
+const searchInput = document.getElementById("searchInput");
 
-onAuthStateChanged(auth,(user)=>{
+// Store all applications
+let allApplications = [];
+// =====================
+// Check Admin Login
+// =====================
 
-if(!user){
+onAuthStateChanged(auth, (user) => {
 
-window.location.href="admin-login.html";
+  if (!user) {
 
-}
+    window.location.href = "admin-login.html";
 
-});
-async function loadApplications(){
-
-const applications = await getApplications();
-
-table.innerHTML = "";
-
-let approved = 0;
-let pending = 0;
-let rejected = 0;
-
-applications.forEach(app=>{
-
-if(app.status==="Approved") approved++;
-
-if(app.status==="Pending") pending++;
-
-if(app.status==="Rejected") rejected++;
-
-table.innerHTML += `
-
-<tr>
-
-<td>${app.applicantId}</td>
-
-<td>${app.fullName}</td>
-
-<td>${app.country}</td>
-
-<td>${app.status}</td>
-
-<td>
-
-<button class="approve" data-id="${app.id}">
-Approve
-</button>
-
-<button class="reject" data-id="${app.id}">
-Reject
-</button>
-
-</td>
-
-</tr>
-
-`;
+  }
 
 });
 
-totalApps.innerText = applications.length;
-approvedApps.innerText = approved;
-pendingApps.innerText = pending;
-rejectedApps.innerText = rejected;
+// =====================
+// Load Applications
+// =====================
+
+async function loadApplications() {
+
+  allApplications = await getApplications();
+
+  displayApplications(allApplications);
 
 }
-document.addEventListener("click", async (e)=>{
+// =====================
+// Display Applications
+// =====================
 
-if(e.target.classList.contains("approve")){
+function displayApplications(applications) {
 
-const id = e.target.dataset.id;
+  table.innerHTML = "";
 
-const success = await updateApplicationStatus(id,"Approved");
+  let approved = 0;
+  let pending = 0;
+  let rejected = 0;
 
-if(success){
+  applications.forEach((app) => {
 
-loadApplications();
+    if (app.status === "Approved") approved++;
+    if (app.status === "Pending") pending++;
+    if (app.status === "Rejected") rejected++;
 
-}
+    table.innerHTML += `
 
-}
+      <tr>
 
-if(e.target.classList.contains("reject")){
+        <td>${app.applicantId}</td>
 
-const id = e.target.dataset.id;
+        <td>${app.fullName}</td>
 
-const success = await updateApplicationStatus(id,"Rejected");
+        <td>${app.country}</td>
 
-if(success){
+        <td>${app.status}</td>
 
-loadApplications();
+        <td>
 
-}
+          <button class="approve" data-id="${app.id}">
+            Approve
+          </button>
 
-}
+          <button class="reject" data-id="${app.id}">
+            Reject
+          </button>
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+  totalApps.innerText = applications.length;
+  approvedApps.innerText = approved;
+  pendingApps.innerText = pending;
+  rejectedApps.innerText = rejected;
+
+  }
+// =====================
+// Search Applications
+// =====================
+
+searchInput.addEventListener("input", () => {
+
+  const keyword = searchInput.value.toLowerCase();
+
+  const filtered = allApplications.filter((app) => {
+
+    return (
+      app.applicantId.toLowerCase().includes(keyword) ||
+      app.fullName.toLowerCase().includes(keyword)
+    );
+
+  });
+
+  displayApplications(filtered);
 
 });
 
-logoutBtn.addEventListener("click", async ()=>{
+// =====================
+// Approve / Reject
+// =====================
 
-await signOut(auth);
+document.addEventListener("click", async (e) => {
 
-window.location.href = "admin-login.html";
+  if (e.target.classList.contains("approve")) {
+
+    const id = e.target.dataset.id;
+
+    const success = await updateApplicationStatus(id, "Approved");
+
+    if (success) {
+      loadApplications();
+    }
+
+  }
+
+  if (e.target.classList.contains("reject")) {
+
+    const id = e.target.dataset.id;
+
+    const success = await updateApplicationStatus(id, "Rejected");
+
+    if (success) {
+      loadApplications();
+    }
+
+  }
 
 });
+
+// =====================
+// Logout
+// =====================
+
+logoutBtn.addEventListener("click", async () => {
+
+  await signOut(auth);
+
+  window.location.href = "admin-login.html";
+
+});
+
+// =====================
+// Start App
+// =====================
 
 loadApplications();
