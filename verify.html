@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Application | Guzo Go International Travel & Visa Consultancy</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+color:#333;
+}
+
+header{
+background:#003366;
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+nav{
+margin-top:15px;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+margin:0 10px;
+font-weight:bold;
+}
+
+nav a:hover{
+color:#00d4ff;
+}
+
+.verify{
+max-width:600px;
+margin:60px auto;
+background:#fff;
+padding:35px;
+border-radius:12px;
+box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+
+.verify h2{
+text-align:center;
+margin-bottom:25px;
+color:#003366;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-bottom:20px;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#00b894;
+color:white;
+border:none;
+border-radius:8px;
+font-size:18px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#019875;
+}
+
+#result{
+margin-top:25px;
+padding:20px;
+border-radius:10px;
+display:none;
+font-weight:bold;
+text-align:center;
+}
+
+footer{
+margin-top:60px;
+background:#003366;
+color:#fff;
+padding:20px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Guzo Go International Travel & Visa Consultancy</h1>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="apply.html">Apply</a>
+<a href="verify.html">Verify</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+</header>
+
+<section class="verify">
+
+<h2>Verify Your Application</h2>
+
+<label>Application ID</label>
+
+<input
+type="text"
+id="applicationId"
+placeholder="Example: GG-2026-0001">
+
+<button onclick="verifyApplication()">
+Check Status
+</button>
+
+<div id="result"></div>
+
+</section>
+  <script>
+function verifyApplication(){
+
+const applicationId =
+document.getElementById("applicationId").value.trim();
+
+const result =
+document.getElementById("result");
+
+if(applicationId===""){
+result.style.display="block";
+result.style.background="#ffe5e5";
+result.style.color="#d63031";
+result.innerHTML="❌ Please enter your Application ID.";
+return;
+}
+
+if(applicationId==="GG-2026-0001"){
+result.style.display="block";
+result.style.background="#d4edda";
+result.style.color="#155724";
+result.innerHTML=`
+<h3>✅ Application Found</h3>
+<p><strong>Status:</strong> Approved</p>
+<p><strong>Destination:</strong> Canada</p>
+<p><strong>Next Step:</strong> Our office will contact you shortly.</p>
+`;
+}else if(applicationId==="GG-2026-0002"){
+result.style.display="block";
+result.style.background="#fff3cd";
+result.style.color="#856404";
+result.innerHTML=`
+<h3>⏳ Application Processing</h3>
+<p>Your application is currently under review.</p>
+`;
+}else{
+result.style.display="block";
+result.style.background="#ffe5e5";
+result.style.color="#d63031";
+result.innerHTML=`
+<h3>❌ Application Not Found</h3>
+<p>Please check your Application ID and try again.</p>
+`;
+}
+
+}
+</script>
+
+<footer>
+© 2026 Guzo Go International Travel & Visa Consultancy
+</footer>
+
+</body>
+</html>
