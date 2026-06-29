@@ -1,44 +1,47 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { auth } from "./firebase.js";
 
 import {
-getAuth,
 signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-const firebaseConfig = {
+const email = document.getElementById("email");
 
-apiKey: "AIzaSyBX7MKewr34ciRectfXDJnoZEgF6h-uC3I",
+const password = document.getElementById("password");
 
-authDomain: "guzo-go-international-travel.firebaseapp.com",
+const loginBtn = document.getElementById("loginBtn");
 
-projectId: "guzo-go-international-travel",
-
-storageBucket: "guzo-go-international-travel.firebasestorage.app",
-
-messagingSenderId: "157450888511",
-
-appId: "1:157450888511:web:347bd99e9e97422e0a9f8a"
-
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-document.getElementById("loginBtn").addEventListener("click", async ()=>{
-
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
 const error = document.getElementById("error");
+loginBtn.addEventListener("click", async ()=>{
+
+const userEmail = email.value.trim();
+
+const userPassword = password.value.trim();
+
+error.innerHTML = "";
+
+if(userEmail==="" || userPassword===""){
+
+error.innerHTML="❌ Please enter Email and Password.";
+
+return;
+
+}
 
 try{
 
-await signInWithEmailAndPassword(auth,email,password);
+await signInWithEmailAndPassword(
+auth,
+userEmail,
+userPassword
+);
 
-window.location.href = "admin.html";
+window.location.href="admin.html";
 
 }catch(err){
 
-error.innerHTML = "❌ Invalid Email or Password";
+error.innerHTML="❌ Invalid Email or Password.";
+
+console.error(err);
 
 }
 
