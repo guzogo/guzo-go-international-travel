@@ -29,11 +29,17 @@ return;
 
 try{
 
-await signInWithEmailAndPassword(
-auth,
-userEmail,
-userPassword
+const userCredential = await signInWithEmailAndPassword(
+  auth,
+  userEmail,
+  userPassword
 );
+
+console.log(userCredential);
+
+alert("Login Success");
+
+window.location.href = "admin.html";
 
 window.location.href="admin.html";
 
