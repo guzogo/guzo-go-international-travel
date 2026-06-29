@@ -173,3 +173,28 @@ return [];
 }
 
 }
+// ===============================
+// Update Application Status
+// ===============================
+
+export async function updateApplicationStatus(id, status){
+
+try{
+
+await updateDoc(doc(db,"applications",id),{
+
+status:status
+
+});
+
+return true;
+
+}catch(error){
+
+console.error(error);
+
+return false;
+
+}
+
+  }
