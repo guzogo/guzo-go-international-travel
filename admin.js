@@ -23,10 +23,17 @@ const rejectedApps = document.getElementById("rejectedApps");
 const searchInput = document.getElementById("searchInput");
 const logoutBtn = document.getElementById("logoutBtn");
 
+// View Details Modal
+
+const detailsModal = document.getElementById("detailsModal");
+const detailsContent = document.getElementById("detailsContent");
+const closeModal = document.querySelector(".close");
+
 // Store all applications
+
 let allApplications = [];
 // ===========================
-// Check Admin Login
+// Check Admin Authentication
 // ===========================
 
 onAuthStateChanged(auth, (user) => {
@@ -113,7 +120,7 @@ function displayApplications(applications) {
   pendingApps.innerText = pending;
   rejectedApps.innerText = rejected;
 
-  }
+        }
 // ===========================
 // Search Applications
 // ===========================
@@ -125,11 +132,8 @@ searchInput.addEventListener("input", () => {
   const filtered = allApplications.filter((app) => {
 
     return (
-
       app.applicantId.toLowerCase().includes(keyword) ||
-
       app.fullName.toLowerCase().includes(keyword)
-
     );
 
   });
@@ -144,7 +148,7 @@ searchInput.addEventListener("input", () => {
 
 document.addEventListener("click", async (e) => {
 
-  // View Applicant
+  // View Details
   if (e.target.classList.contains("view")) {
 
     const id = e.target.dataset.id;
@@ -153,23 +157,25 @@ document.addEventListener("click", async (e) => {
 
     if (applicant) {
 
-      alert(
+      detailsContent.innerHTML = `
 
-`Applicant ID : ${applicant.applicantId}
+        <p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
 
-Full Name : ${applicant.fullName}
+        <p><strong>Full Name:</strong> ${applicant.fullName}</p>
 
-Phone : ${applicant.phone}
+        <p><strong>Email:</strong> ${applicant.email}</p>
 
-Email : ${applicant.email}
+        <p><strong>Phone:</strong> ${applicant.phone}</p>
 
-Passport : ${applicant.passport}
+        <p><strong>Passport:</strong> ${applicant.passport}</p>
 
-Country : ${applicant.country}
+        <p><strong>Country:</strong> ${applicant.country}</p>
 
-Status : ${applicant.status}`
+        <p><strong>Status:</strong> ${applicant.status}</p>
 
-      );
+      `;
+
+      detailsModal.style.display = "block";
 
     }
 
@@ -206,6 +212,26 @@ Status : ${applicant.status}`
   }
 
 });
+
+// ===========================
+// Close Modal
+// ===========================
+
+closeModal.onclick = () => {
+
+  detailsModal.style.display = "none";
+
+};
+
+window.onclick = (event) => {
+
+  if (event.target === detailsModal) {
+
+    detailsModal.style.display = "none";
+
+  }
+
+};
 
 // ===========================
 // Logout
