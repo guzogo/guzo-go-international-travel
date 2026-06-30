@@ -198,7 +198,14 @@ result.innerHTML=`
 }
 
 }
+// Auto verify from QR Code
+const params = new URLSearchParams(window.location.search);
+const permitId = params.get("id");
 
+if (permitId) {
+  document.getElementById("applicationId").value = permitId;
+  verifyApplication();
+    }
   </script>
 <footer>
 © 2026 Guzo Go International Travel & Visa Consultancy
