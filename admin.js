@@ -198,37 +198,57 @@ document.addEventListener("click", async (e) => {
 
         detailsContent.innerHTML = `
 
-            <h2 style="margin-bottom:20px;">Applicant Details</h2>
+<h2 style="margin-bottom:20px;">Applicant Details</h2>
 
-            <p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
 
-            <p><strong>Permit ID:</strong> ${permitId}</p>
+<p><strong>Permit ID:</strong> ${permitId}</p>
 
-            <p><strong>Full Name:</strong> ${applicant.fullName}</p>
+<hr>
 
-            <p><strong>Email:</strong> ${applicant.email}</p>
+<p><strong>Full Name:</strong> ${applicant.fullName}</p>
 
-            <p><strong>Phone:</strong> ${applicant.phone}</p>
+<p><strong>Email:</strong> ${applicant.email}</p>
 
-            <p><strong>Passport:</strong> ${applicant.passport}</p>
+<p><strong>Phone:</strong> ${applicant.phone}</p>
 
-            <p><strong>Country:</strong> ${applicant.country}</p>
+<p><strong>Passport Number:</strong> ${applicant.passport}</p>
 
-            <p><strong>Status:</strong> ${applicant.status}</p>
+<p><strong>Country:</strong> ${applicant.country}</p>
 
-            <div style="text-align:center;margin-top:25px;">
+<p><strong>Date of Birth:</strong> ${applicant.dob}</p>
 
-                <img src="${qr}" width="180">
+<p><strong>Gender:</strong> ${applicant.gender}</p>
 
-                <br><br>
+<p><strong>Occupation:</strong> ${applicant.occupation}</p>
 
-                <small>Scan to Verify Permit</small>
+<p><strong>Address:</strong> ${applicant.address}</p>
 
-            </div>
+<p><strong>Service:</strong> ${applicant.service}</p>
 
-        `;
+<p><strong>Passport Type:</strong> ${applicant.passportOption || "-"}</p>
 
-        detailsModal.style.display = "block";
+<p><strong>Payment Reference:</strong> ${applicant.reference}</p>
+
+<p><strong>Amount:</strong> ${applicant.amount}</p>
+
+<p><strong>Notes:</strong> ${applicant.notes || "-"}</p>
+
+<p><strong>Status:</strong> ${applicant.status}</p>
+
+<div style="text-align:center;margin-top:25px;">
+
+<img src="${qr}" width="180">
+
+<br><br>
+
+<small>Scan to Verify Permit</small>
+
+</div>
+
+`;
+
+ detailsModal.style.display = "block";
 
     }
 
