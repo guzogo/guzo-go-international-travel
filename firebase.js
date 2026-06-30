@@ -119,6 +119,12 @@ export async function findApplication(applicantId){
 
 try{
 
+// If Permit ID is used, remove the prefix
+if(applicantId.includes("-GG-")){
+const parts = applicantId.split("-");
+applicantId = parts.slice(1).join("-");
+}
+
 const q = query(
 collection(db,"applications"),
 where("applicantId","==",applicantId)
@@ -127,9 +133,7 @@ where("applicantId","==",applicantId)
 const snapshot = await getDocs(q);
 
 if(snapshot.empty){
-
 return null;
-
 }
 
 return snapshot.docs[0].data();
@@ -137,7 +141,6 @@ return snapshot.docs[0].data();
 }catch(error){
 
 console.error(error);
-
 return null;
 
 }
