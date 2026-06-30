@@ -370,10 +370,29 @@ import { saveApplication } from "./firebase.js";
 const form = document.getElementById("applicationForm");
 const message = document.getElementById("message");
 
-form.addEventListener("submit", async (e)=>{
+form.addEventListener("submit", async (e) => {
 
 e.preventDefault();
 
+const data = {
+
+fullName: document.getElementById("fullName").value,
+phone: document.getElementById("phone").value,
+email: document.getElementById("email").value,
+passport: document.getElementById("passport").value,
+country: document.getElementById("country").value,
+dob: document.getElementById("dob").value,
+gender: document.getElementById("gender").value,
+occupation: document.getElementById("occupation").value,
+address: document.getElementById("address").value,
+notes: document.getElementById("notes").value,
+
+service: document.getElementById("service").value,
+passportOption: document.getElementById("passportOption").value,
+reference: document.getElementById("reference").value,
+amount: priceBox.innerText
+
+};
 
 const result = await saveApplication(data);
 
@@ -383,7 +402,7 @@ message.innerHTML = `
 <div style="background:#d4edda;padding:20px;border-radius:10px;color:#155724;">
 <h3>✅ Application Submitted Successfully!</h3>
 <p><strong>Applicant ID:</strong> ${result.applicantId}</p>
-<p>Please save your Applicant ID for verification.</p>
+<p>Please save your Applicant ID.</p>
 </div>
 `;
 
@@ -393,43 +412,12 @@ form.reset();
 
 message.innerHTML = `
 <div style="background:#f8d7da;padding:20px;border-radius:10px;color:#721c24;">
-❌ Failed to submit application.<br>
-${result.message}
+❌ ${result.message}
 </div>
 `;
 
 }
-const data = {
 
-fullName: document.getElementById("fullName").value,
-
-phone: document.getElementById("phone").value,
-
-email: document.getElementById("email").value,
-
-passport: document.getElementById("passport").value,
-
-country: document.getElementById("country").value,
-
-dob: document.getElementById("dob").value,
-
-gender: document.getElementById("gender").value,
-
-occupation: document.getElementById("occupation").value,
-
-address: document.getElementById("address").value,
-
-notes: document.getElementById("notes").value,
-
-service: document.getElementById("service").value,
-
-passportOption: document.getElementById("passportOption").value,
-
-reference: document.getElementById("reference").value,
-
-amount: priceBox.innerText
-
-};
 });
 
 </script>
