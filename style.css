@@ -669,3 +669,41 @@ border-radius:10px;
 ::-webkit-scrollbar-thumb:hover{
 background:var(--secondary);
 }
+/* Mobile Navigation Fix */
+
+.menu-toggle{
+    display:none;
+}
+
+@media (max-width:768px){
+
+.menu-toggle{
+    display:block;
+    color:#fff;
+    font-size:30px;
+    cursor:pointer;
+}
+
+nav ul{
+    display:none !important;
+    flex-direction:column;
+    background:#003366;
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+}
+
+nav ul.active{
+    display:flex !important;
+}
+
+}
+
+@media (min-width:769px){
+
+nav ul{
+    display:flex !important;
+}
+
+   }
