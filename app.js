@@ -1,2 +1,6 @@
-// Guzo Go International Travel & Visa Consultancy
-// Future JavaScript code will be added here.
+const menuToggle = document.getElementById("menu-toggle");
+const navMenu = document.getElementById("nav-menu");
+
+menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+});
