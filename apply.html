@@ -204,7 +204,60 @@ required>
 </div>
 
 </div>
+<label for="service">Service Type</label>
 
+<select id="service" name="service" required>
+    <option value="">Select Service</option>
+
+    <option value="process">Process</option>
+
+    <option value="passport">Passport</option>
+
+    <option value="idcard">ID Card</option>
+
+    <option value="visa">Visa</option>
+</select>
+
+<div id="passportType" style="display:none; margin-top:15px;">
+
+<label>Passport Type</label>
+
+<select id="passportOption">
+
+<option value="">Select Passport Type</option>
+
+<option value="regular">Regular</option>
+
+<option value="urgent">Urgent</option>
+
+</select>
+
+</div>
+
+<div id="priceBox" style="margin-top:20px;font-weight:bold;color:#003366;"></div>
+
+<div style="margin-top:25px;padding:20px;background:#f5f5f5;border-radius:10px;">
+
+<h3>🏦 Payment Information</h3>
+
+<p><strong>Bank:</strong> Commercial Bank of Ethiopia</p>
+
+<p><strong>Account Name:</strong> አዱኛ ባምላኩ ባለህ</p>
+
+<p><strong>Account Number:</strong> 1000425607808</p>
+
+</div>
+
+<label style="margin-top:20px;">
+Transaction Reference Number
+</label>
+
+<input
+type="text"
+id="reference"
+name="reference"
+placeholder="Enter Transaction Reference"
+required>
 <div class="row">
 
 <div class="form-group">
@@ -321,29 +374,6 @@ form.addEventListener("submit", async (e)=>{
 
 e.preventDefault();
 
-const data = {
-
-fullName: document.getElementById("fullName").value,
-
-phone: document.getElementById("phone").value,
-
-email: document.getElementById("email").value,
-
-passport: document.getElementById("passport").value,
-
-country: document.getElementById("country").value,
-
-dob: document.getElementById("dob").value,
-
-gender: document.getElementById("gender").value,
-
-occupation: document.getElementById("occupation").value,
-
-address: document.getElementById("address").value,
-
-notes: document.getElementById("notes").value
-
-};
 
 const result = await saveApplication(data);
 
@@ -369,11 +399,84 @@ ${result.message}
 `;
 
 }
+const data = {
 
+fullName: document.getElementById("fullName").value,
+
+phone: document.getElementById("phone").value,
+
+email: document.getElementById("email").value,
+
+passport: document.getElementById("passport").value,
+
+service: document.getElementById("service").value,
+
+passportType: document.getElementById("passportOption").value,
+
+reference: document.getElementById("reference").value,
+
+country: document.getElementById("country").value,
+
+dob: document.getElementById("dob").value,
+
+gender: document.getElementById("gender").value,
+
+occupation: document.getElementById("occupation").value,
+
+address: document.getElementById("address").value,
+
+notes: document.getElementById("notes").value
+
+};
 });
 
 </script>
+<script>
+const service = document.getElementById("service");
+const passportType = document.getElementById("passportType");
+const passportOption = document.getElementById("passportOption");
+const priceBox = document.getElementById("priceBox");
 
+service.addEventListener("change", function () {
+
+passportType.style.display = "none";
+
+if (this.value === "process") {
+    priceBox.innerHTML = "💰 Fee: 3,500 ETB";
+}
+
+else if (this.value === "passport") {
+    passportType.style.display = "block";
+    priceBox.innerHTML = "";
+}
+
+else if (this.value === "idcard") {
+    priceBox.innerHTML = "💰 Fee: 12,600 ETB";
+}
+
+else if (this.value === "visa") {
+    priceBox.innerHTML =
+    "🌍 The fee depends on the destination country. We will contact you with the exact amount.";
+}
+
+else{
+    priceBox.innerHTML = "";
+}
+
+});
+
+passportOption.addEventListener("change", function(){
+
+if(this.value==="regular"){
+    priceBox.innerHTML="💰 Passport Regular: 5,500 ETB";
+}
+
+else if(this.value==="urgent"){
+    priceBox.innerHTML="💰 Passport Urgent: 25,000 ETB";
+}
+
+});
+</script>
 </body>
 
   </html>
