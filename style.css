@@ -1151,3 +1151,43 @@ background:#18d26e;
 color:#fff;
 
    }
+/* ==========================
+   STATISTICS
+========================== */
+
+.stats{
+    background:#0b2d5b;
+    padding:70px 20px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:25px;
+}
+
+.stat-box{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;
+    padding:35px 20px;
+    text-align:center;
+    transition:.3s;
+}
+
+.stat-box:hover{
+    transform:translateY(-8px);
+    background:#12c48b;
+}
+
+.stat-box h2{
+    color:#fff;
+    font-size:40px;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+.stat-box p{
+    color:#d9e7ff;
+    font-size:17px;
+}
