@@ -103,7 +103,51 @@ color:#fff;
 padding:20px;
 text-align:center;
 }
+.result-card{
+background:#fff;
+border:2px solid #0ea5a4;
+border-radius:15px;
+padding:20px;
+margin-top:20px;
+box-shadow:0 8px 20px rgba(0,0,0,.12);
+text-align:left;
+}
 
+.result-card h3{
+text-align:center;
+color:#0a8f3d;
+margin-bottom:15px;
+}
+
+.result-card p{
+margin:10px 0;
+font-size:16px;
+}
+
+.result-card strong{
+color:#003366;
+display:inline-block;
+width:130px;
+}
+
+.status-approved{
+color:green;
+font-weight:bold;
+}
+
+.qr-box{
+text-align:center;
+margin-top:20px;
+}
+
+.qr-box img{
+width:150px;
+height:150px;
+border:1px solid #ddd;
+padding:10px;
+background:#fff;
+border-radius:10px;
+  }
 </style>
 
 </head>
@@ -174,9 +218,9 @@ result.style.background="#d4edda";
 result.style.color="#155724";
 
 result.innerHTML = `
-<h2 style="color:#0a8f3d;">✅ VERIFIED</h2>
+<div class="result-card">
 
-<hr>
+<h3>✅ VERIFIED WORK PERMIT</h3>
 
 <p><strong>Permit ID:</strong> ${applicationId}</p>
 
@@ -188,17 +232,20 @@ result.innerHTML = `
 
 <p><strong>Country:</strong> ${application.country}</p>
 
-<p><strong>Status:</strong>
-<span style="color:green;font-weight:bold;">
-${application.status}
-</span>
+<p>
+<strong>Status:</strong>
+<span class="status-approved">${application.status}</span>
 </p>
 
-<hr>
+<div class="qr-box">
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(window.location.href)}">
+</div>
 
-<p style="font-size:13px;color:#777;">
+<p style="text-align:center;margin-top:10px;font-size:13px;color:#777;">
 Issued by Guzo Go International Travel & Visa Consultancy
 </p>
+
+</div>
 `;
 
 }else{
