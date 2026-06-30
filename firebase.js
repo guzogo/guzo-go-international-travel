@@ -80,12 +80,31 @@ passport:data.passport,
 
 country:data.country,
 
+dob:data.dob,
+
+gender:data.gender,
+
+occupation:data.occupation,
+
+address:data.address,
+
+notes:data.notes,
+
+service:data.service,
+
+passportOption:data.passportOption,
+
+reference:data.reference,
+
+amount:data.amount,
+
 status:"Pending",
+
+paymentStatus:"Unpaid",
 
 createdAt:new Date().toISOString()
 
 };
-
 await addDoc(collection(db,"applications"),application);
 
 return{
