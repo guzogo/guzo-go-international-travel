@@ -173,15 +173,32 @@ result.style.display="block";
 result.style.background="#d4edda";
 result.style.color="#155724";
 
-result.innerHTML=`
-<h3>✅ Application Found</h3>
+result.innerHTML = `
+<h2 style="color:#0a8f3d;">✅ VERIFIED</h2>
 
-<p><strong>Name:</strong> ${application.fullName}</p>
+<hr>
+
+<p><strong>Permit ID:</strong> ${applicationId}</p>
+
+<p><strong>Applicant ID:</strong> ${application.applicantId}</p>
+
+<p><strong>Full Name:</strong> ${application.fullName}</p>
+
+<p><strong>Passport:</strong> ${application.passport}</p>
 
 <p><strong>Country:</strong> ${application.country}</p>
 
-<p><strong>Status:</strong> ${application.status}</p>
+<p><strong>Status:</strong>
+<span style="color:green;font-weight:bold;">
+${application.status}
+</span>
+</p>
 
+<hr>
+
+<p style="font-size:13px;color:#777;">
+Issued by Guzo Go International Travel & Visa Consultancy
+</p>
 `;
 
 }else{
