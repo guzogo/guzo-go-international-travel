@@ -1,1479 +1,671 @@
 /* ==========================================
-   GUZO GO INTERNATIONAL TRAVEL
-   MODERN WEBSITE CSS
-   PART 1
+   GUZO GO INTERNATIONAL
+   STYLE.CSS - PART 1
 ========================================== */
 
 /* Google Font */
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* ==========================
-   RESET
-========================== */
-
+/* Reset */
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
 body{
-
-    font-family:'Poppins',sans-serif;
-
-    background:#f5f8fc;
-
-    color:#222;
-
-    overflow-x:hidden;
-
+font-family:'Poppins',sans-serif;
+background:#f5f8fc;
+color:#222;
+overflow-x:hidden;
 }
 
-/* ==========================
-   VARIABLES
-========================== */
+/* Variables */
 
 :root{
 
-    --primary:#003366;
-
-    --secondary:#00AEEF;
-
-    --accent:#18d26e;
-
-    --gold:#FFD54A;
-
-    --white:#ffffff;
-
-    --dark:#0f172a;
-
-    --gray:#6b7280;
-
-    --light:#f8fbff;
-
-    --shadow:0 15px 40px rgba(0,0,0,.12);
+--primary:#003366;
+--secondary:#00AEEF;
+--accent:#18d26e;
+--white:#ffffff;
+--light:#f8fbff;
+--gray:#666;
+--shadow:0 10px 30px rgba(0,0,0,.1);
 
 }
 
-/* ==========================
-   CONTAINER
-========================== */
+/* Container */
 
 .container{
 
-    width:90%;
-
-    max-width:1250px;
-
-    margin:auto;
+width:90%;
+max-width:1200px;
+margin:auto;
 
 }
 
-/* ==========================
-   HEADER
-========================== */
+/* ================= HEADER ================= */
 
 header{
 
-    position:fixed;
-
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    z-index:999;
-
-    background:rgba(0,40,85,.82);
-
-    backdrop-filter:blur(18px);
-
-    transition:.4s;
-
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
+position:fixed;
+top:0;
+left:0;
+width:100%;
+background:rgba(0,51,102,.95);
+backdrop-filter:blur(10px);
+z-index:999;
+box-shadow:0 3px 15px rgba(0,0,0,.15);
 
 }
 
 header .container{
 
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    padding:18px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
 
 }
-
-/* ==========================
-   LOGO
-========================== */
 
 header h1{
 
-    color:#fff;
-
-    font-size:30px;
-
-    font-weight:700;
-
-    letter-spacing:.5px;
+color:white;
+font-size:30px;
+font-weight:700;
 
 }
 
-/* ==========================
-   NAVIGATION
-========================== */
+/* Navigation */
 
-nav{
+nav ul{
 
-    display:flex;
-
-    align-items:center;
-
-    gap:30px;
+display:flex;
+list-style:none;
+gap:30px;
 
 }
 
-nav a{
+nav ul li{
 
-    text-decoration:none;
-
-    color:white;
-
-    font-size:16px;
-
-    font-weight:500;
-
-    position:relative;
-
-    transition:.3s;
+list-style:none;
 
 }
 
-nav a:hover{
+nav ul li a{
 
-    color:var(--accent);
-
-}
-
-nav a::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:0;
-
-    bottom:-8px;
-
-    width:0;
-
-    height:2px;
-
-    background:var(--accent);
-
-    transition:.35s;
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:.3s;
 
 }
 
-nav a:hover::after{
+nav ul li a:hover{
 
-    width:100%;
+color:var(--accent);
 
 }
 
-/* ==========================
-   HERO SECTION
-========================== */
+/* Mobile Menu Button */
+
+.menu-toggle{
+
+display:none;
+font-size:30px;
+color:white;
+cursor:pointer;
+
+}
+
+/* ================= HERO ================= */
 
 .hero{
-    position:relative;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    overflow:hidden;
 
-    background:
-    linear-gradient(rgba(0,20,50,.75),rgba(0,20,50,.75)),
-    url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1800&q=80");
+min-height:100vh;
+display:flex;
+align-items:center;
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
+background:
+linear-gradient(rgba(0,40,80,.70),rgba(0,40,80,.70)),
+url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1800&q=80");
+
+background-size:cover;
+background-position:center;
+
 }
 
 .hero-content{
-    width:90%;
-    max-width:1200px;
-    margin:0 auto;
-    display:flex;
-    justify-content:flex-start;
-    align-items:center;
-    min-height:100vh;
+
+width:90%;
+max-width:1200px;
+margin:auto;
+
 }
 
 .hero-text{
-    max-width:650px;
-    color:#fff;
-    z-index:2;
-    text-align:left;
-    padding:20px;
-    background:rgba(0,0,0,.25);
-    backdrop-filter:blur(6px);
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-}
 
-.hero-text h1{
-    font-size:72px;
-    font-weight:800;
-    line-height:1.1;
-    margin-bottom:25px;
-}
+max-width:650px;
+color:white;
 
-.hero-text p{
-    font-size:22px;
-    line-height:1.8;
-    color:#f2f2f2;
-    margin-bottom:35px;
-}
-
-.hero-buttons{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
 }
 
 .hero-text h2{
 
-    color:#fff;
-
-    font-size:60px;
-
-    line-height:1.2;
-
-    font-weight:800;
-
-    margin-bottom:25px;
+font-size:60px;
+line-height:1.2;
+margin-bottom:20px;
 
 }
 
 .hero-text p{
 
-    color:#eef7ff;
-
-    font-size:20px;
-
-    line-height:1.9;
-
-    margin-bottom:40px;
+font-size:20px;
+line-height:1.8;
+margin-bottom:35px;
 
 }
 
 .hero-buttons{
 
-    display:flex;
-
-    gap:20px;
-
-    flex-wrap:wrap;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
 
 }
 
+/* Buttons */
+
 .btn{
 
-    display:inline-block;
-
-    padding:16px 34px;
-
-    border-radius:12px;
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.35s;
+display:inline-block;
+padding:15px 32px;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+transition:.3s;
 
 }
 
 .btn-primary{
 
-    background:#18d26e;
-
-    color:white;
+background:#18d26e;
+color:white;
 
 }
 
 .btn-primary:hover{
 
-    transform:translateY(-4px);
-
-    background:#12b85c;
+background:#10b860;
+transform:translateY(-3px);
 
 }
 
 .btn-secondary{
 
-    background:white;
-
-    color:#003366;
+background:white;
+color:#003366;
 
 }
 
 .btn-secondary:hover{
 
-    transform:translateY(-4px);
+transform:translateY(-3px);
 
-}
-
+   }
 /* ==========================================
-   GUZO GO INTERNATIONAL TRAVEL
-   MODERN WEBSITE CSS
-   PART 2
+   STYLE.CSS - PART 2
+   SERVICES • COUNTRIES • STATISTICS
 ========================================== */
 
-/* ==========================
-   SERVICES
-========================== */
+/* ========== SERVICES ========== */
 
 .services{
-
-    padding:110px 0;
-
-    background:#ffffff;
-
+padding:100px 0;
+background:#fff;
 }
 
 .services h2{
-
-    text-align:center;
-
-    font-size:45px;
-
-    color:var(--primary);
-
-    margin-bottom:70px;
-
-    font-weight:700;
-
+text-align:center;
+font-size:42px;
+color:var(--primary);
+margin-bottom:60px;
 }
 
 .cards{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-    gap:35px;
-
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
 }
 
 .card{
-
-    background:#fff;
-
-    border-radius:22px;
-
-    padding:40px 30px;
-
-    text-align:center;
-
-    box-shadow:var(--shadow);
-
-    transition:.4s;
-
-    position:relative;
-
-    overflow:hidden;
-
-}
-
-.card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:0;
-
-    left:0;
-
-    width:100%;
-
-    height:6px;
-
-    background:linear-gradient(
-        90deg,
-        var(--accent),
-        var(--secondary)
-    );
-
+background:#fff;
+border-radius:18px;
+padding:35px 25px;
+box-shadow:var(--shadow);
+text-align:center;
+transition:.35s;
 }
 
 .card:hover{
-
-    transform:translateY(-15px);
-
-    box-shadow:0 25px 45px rgba(0,0,0,.18);
-
+transform:translateY(-10px);
 }
 
 .card h3{
-
-    font-size:28px;
-
-    color:var(--primary);
-
-    margin-bottom:18px;
-
+font-size:24px;
+margin-bottom:15px;
+color:var(--primary);
 }
 
 .card p{
-
-    color:var(--gray);
-
-    font-size:17px;
-
-    line-height:1.9;
-
+color:var(--gray);
+line-height:1.8;
 }
 
-/* ==========================
-   ABOUT
-========================== */
-
-.about{
-
-    padding:110px 0;
-
-    background:#f7fbff;
-
-    text-align:center;
-
-}
-
-.about h2{
-
-    font-size:45px;
-
-    color:var(--primary);
-
-    margin-bottom:30px;
-
-}
-
-.about p{
-
-    max-width:900px;
-
-    margin:auto;
-
-    color:var(--gray);
-
-    font-size:18px;
-
-    line-height:2;
-
-}
-
-/* ==========================
-   STATISTICS
-========================== */
-
-.stats{
-
-    padding:100px 0;
-
-    background:linear-gradient(
-        135deg,
-        #003366,
-        #005fa3
-    );
-
-}
-
-.stats-container{
-
-    width:90%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-    gap:30px;
-
-}
-
-.stat{
-
-    background:rgba(255,255,255,.12);
-
-    backdrop-filter:blur(12px);
-
-    border-radius:20px;
-
-    padding:40px;
-
-    text-align:center;
-
-    color:white;
-
-    transition:.4s;
-
-}
-
-.stat:hover{
-
-    transform:translateY(-10px);
-
-}
-
-.stat h2{
-
-    font-size:44px;
-
-    margin-bottom:15px;
-
-    color:#FFD54A;
-
-}
-
-.stat p{
-
-    font-size:18px;
-
-    opacity:.95;
-
-   }
-/* ==========================================
-   GUZO GO INTERNATIONAL TRAVEL
-   MODERN WEBSITE CSS
-   PART 3
-========================================== */
-
-/* ==========================
-   COUNTRIES SECTION
-========================== */
+/* ========== COUNTRIES ========== */
 
 .countries{
-
-    padding:110px 0;
-
-    background:#eef6fb;
-
+padding:100px 0;
+background:#f7fbff;
 }
 
 .countries h2{
-
-    text-align:center;
-
-    font-size:45px;
-
-    color:var(--primary);
-
-    margin-bottom:70px;
-
-    font-weight:700;
-
+text-align:center;
+font-size:42px;
+margin-bottom:60px;
+color:var(--primary);
 }
 
 .country-grid{
-
-    width:90%;
-
-    max-width:1200px;
-
-    margin:auto;
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-    gap:35px;
-
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
 }
 
 .country-card{
-
-    background:#fff;
-
-    border-radius:22px;
-
-    overflow:hidden;
-
-    box-shadow:var(--shadow);
-
-    transition:.4s;
-
+background:#fff;
+border-radius:18px;
+overflow:hidden;
+box-shadow:var(--shadow);
+transition:.35s;
 }
 
 .country-card:hover{
-
-    transform:translateY(-15px);
-
-    box-shadow:0 25px 45px rgba(0,0,0,.18);
-
+transform:translateY(-10px);
 }
 
 .country-card img{
-
-    width:100%;
-
-    height:230px;
-
-    object-fit:cover;
-
+width:100%;
+height:220px;
+object-fit:cover;
 }
 
 .country-card h3{
-
-    color:var(--primary);
-
-    text-align:center;
-
-    font-size:28px;
-
-    margin:25px 0 15px;
-
+text-align:center;
+margin:20px 0 10px;
+color:var(--primary);
 }
 
 .country-card p{
-
-    color:var(--gray);
-
-    text-align:center;
-
-    padding:0 25px 30px;
-
-    line-height:1.9;
-
-}
-
-/* ==========================
-   CONTACT SECTION
-========================== */
-
-.contact{
-
-    padding:110px 0;
-
-    background:#ffffff;
-
-}
-
-.contact h2{
-
-    text-align:center;
-
-    font-size:45px;
-
-    color:var(--primary);
-
-    margin-bottom:20px;
-
-}
-
-.contact>p{
-
-    text-align:center;
-
-    color:var(--gray);
-
-    margin-bottom:50px;
-
-    font-size:18px;
-
-}
-
-.contact-box{
-
-    width:90%;
-
-    max-width:850px;
-
-    margin:auto;
-
-    background:#fff;
-
-    border-radius:25px;
-
-    padding:50px;
-
-    box-shadow:var(--shadow);
-
-}
-
-.contact-box h3{
-
-    color:var(--primary);
-
-    margin-top:20px;
-
-    margin-bottom:10px;
-
-    font-size:22px;
-
-}
-
-.contact-box p{
-
-    color:var(--gray);
-
-    font-size:17px;
-
-    line-height:1.9;
-
-}
-
-.contact-box a{
-
-    color:var(--secondary);
-
-    text-decoration:none;
-
-    font-weight:600;
-
-    transition:.3s;
-
-}
-
-.contact-box a:hover{
-
-    color:var(--accent);
-
-}
-
-/* ==========================
-   FOOTER
-========================== */
-
-footer{
-
-    background:#001f3f;
-
-    color:#fff;
-
-    padding:40px 20px;
-
-    text-align:center;
-
-}
-
-footer p{
-
-    font-size:16px;
-
-    line-height:1.8;
-
-    opacity:.95;
-
-}
-
-footer a{
-
-    color:var(--gold);
-
-    text-decoration:none;
-
-    transition:.3s;
-
-}
-
-footer a:hover{
-
-    color:#fff;
-
-}
-
-/* ==========================
-   SIMPLE ANIMATION
-========================== */
-
-.card,
-.country-card,
-.stat,
-.contact-box{
-
-    animation:fadeUp .8s ease;
-
-}
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(40px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-   }
-/* ==========================================
-   GUZO GO INTERNATIONAL TRAVEL
-   MODERN WEBSITE CSS
-   PART 4
-========================================== */
-
-/* ==========================
-   BACK TO TOP BUTTON
-========================== */
-
-#topBtn{
-
-display:none;
-
-position:fixed;
-
-right:30px;
-
-bottom:30px;
-
-width:58px;
-
-height:58px;
-
-border:none;
-
-border-radius:50%;
-
-background:linear-gradient(135deg,#18d26e,#00AEEF);
-
-color:#fff;
-
-font-size:22px;
-
-cursor:pointer;
-
-box-shadow:0 15px 30px rgba(0,0,0,.25);
-
-transition:.35s;
-
-z-index:999;
-
-}
-
-#topBtn:hover{
-
-transform:translateY(-6px) scale(1.05);
-
-}
-
-/* ==========================
-   IMAGE EFFECTS
-========================== */
-
-img{
-
-max-width:100%;
-
-display:block;
-
-}
-
-.country-card img,
-.hero{
-
-transition:.5s;
-
-}
-
-.country-card:hover img{
-
-transform:scale(1.08);
-
-}
-
-/* ==========================
-   SECTION SPACING
-========================== */
-
-section{
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-section h2{
-
-letter-spacing:.5px;
-
-}
-
-/* ==========================
-   BUTTON EFFECT
-========================== */
-
-.btn{
-
-position:relative;
-
-overflow:hidden;
-
-}
-
-.btn::before{
-
-content:"";
-
-position:absolute;
-
-top:0;
-
-left:-100%;
-
-width:100%;
-
-height:100%;
-
-background:rgba(255,255,255,.25);
-
-transition:.5s;
-
-}
-
-.btn:hover::before{
-
-left:100%;
-
-}
-
-/* ==========================
-   RESPONSIVE
-========================== */
-
-@media(max-width:992px){
-
-header .container{
-
-flex-direction:column;
-
-gap:20px;
-
-}
-
-nav{
-
-flex-wrap:wrap;
-
-justify-content:center;
-
-gap:18px;
-
-}
-
-.overlay h2{
-
-font-size:46px;
-
-}
-
-.overlay p{
-
-font-size:18px;
-
-}
-
-.services h2,
-.about h2,
-.countries h2,
-.contact h2{
-
-font-size:36px;
-
-}
-
-}
-
-@media(max-width:768px){
-
-header h1{
-
-font-size:24px;
-
+padding:0 20px 25px;
 text-align:center;
-
+color:var(--gray);
+line-height:1.8;
 }
 
-nav{
-
-gap:12px;
-
-}
-
-nav a{
-
-font-size:15px;
-
-}
-
-.hero{
-
-height:85vh;
-
-}
-
-.overlay h2{
-
-font-size:34px;
-
-}
-
-.overlay p{
-
-font-size:16px;
-
-}
-
-.cards,
-.country-grid,
-.stats-container{
-
-grid-template-columns:1fr;
-
-}
-
-.contact-box{
-
-padding:30px;
-
-}
-
-}
-
-@media(max-width:480px){
-
-.container{
-
-width:92%;
-
-}
-
-.overlay h2{
-
-font-size:28px;
-
-}
-
-.overlay p{
-
-font-size:15px;
-
-}
-
-.btn{
-
-width:100%;
-
-text-align:center;
-
-padding:15px;
-
-}
-
-#topBtn{
-
-width:50px;
-
-height:50px;
-
-font-size:18px;
-
-right:20px;
-
-bottom:20px;
-
-}
-
-}
-
-/* ==========================
-   CUSTOM SCROLLBAR
-========================== */
-
-::-webkit-scrollbar{
-
-width:10px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#edf3f8;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:linear-gradient(#003366,#00AEEF);
-
-border-radius:10px;
-
-}
-
-::-webkit-scrollbar-thumb:hover{
-
-background:#18d26e;
-
-}
-
-/* ==========================
-   SELECTION COLOR
-========================== */
-
-::selection{
-
-background:#18d26e;
-
-color:#fff;
-
-   }
-/* ==========================
-   STATISTICS
-========================== */
+/* ========== STATISTICS ========== */
 
 .stats{
-    background:#0b2d5b;
-    padding:70px 20px;
+padding:90px 0;
+background:#0b2d5b;
 }
 
 .stats-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:25px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:25px;
 }
 
 .stat-box{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:18px;
-    padding:35px 20px;
-    text-align:center;
-    transition:.3s;
+background:rgba(255,255,255,.08);
+padding:35px;
+border-radius:18px;
+text-align:center;
+transition:.3s;
 }
 
 .stat-box:hover{
-    transform:translateY(-8px);
-    background:#12c48b;
+background:#18d26e;
+transform:translateY(-8px);
 }
 
 .stat-box h2{
-    color:#fff;
-    font-size:40px;
-    margin-bottom:10px;
-    font-weight:700;
+font-size:40px;
+color:#fff;
+margin-bottom:10px;
 }
 
 .stat-box p{
-    color:#d9e7ff;
-    font-size:17px;
-}
-/* ==========================
-   ABOUT
-========================== */
+color:#e5e7eb;
+font-size:17px;
+   }
+/* ==========================================
+   STYLE.CSS - PART 3
+   ABOUT • CONTACT • FOOTER
+========================================== */
+
+/* ========== ABOUT ========== */
 
 .about{
-    padding:90px 20px;
-    background:#f8fbff;
+padding:100px 0;
+background:#ffffff;
 }
 
 .about-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
 }
 
 .about-image img{
-    width:100%;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
+width:100%;
+border-radius:20px;
+box-shadow:var(--shadow);
 }
 
 .section-tag{
-    display:inline-block;
-    color:#10b981;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    margin-bottom:15px;
+display:inline-block;
+color:var(--accent);
+font-weight:700;
+margin-bottom:15px;
+letter-spacing:1px;
 }
 
 .about-content h2{
-    font-size:42px;
-    color:#0b2d5b;
-    margin-bottom:20px;
+font-size:42px;
+color:var(--primary);
+margin-bottom:20px;
 }
 
 .about-content p{
-    color:#555;
-    line-height:1.8;
-    margin-bottom:20px;
+color:var(--gray);
+line-height:1.9;
+margin-bottom:20px;
 }
 
-.about-content .btn-primary{
-    display:inline-block;
-    padding:14px 30px;
-    background:#0b2d5b;
-    color:#fff;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:600;
-    transition:.3s;
+/* ========== CONTACT ========== */
+
+.contact{
+padding:100px 0;
+background:var(--light);
 }
 
-.about-content .btn-primary:hover{
-    background:#10b981;
+.contact h2{
+text-align:center;
+font-size:42px;
+color:var(--primary);
+margin-bottom:15px;
 }
 
-@media(max-width:768px){
-
-.about-grid{
-    grid-template-columns:1fr;
+.contact> .container>p{
+text-align:center;
+margin-bottom:50px;
+color:var(--gray);
 }
 
-.about-content{
-    text-align:center;
+.contact-box{
+max-width:850px;
+margin:auto;
+background:#fff;
+padding:45px;
+border-radius:20px;
+box-shadow:var(--shadow);
 }
 
-.about-content h2{
-    font-size:32px;
+.contact-box h3{
+margin-top:20px;
+margin-bottom:10px;
+color:var(--primary);
 }
 
-   }
-/* ==========================
-   FOOTER
-========================== */
+.contact-box p{
+line-height:1.8;
+color:var(--gray);
+}
+
+.contact-box a{
+text-decoration:none;
+color:var(--secondary);
+font-weight:600;
+}
+
+.contact-box a:hover{
+color:var(--accent);
+}
+
+/* ========== FOOTER ========== */
 
 footer{
-    background:#06264d;
-    color:#fff;
-    padding:70px 20px 20px;
+background:#06264d;
+color:#fff;
+padding:70px 20px 25px;
 }
 
 .footer-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
-    margin-bottom:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:40px;
+margin-bottom:40px;
 }
 
 .footer-grid h2{
-    font-size:28px;
-    margin-bottom:20px;
-    color:#fff;
+font-size:30px;
+margin-bottom:20px;
 }
 
 .footer-grid h3{
-    margin-bottom:20px;
-    color:#10b981;
-    font-size:20px;
-}
-
-.footer-grid p{
-    color:#d8e4f0;
-    line-height:1.8;
-    margin-bottom:12px;
-}
-
-.footer-grid ul{
-    list-style:none;
-    padding:0;
-}
-
-.footer-grid ul li{
-    margin-bottom:12px;
-}
-
-.footer-grid ul li a{
-    color:#d8e4f0;
-    text-decoration:none;
-    transition:.3s;
-}
-
-.footer-grid ul li a:hover{
-    color:#10b981;
-    padding-left:6px;
-}
-
-.copyright{
-    border-top:1px solid rgba(255,255,255,.15);
-    text-align:center;
-    padding-top:20px;
-}
-
-.copyright p{
-    color:#cbd5e1;
-    font-size:15px;
-    line-height:1.8;
-}
-
-@media(max-width:768px){
-
-.footer-grid{
-    grid-template-columns:1fr;
-    text-align:center;
-}
-
-.footer-grid ul{
-    padding:0;
-}
-
-}
-ul{
-    list-style:none !important;
-    margin:0;
-    padding:0;
-}
-
-li{
-    list-style:none !important;
-}
-.footer-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:50px;
-    align-items:flex-start;
-}
-
-.footer-grid h2{
-    font-size:34px;
-    line-height:1.3;
-}
-
-.footer-grid h3{
-    margin-bottom:18px;
+margin-bottom:20px;
+color:var(--accent);
 }
 
 .footer-grid p,
 .footer-grid li{
-    line-height:1.9;
+line-height:1.9;
+color:#dbe5ef;
 }
 
 .footer-grid ul{
-    list-style:none;
-    padding:0;
-    margin:0;
+list-style:none;
+padding:0;
 }
 
-.footer-grid ul li{
-    margin-bottom:12px;
+.footer-grid li{
+margin-bottom:10px;
 }
 
-@media(max-width:768px){
-
-.footer-grid{
-    text-align:left;
-    gap:35px;
+.footer-grid a{
+text-decoration:none;
+color:#dbe5ef;
+transition:.3s;
 }
 
-.footer-grid h2{
-    font-size:30px;
+.footer-grid a:hover{
+color:var(--accent);
+padding-left:5px;
 }
 
+.copyright{
+border-top:1px solid rgba(255,255,255,.15);
+padding-top:20px;
+text-align:center;
+}
+
+.copyright p{
+font-size:15px;
+color:#cbd5e1;
    }
-/* ==========================
-   MOBILE MENU
-========================== */
+/* ==========================================
+   STYLE.CSS - PART 4
+   RESPONSIVE • MOBILE MENU • TOP BUTTON
+========================================== */
 
-.menu-toggle{
-    display:none;
-    font-size:30px;
-    color:#fff;
-    cursor:pointer;
+/* Back To Top */
+
+#topBtn{
+display:none;
+position:fixed;
+right:25px;
+bottom:25px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:var(--accent);
+color:#fff;
+font-size:22px;
+cursor:pointer;
+box-shadow:0 10px 20px rgba(0,0,0,.25);
+transition:.3s;
+z-index:999;
 }
+
+#topBtn:hover{
+transform:translateY(-5px);
+background:var(--secondary);
+}
+
+/* Animation */
+
+.card,
+.country-card,
+.stat-box,
+.contact-box{
+animation:fadeUp .8s ease;
+}
+
+@keyframes fadeUp{
+
+from{
+opacity:0;
+transform:translateY(40px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* Images */
+
+img{
+max-width:100%;
+display:block;
+}
+
+/* Responsive */
 
 @media(max-width:768px){
-
-nav{
-    position:relative;
-}
-
-nav ul{
-    display:none;
-    flex-direction:column;
-    position:absolute;
-    top:70px;
-    left:0;
-    width:100%;
-    background:#06264d;
-    padding:20px 0;
-}
-
-nav ul.active{
-    display:flex;
-}
-
-.menu-toggle{
-    display:block;
-}
-
-}
-/* Mobile Menu Fix */
-
-nav ul{
-    display:flex;
-    list-style:none;
-    gap:25px;
-}
-
-.menu-toggle{
-    display:none;
-    font-size:30px;
-    color:#fff;
-    cursor:pointer;
-}
-
-@media (max-width:768px){
 
 header .container{
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center;
+flex-direction:row;
+justify-content:space-between;
 }
 
 .menu-toggle{
-    display:block;
+display:block;
+}
+
+nav{
+position:absolute;
+top:75px;
+left:0;
+width:100%;
+background:#003366;
 }
 
 nav ul{
-    display:none;
-    position:absolute;
-    top:70px;
-    left:0;
-    width:100%;
-    background:#003366;
-    flex-direction:column;
-    text-align:center;
-    padding:20px 0;
-    gap:15px;
+display:none;
+flex-direction:column;
+width:100%;
+padding:20px 0;
 }
 
 nav ul.active{
-    display:flex;
+display:flex;
 }
 
-   }
+nav ul li{
+text-align:center;
+padding:12px 0;
+}
+
+.hero{
+padding:120px 0 80px;
+min-height:auto;
+}
+
+.hero-text{
+text-align:center;
+margin:auto;
+}
+
+.hero-text h2{
+font-size:38px;
+}
+
+.hero-text p{
+font-size:17px;
+}
+
+.hero-buttons{
+justify-content:center;
+}
+
+.about-grid{
+grid-template-columns:1fr;
+}
+
+.footer-grid{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.contact-box{
+padding:30px;
+}
+
+}
+
+@media(min-width:769px){
+
+nav ul{
+display:flex !important;
+}
+
+.menu-toggle{
+display:none;
+}
+
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+background:var(--primary);
+border-radius:10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+background:var(--secondary);
+}
