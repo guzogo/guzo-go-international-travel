@@ -1,17 +1,19 @@
+import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
+
 import {
-  auth,
-  getApplications,
-  updateApplicationStatus
+    auth,
+    getApplications,
+    updateApplicationStatus
 } from "./firebase.js";
 
 import {
-  onAuthStateChanged,
-  signOut
+    onAuthStateChanged,
+    signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// ===========================
+// ===============================
 // HTML Elements
-// ===========================
+// ===============================
 
 const table = document.getElementById("applicationsTable");
 
@@ -23,224 +25,292 @@ const rejectedApps = document.getElementById("rejectedApps");
 const searchInput = document.getElementById("searchInput");
 const logoutBtn = document.getElementById("logoutBtn");
 
-// View Details Modal
-
 const detailsModal = document.getElementById("detailsModal");
 const detailsContent = document.getElementById("detailsContent");
 const closeModal = document.querySelector(".close");
 
-// Store all applications
+// ===============================
+// Store Applications
+// ===============================
 
 let allApplications = [];
-// ===========================
-// Check Admin Authentication
-// ===========================
+
+// ===============================
+// Admin Authentication
+// ===============================
 
 onAuthStateChanged(auth, (user) => {
 
-  if (!user) {
+    if (!user) {
 
-    window.location.href = "admin-login.html";
+        window.location.href = "admin-login.html";
+        return;
 
-    return;
+    }
 
-  }
-
-  loadApplications();
+    loadApplications();
 
 });
 
-// ===========================
+// ===============================
 // Load Applications
-// ===========================
+// ===============================
 
 async function loadApplications() {
 
-  allApplications = await getApplications();
+    allApplications = await getApplications();
 
-  displayApplications(allApplications);
+    displayApplications(allApplications);
 
-}
-// ===========================
+  }
+// ===============================
 // Display Applications
-// ===========================
+// ===============================
 
 function displayApplications(applications) {
 
-  table.innerHTML = "";
+    table.innerHTML = "";
 
-  let approved = 0;
-  let pending = 0;
-  let rejected = 0;
+    let approved = 0;
+    let pending = 0;
+    let rejected = 0;
 
-  applications.forEach((app) => {
+    applications.forEach((app) => {
 
-    if (app.status === "Approved") approved++;
+        if (app.status === "Approved") approved++;
+        if (app.status === "Pending") pending++;
+        if (app.status === "Rejected") rejected++;
 
-    if (app.status === "Pending") pending++;
+        table.innerHTML += `
 
-    if (app.status === "Rejected") rejected++;
+        <tr>
 
-    table.innerHTML += `
+            <td>${app.applicantId}</td>
 
-      <tr>
+            <td>${app.fullName}</td>
 
-        <td>${app.applicantId}</td>
+            <td>${app.country}</td>
 
-        <td>${app.fullName}</td>
+            <td>${app.status}</td>
 
-        <td>${app.country}</td>
+            <td>
 
-        <td>${app.status}</td>
+                <button class="view" data-id="${app.id}">
+                    View
+                </button>
 
-        <td>
+                <button class="approve" data-id="${app.id}">
+                    Approve
+                </button>
 
-          <button class="view" data-id="${app.id}">
-            View
-          </button>
+                <button class="reject" data-id="${app.id}">
+                    Reject
+                </button>
 
-          <button class="approve" data-id="${app.id}">
-            Approve
-          </button>
+            </td>
 
-          <button class="reject" data-id="${app.id}">
-            Reject
-          </button>
+        </tr>
 
-        </td>
+        `;
 
-      </tr>
+    });
 
-    `;
+    totalApps.innerText = applications.length;
+    approvedApps.innerText = approved;
+    pendingApps.innerText = pending;
+    rejectedApps.innerText = rejected;
 
-  });
+}
 
-  totalApps.innerText = applications.length;
-  approvedApps.innerText = approved;
-  pendingApps.innerText = pending;
-  rejectedApps.innerText = rejected;
-
-        }
-// ===========================
+// ===============================
 // Search Applications
-// ===========================
+// ===============================
 
 searchInput.addEventListener("input", () => {
 
-  const keyword = searchInput.value.toLowerCase();
+    const keyword = searchInput.value.toLowerCase();
 
-  const filtered = allApplications.filter((app) => {
+    const filtered = allApplications.filter((app) => {
 
-    return (
-      app.applicantId.toLowerCase().includes(keyword) ||
-      app.fullName.toLowerCase().includes(keyword)
-    );
+        return (
 
-  });
+            app.applicantId.toLowerCase().includes(keyword) ||
 
-  displayApplications(filtered);
+            app.fullName.toLowerCase().includes(keyword)
+
+        );
+
+    });
+
+    displayApplications(filtered);
 
 });
-
-// ===========================
+// ===============================
 // Button Actions
-// ===========================
+// ===============================
 
 document.addEventListener("click", async (e) => {
 
-  // View Details
-  if (e.target.classList.contains("view")) {
+    // ===========================
+    // View Applicant
+    // ===========================
 
-    const id = e.target.dataset.id;
+    if (e.target.classList.contains("view")) {
 
-    const applicant = allApplications.find(app => app.id === id);
+        const id = e.target.dataset.id;
 
-    if (applicant) {
+        const applicant = allApplications.find(app => app.id === id);
 
-      detailsContent.innerHTML = `
+        if (!applicant) return;
 
-        <p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+        // Generate Permit ID
 
-        <p><strong>Full Name:</strong> ${applicant.fullName}</p>
+        let prefix = "GV";
 
-        <p><strong>Email:</strong> ${applicant.email}</p>
+        switch (applicant.country) {
 
-        <p><strong>Phone:</strong> ${applicant.phone}</p>
+            case "Canada":
+                prefix = "CA";
+                break;
 
-        <p><strong>Passport:</strong> ${applicant.passport}</p>
+            case "Dubai":
+                prefix = "AE";
+                break;
 
-        <p><strong>Country:</strong> ${applicant.country}</p>
+            case "Saudi Arabia":
+                prefix = "SA";
+                break;
 
-        <p><strong>Status:</strong> ${applicant.status}</p>
+            case "Kuwait":
+                prefix = "KW";
+                break;
 
-      `;
+        }
 
-      detailsModal.style.display = "block";
+        const permitId = `${prefix}-${applicant.applicantId}`;
+
+        // QR Code
+
+        const verifyUrl =
+        `https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
+
+        const qr = await QRCode.toDataURL(verifyUrl);
+
+        detailsContent.innerHTML = `
+
+            <h2 style="margin-bottom:20px;">Applicant Details</h2>
+
+            <p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+
+            <p><strong>Permit ID:</strong> ${permitId}</p>
+
+            <p><strong>Full Name:</strong> ${applicant.fullName}</p>
+
+            <p><strong>Email:</strong> ${applicant.email}</p>
+
+            <p><strong>Phone:</strong> ${applicant.phone}</p>
+
+            <p><strong>Passport:</strong> ${applicant.passport}</p>
+
+            <p><strong>Country:</strong> ${applicant.country}</p>
+
+            <p><strong>Status:</strong> ${applicant.status}</p>
+
+            <div style="text-align:center;margin-top:25px;">
+
+                <img src="${qr}" width="180">
+
+                <br><br>
+
+                <small>Scan to Verify Permit</small>
+
+            </div>
+
+        `;
+
+        detailsModal.style.display = "block";
 
     }
 
-  }
+    // ===========================
+    // Approve
+    // ===========================
 
-  // Approve
-  if (e.target.classList.contains("approve")) {
+    if (e.target.classList.contains("approve")) {
 
-    const id = e.target.dataset.id;
+        const id = e.target.dataset.id;
 
-    const success = await updateApplicationStatus(id, "Approved");
+        const success = await updateApplicationStatus(id, "Approved");
 
-    if (success) {
+        if (success) {
 
-      loadApplications();
+            loadApplications();
 
-    }
-
-  }
-
-  // Reject
-  if (e.target.classList.contains("reject")) {
-
-    const id = e.target.dataset.id;
-
-    const success = await updateApplicationStatus(id, "Rejected");
-
-    if (success) {
-
-      loadApplications();
+        }
 
     }
 
-  }
+    // ===========================
+    // Reject
+    // ===========================
+
+    if (e.target.classList.contains("reject")) {
+
+        const id = e.target.dataset.id;
+
+        const success = await updateApplicationStatus(id, "Rejected");
+
+        if (success) {
+
+            loadApplications();
+
+        }
+
+    }
 
 });
+// ===============================
+// Close Details Modal
+// ===============================
 
-// ===========================
-// Close Modal
-// ===========================
-
-closeModal.onclick = () => {
-
-  detailsModal.style.display = "none";
-
-};
-
-window.onclick = (event) => {
-
-  if (event.target === detailsModal) {
+closeModal.addEventListener("click", () => {
 
     detailsModal.style.display = "none";
 
-  }
+});
 
-};
+window.addEventListener("click", (e) => {
 
-// ===========================
+    if (e.target === detailsModal) {
+
+        detailsModal.style.display = "none";
+
+    }
+
+});
+
+// ===============================
 // Logout
-// ===========================
+// ===============================
 
 logoutBtn.addEventListener("click", async () => {
 
-  await signOut(auth);
+    const confirmLogout = confirm("Are you sure you want to logout?");
 
-  window.location.href = "admin-login.html";
+    if (!confirmLogout) return;
+
+    try {
+
+        await signOut(auth);
+
+        window.location.href = "admin-login.html";
+
+    } catch (error) {
+
+        alert("Logout failed.");
+
+        console.error(error);
+
+    }
 
 });
