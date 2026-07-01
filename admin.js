@@ -176,7 +176,9 @@ document.addEventListener("click", async (e) => {
             case "Canada":
                 prefix = "CA";
                 break;
-
+case "Qatar":
+    prefix = "QA";
+    break;
             case "Dubai":
                 prefix = "AE";
                 break;
