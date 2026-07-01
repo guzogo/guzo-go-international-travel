@@ -176,9 +176,7 @@ document.addEventListener("click", async (e) => {
             case "Canada":
                 prefix = "CA";
                 break;
-case "Qatar":
-    prefix = "QA";
-    break;
+            
             case "Dubai":
                 prefix = "AE";
                 break;
@@ -190,8 +188,11 @@ case "Qatar":
             case "Kuwait":
                 prefix = "KW";
                 break;
-
-        }
+                
+            case "Qatar":
+                 prefix = "QA";
+                 break; 
+             }
 
         const permitId = `${prefix}-${applicant.applicantId}`;
 
