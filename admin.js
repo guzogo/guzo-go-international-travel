@@ -328,7 +328,31 @@ padding:10px;
 <p>Dear <b>${applicant.fullName}</b>,</p>
 
 <p>
-Congratulations! Your application has been approved.
+We are pleased to inform you that your application submitted through
+<b>Guzo Go International Travel & Visa Consultancy</b> has been carefully
+reviewed and has been <b>approved</b>.
+</p>
+
+<p>
+This approval confirms that your application has successfully completed
+our initial verification process. Please keep this letter as part of
+your application records. You may be contacted for additional
+documentation, interview scheduling, medical examination, embassy
+appointment, or other procedures depending on the destination country's
+requirements.
+</p>
+
+<p>
+Please note that this approval letter does not replace an official visa,
+work permit, or residence permit issued by the destination country's
+government. Final approval remains subject to the relevant immigration
+authority.
+</p>
+
+<p>
+Thank you for choosing <b>Guzo Go International Travel & Visa Consultancy</b>.
+We appreciate your trust and wish you success in your international
+travel journey.
 </p>
 
 <table>
