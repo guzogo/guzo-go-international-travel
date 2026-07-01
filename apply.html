@@ -411,10 +411,46 @@ const result = await saveApplication(data);
 if(result.success){
 
 message.innerHTML = `
-<div style="background:#d4edda;padding:20px;border-radius:10px;color:#155724;">
-<h3>✅ Application Submitted Successfully!</h3>
+<div style="background:#d4edda;padding:25px;border-radius:10px;color:#155724;line-height:1.8;">
+
+<h2>✅ Application Submitted Successfully!</h2>
+
 <p><strong>Applicant ID:</strong> ${result.applicantId}</p>
-<p>Please save your Applicant ID.</p>
+
+<hr style="margin:15px 0;">
+
+<p>
+<strong>🇬🇧 English</strong><br><br>
+
+Your application has been received successfully.<br>
+Our verification team will review your documents within <strong>24–48 hours</strong>.<br>
+Please do not make any payment at this stage.<br>
+If your application is approved, you will receive an official <strong>Approval Letter</strong> together with payment instructions.
+</p>
+
+<br>
+
+<p>
+<strong>🇪🇹 አማርኛ</strong><br><br>
+
+ማመልከቻዎ በተሳካ ሁኔታ ደርሶናል።<br>
+የማረጋገጫ ቡድናችን ሰነዶችዎን በ<strong>24–48 ሰዓታት</strong> ውስጥ ይመረምራል።<br>
+በዚህ ደረጃ ላይ እባክዎ ምንም ክፍያ አይፈጽሙ።<br>
+ማመልከቻዎ ከጸደቀ በኋላ ኦፊሴላዊ <strong>Approval Letter</strong> ከክፍያ መመሪያዎች ጋር ይላክልዎታል።
+</p>
+
+<hr style="margin:15px 0;">
+
+<p>
+🙏 <strong>Thank you for choosing Guzo Go Travel.</strong><br>
+We appreciate your patience and will contact you as soon as the review process is complete.
+</p>
+
+<p>
+🙏 <strong>Guzo Go Travelን ስለመረጡ እናመሰግናለን።</strong><br>
+ለትዕግስትዎ እናመሰግናለን፤ የማረጋገጫ ሂደቱ እንደተጠናቀቀ ወዲያውኑ እናነጋግርዎታለን።
+</p>
+
 </div>
 `;
 
