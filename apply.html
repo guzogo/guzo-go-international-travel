@@ -455,7 +455,27 @@ yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
 }
 
   </script>
-  
+  <script>
+function setLanguage(lang){
+
+if(lang==="am"){
+
+document.querySelector(".hero h2").innerText="የቪዛ ማመልከቻ";
+document.querySelector(".hero p").innerText="እባክዎ ቅጹን በጥንቃቄ ይሙሉ።";
+document.querySelector(".container h2").innerText="የማመልከቻ ቅጽ";
+
+}
+
+else{
+
+document.querySelector(".hero h2").innerText="Online Visa Application";
+document.querySelector(".hero p").innerText="Complete the form below carefully. Your application will be reviewed by our team.";
+document.querySelector(".container h2").innerText="Application Form";
+
+}
+
+}
+  </script>
 </body>
 
   </html>
