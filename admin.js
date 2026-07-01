@@ -95,17 +95,21 @@ function displayApplications(applications) {
 
             <td>
 
-                <button class="view" data-id="${app.id}">
-                    View
-                </button>
+               <button class="view" data-id="${app.id}">
+    View
+</button>
 
-                <button class="approve" data-id="${app.id}">
-                    Approve
-                </button>
+<button class="approve" data-id="${app.id}">
+    Approve
+</button>
 
-                <button class="reject" data-id="${app.id}">
-                    Reject
-                </button>
+<button class="reject" data-id="${app.id}">
+    Reject
+</button>
+
+<button class="letter" data-id="${app.id}">
+    Approval Letter
+</button> 
 
             </td>
 
@@ -269,7 +273,99 @@ document.addEventListener("click", async (e) => {
         }
 
     }
+// ===========================
+// Approval Letter
+// ===========================
 
+if (e.target.classList.contains("letter")) {
+
+    const id = e.target.dataset.id;
+
+    const applicant = allApplications.find(app => app.id === id);
+
+    if (!applicant) return;
+
+    const letterWindow = window.open("", "_blank");
+
+    letterWindow.document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<title>Approval Letter</title>
+<style>
+body{
+font-family:Arial,sans-serif;
+padding:40px;
+line-height:1.8;
+}
+h1{
+color:#0b4f8a;
+text-align:center;
+}
+.approved{
+color:green;
+font-size:24px;
+font-weight:bold;
+text-align:center;
+}
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+td{
+border:1px solid #ddd;
+padding:10px;
+}
+</style>
+</head>
+<body>
+
+<h1>Guzo Go International Travel & Visa Consultancy</h1>
+
+<p class="approved">APPLICATION APPROVAL LETTER</p>
+
+<p>Dear <b>${applicant.fullName}</b>,</p>
+
+<p>
+Congratulations! Your application has been approved.
+</p>
+
+<table>
+
+<tr><td>Applicant ID</td><td>${applicant.applicantId}</td></tr>
+
+<tr><td>Passport</td><td>${applicant.passport}</td></tr>
+
+<tr><td>Country</td><td>${applicant.country}</td></tr>
+
+<tr><td>Status</td><td>${applicant.status}</td></tr>
+
+<tr><td>Date</td><td>${new Date().toLocaleDateString()}</td></tr>
+
+</table>
+
+<br><br>
+
+<p>
+Please keep this approval letter for your records.
+</p>
+
+<br><br>
+
+<p><b>Authorized By</b></p>
+
+<p>Guzo Go International Travel & Visa Consultancy</p>
+
+<script>
+window.print();
+</script>
+
+</body>
+</html>
+`);
+
+}
     // ===========================
     // Reject
     // ===========================
