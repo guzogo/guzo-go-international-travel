@@ -234,8 +234,6 @@ required>
 
 </div>
 
-<div id="priceBox" style="margin-top:20px;font-weight:bold;color:#003366;"></div>
-
 <div class="row">
 
 <div class="form-group">
@@ -454,52 +452,7 @@ yearSelect.innerHTML += `<option value="${y}">${y}</option>`;
 }
 
   </script>
-<script>
-const service = document.getElementById("service");
-const passportType = document.getElementById("passportType");
-const passportOption = document.getElementById("passportOption");
-const priceBox = document.getElementById("priceBox");
-
-service.addEventListener("change", function () {
-
-passportType.style.display = "none";
-
-if (this.value === "process") {
-    priceBox.innerHTML = "💰 Fee: 3,500 ETB";
-}
-
-else if (this.value === "passport") {
-    passportType.style.display = "block";
-    priceBox.innerHTML = "";
-}
-
-else if (this.value === "idcard") {
-    priceBox.innerHTML = "💰 Fee: 12,600 ETB";
-}
-
-else if (this.value === "visa") {
-    priceBox.innerHTML =
-    "🌍 The fee depends on the destination country. We will contact you with the exact amount.";
-}
-
-else{
-    priceBox.innerHTML = "";
-}
-
-});
-
-passportOption.addEventListener("change", function(){
-
-if(this.value==="regular"){
-    priceBox.innerHTML="💰 Passport Regular: 5,500 ETB";
-}
-
-else if(this.value==="urgent"){
-    priceBox.innerHTML="💰 Passport Urgent: 25,000 ETB";
-}
-
-});
-</script>
+  
 </body>
 
   </html>
