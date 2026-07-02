@@ -418,17 +418,24 @@ window.print();
 
 if (e.target.classList.contains("delete")) {
 
-    const ok = confirm("Are you sure you want to delete this application?");
+    alert("Delete button clicked");
 
+    const ok = confirm("Are you sure you want to delete this application?");
     if (!ok) return;
 
     const id = e.target.dataset.id;
 
-    await deleteApplication(id);
+    console.log(id);
+
+    const success = await deleteApplication(id);
+
+    alert(success);
 
     loadApplications();
 
-                          }
+}
+
+                          
 });
 // ===============================
 // Close Details Modal
