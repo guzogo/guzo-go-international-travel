@@ -209,51 +209,69 @@ document.addEventListener("click", async (e) => {
 
         detailsContent.innerHTML = `
 
-<h2 style="margin-bottom:20px;">Applicant Details</h2>
+<div style="font-family:Arial,sans-serif;">
 
-<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+<h2 style="margin-bottom:15px;color:#0b4f8a;">
+Applicant Details
+</h2>
 
-<p><strong>Permit ID:</strong> ${permitId}</p>
+<div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:15px;">
 
-<hr>
+<h3 style="margin:0;">${applicant.fullName}</h3>
 
-<p><strong>Full Name:</strong> ${applicant.fullName}</p>
+<p style="margin:5px 0;">
+<b>Applicant ID:</b> ${applicant.applicantId}
+</p>
 
-<p><strong>Email:</strong> ${applicant.email}</p>
+<p style="margin:5px 0;">
+<b>Permit ID:</b> ${permitId}
+</p>
 
-<p><strong>Phone:</strong> ${applicant.phone}</p>
+<p style="margin:5px 0;">
+<b>Status:</b>
 
-<p><strong>Passport Number:</strong> ${applicant.passport}</p>
+<span style="
+background:${applicant.status=="Approved"?"#28a745":applicant.status=="Rejected"?"#dc3545":"#ffc107"};
+color:white;
+padding:4px 10px;
+border-radius:20px;
+font-size:13px;">
+${applicant.status}
+</span>
 
-<p><strong>Country:</strong> ${applicant.country}</p>
+</p>
 
-<p><strong>Date of Birth:</strong> ${applicant.dob}</p>
+</div>
 
-<p><strong>Gender:</strong> ${applicant.gender}</p>
+<table style="width:100%;border-collapse:collapse;">
 
-<p><strong>Occupation:</strong> ${applicant.occupation}</p>
+<tr><td><b>Passport</b></td><td>${applicant.passport}</td></tr>
 
-<p><strong>Address:</strong> ${applicant.address}</p>
+<tr><td><b>Country</b></td><td>${applicant.country}</td></tr>
 
-<p><strong>Service:</strong> ${applicant.service}</p>
+<tr><td><b>Phone</b></td><td>${applicant.phone}</td></tr>
 
-<p><strong>Passport Type:</strong> ${applicant.passportOption || "-"}</p>
+<tr><td><b>Email</b></td><td>${applicant.email}</td></tr>
 
-<p><strong>Payment Reference:</strong> ${applicant.reference}</p>
+<tr><td><b>Date of Birth</b></td><td>${applicant.dob}</td></tr>
 
-<p><strong>Amount:</strong> ${applicant.amount}</p>
+<tr><td><b>Gender</b></td><td>${applicant.gender}</td></tr>
 
-<p><strong>Notes:</strong> ${applicant.notes || "-"}</p>
+<tr><td><b>Occupation</b></td><td>${applicant.occupation}</td></tr>
 
-<p><strong>Status:</strong> ${applicant.status}</p>
+<tr><td><b>Address</b></td><td>${applicant.address}</td></tr>
+
+</table>
 
 <div style="text-align:center;margin-top:25px;">
 
-<img src="${qr}" width="180">
+<img src="${qr}" width="160">
 
-<br><br>
+<p style="margin-top:10px;">
+Scan to Verify Permit
+</p>
 
-<small>Scan to Verify Permit</small>
+</div>
 
 </div>
 
