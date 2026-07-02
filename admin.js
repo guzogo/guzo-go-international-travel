@@ -111,6 +111,9 @@ function displayApplications(applications) {
     Approval Letter
 </button> 
 
+<button class="delete" data-id="${app.id}">
+🗑 Delete
+</button>
             </td>
 
         </tr>
@@ -410,7 +413,21 @@ window.print();
         }
 
     }
+// Delete Application
 
+if (e.target.classList.contains("delete")) {
+
+    const ok = confirm("Are you sure you want to delete this application?");
+
+    if (!ok) return;
+
+    const id = e.target.dataset.id;
+
+    await deleteApplication(id);
+
+    loadApplications();
+
+                          }
 });
 // ===============================
 // Close Details Modal
