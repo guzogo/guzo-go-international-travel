@@ -11,10 +11,10 @@ addDoc,
 getDocs,
 doc,
 updateDoc,
+deleteDoc,
 query,
 where
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
 import {
 getAuth
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
@@ -236,3 +236,24 @@ return false;
 }
 
 }
+// =====================================
+// Delete Application
+// =====================================
+
+export async function deleteApplication(id){
+
+try{
+
+await deleteDoc(doc(db,"applications",id));
+
+return true;
+
+}catch(error){
+
+console.error(error);
+
+return false;
+
+}
+
+  }
