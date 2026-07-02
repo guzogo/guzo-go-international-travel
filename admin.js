@@ -1,9 +1,10 @@
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
 
 import {
-    auth,
-    getApplications,
-    updateApplicationStatus
+auth,
+getApplications,
+updateApplicationStatus,
+deleteApplication
 } from "./firebase.js";
 
 import {
