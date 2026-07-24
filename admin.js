@@ -430,59 +430,6 @@ We appreciate your trust and look forward to serving you professionally.
 <p><b>Authorized Officer</b></p>
 
 <p>Guzo Go International Travel & Visa Consultancy</p>
-<p>
-We are pleased to inform you that your application submitted through
-<b>Guzo Go International Travel & Visa Consultancy</b> has been carefully
-reviewed and has been <b>approved</b>.
-</p>
-
-<p>
-This approval confirms that your application has successfully completed
-our initial verification process. Please keep this letter as part of
-your application records. You may be contacted for additional
-documentation, interview scheduling, medical examination, embassy
-appointment, or other procedures depending on the destination country's
-requirements.
-</p>
-
-<p>
-Please note that this approval letter does not replace an official visa,
-work permit, or residence permit issued by the destination country's
-government. Final approval remains subject to the relevant immigration
-authority.
-</p>
-
-<p>
-Thank you for choosing <b>Guzo Go International Travel & Visa Consultancy</b>.
-We appreciate your trust and wish you success in your international
-travel journey.
-</p>
-
-<table>
-
-<tr><td>Applicant ID</td><td>${applicant.applicantId}</td></tr>
-
-<tr><td>Passport</td><td>${applicant.passport}</td></tr>
-
-<tr><td>Country</td><td>${applicant.country}</td></tr>
-
-<tr><td>Status</td><td>${applicant.status}</td></tr>
-
-<tr><td>Date</td><td>${new Date().toLocaleDateString()}</td></tr>
-
-</table>
-
-<br><br>
-
-<p>
-Please keep this approval letter for your records.
-</p>
-
-<br><br>
-
-<p><b>Authorized By</b></p>
-
-<p>Guzo Go International Travel & Visa Consultancy</p>
 
 <script>
 window.print();
