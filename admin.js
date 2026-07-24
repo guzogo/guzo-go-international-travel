@@ -1,10 +1,10 @@
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
 
 import {
-auth,
-getApplications,
-updateApplicationStatus,
-deleteApplication
+    auth,
+    getApplications,
+    updateApplicationStatus,
+    deleteApplication
 } from "./firebase.js";
 
 import {
@@ -12,9 +12,12 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// ===============================
+// ==========================================
+// Guzo Go International Admin Dashboard
+// Version 2.0 Professional
+// ==========================================
+
 // HTML Elements
-// ===============================
 
 const table = document.getElementById("applicationsTable");
 
@@ -30,15 +33,23 @@ const detailsModal = document.getElementById("detailsModal");
 const detailsContent = document.getElementById("detailsContent");
 const closeModal = document.querySelector(".close");
 
-// ===============================
-// Store Applications
-// ===============================
+// Store All Applications
 
 let allApplications = [];
 
-// ===============================
-// Admin Authentication
-// ===============================
+// Company Information
+
+const COMPANY = {
+    name: "Guzo Go International Travel & Visa Consultancy",
+    email: "guzogointernational@gmail.com",
+    phone: "+251942188994",
+    website: "https://guzogo.github.io/guzo-go-international-travel/",
+    logo: "IMG_20260724_195618_814.jpg"
+};
+
+// ==========================================
+// Authentication
+// ==========================================
 
 onAuthStateChanged(auth, (user) => {
 
@@ -52,10 +63,9 @@ onAuthStateChanged(auth, (user) => {
     loadApplications();
 
 });
-
-// ===============================
+// ==========================================
 // Load Applications
-// ===============================
+// ==========================================
 
 async function loadApplications() {
 
@@ -63,10 +73,11 @@ async function loadApplications() {
 
     displayApplications(allApplications);
 
-  }
-// ===============================
+}
+
+// ==========================================
 // Display Applications
-// ===============================
+// ==========================================
 
 function displayApplications(applications) {
 
@@ -82,57 +93,74 @@ function displayApplications(applications) {
         if (app.status === "Pending") pending++;
         if (app.status === "Rejected") rejected++;
 
+        const badgeColor =
+            app.status === "Approved"
+                ? "#28a745"
+                : app.status === "Rejected"
+                ? "#dc3545"
+                : "#ffc107";
+
         table.innerHTML += `
 
-        <tr>
+<tr>
 
-            <td>${app.applicantId}</td>
+<td>${app.applicantId}</td>
 
-            <td>${app.fullName}</td>
+<td>${app.fullName}</td>
 
-            <td>${app.country}</td>
+<td>${app.country}</td>
 
-            <td>${app.status}</td>
+<td>
+<span style="
+background:${badgeColor};
+color:white;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;">
+${app.status}
+</span>
+</td>
 
-            <td>
+<td>
 
-               <button class="view" data-id="${app.id}">
-    View
+<button class="view" data-id="${app.id}">
+👁 View
 </button>
 
 <button class="approve" data-id="${app.id}">
-    Approve
+✅ Approve
 </button>
 
 <button class="reject" data-id="${app.id}">
-    Reject
+❌ Reject
 </button>
 
 <button class="letter" data-id="${app.id}">
-    Approval Letter
-</button> 
+📄 Approval Letter
+</button>
 
 <button class="delete" data-id="${app.id}">
 🗑 Delete
 </button>
-            </td>
 
-        </tr>
+</td>
 
-        `;
+</tr>
+
+`;
 
     });
 
-    totalApps.innerText = applications.length;
-    approvedApps.innerText = approved;
-    pendingApps.innerText = pending;
-    rejectedApps.innerText = rejected;
+    totalApps.textContent = applications.length;
+    approvedApps.textContent = approved;
+    pendingApps.textContent = pending;
+    rejectedApps.textContent = rejected;
 
 }
-
-// ===============================
+// ==========================================
 // Search Applications
-// ===============================
+// ==========================================
 
 searchInput.addEventListener("input", () => {
 
@@ -144,7 +172,9 @@ searchInput.addEventListener("input", () => {
 
             app.applicantId.toLowerCase().includes(keyword) ||
 
-            app.fullName.toLowerCase().includes(keyword)
+            app.fullName.toLowerCase().includes(keyword) ||
+
+            app.country.toLowerCase().includes(keyword)
 
         );
 
@@ -153,25 +183,26 @@ searchInput.addEventListener("input", () => {
     displayApplications(filtered);
 
 });
-// ===============================
+
+// ==========================================
 // Button Actions
-// ===============================
+// ==========================================
 
 document.addEventListener("click", async (e) => {
 
-    // ===========================
+    // ======================================
     // View Applicant
-    // ===========================
+    // ======================================
 
     if (e.target.classList.contains("view")) {
 
         const id = e.target.dataset.id;
 
-        const applicant = allApplications.find(app => app.id === id);
+        const applicant = allApplications.find(
+            app => app.id === id
+        );
 
         if (!applicant) return;
-
-        // Generate Permit ID
 
         let prefix = "GV";
 
@@ -180,7 +211,7 @@ document.addEventListener("click", async (e) => {
             case "Canada":
                 prefix = "CA";
                 break;
-            
+
             case "Dubai":
                 prefix = "AE";
                 break;
@@ -192,50 +223,57 @@ document.addEventListener("click", async (e) => {
             case "Kuwait":
                 prefix = "KW";
                 break;
-                
+
             case "Qatar":
-                 prefix = "QA";
-                 break; 
-             }
+                prefix = "QA";
+                break;
 
-        const permitId = `${prefix}-${applicant.applicantId}`;
+        }
 
-        // QR Code
+        const permitId =
+            `${prefix}-${applicant.applicantId}`;
 
         const verifyUrl =
-        `https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
+`${COMPANY.website}verify.html?id=${permitId}`;
 
-        const qr = await QRCode.toDataURL(verifyUrl);
+        const qr =
+            await QRCode.toDataURL(verifyUrl);
 
         detailsContent.innerHTML = `
 
 <div style="font-family:Arial,sans-serif;">
 
-<h2 style="margin-bottom:15px;color:#0b4f8a;">
+<h2 style="color:#0b4f8a;">
 Applicant Details
 </h2>
 
-<div style="background:#f8f9fa;padding:15px;border-radius:8px;margin-bottom:15px;">
+<div style="
+background:#f8f9fa;
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;">
 
-<h3 style="margin:0;">${applicant.fullName}</h3>
+<h3>${applicant.fullName}</h3>
 
-<p style="margin:5px 0;">
-<b>Applicant ID:</b> ${applicant.applicantId}
-</p>
+<p><b>Applicant ID:</b>
+${applicant.applicantId}</p>
 
-<p style="margin:5px 0;">
-<b>Permit ID:</b> ${permitId}
-</p>
+<p><b>Permit ID:</b>
+${permitId}</p>
 
-<p style="margin:5px 0;">
+<p>
 <b>Status:</b>
 
 <span style="
-background:${applicant.status=="Approved"?"#28a745":applicant.status=="Rejected"?"#dc3545":"#ffc107"};
+background:
+${applicant.status==="Approved"
+?"#28a745"
+:applicant.status==="Rejected"
+?"#dc3545"
+:"#ffc107"};
 color:white;
-padding:4px 10px;
-border-radius:20px;
-font-size:13px;">
+padding:5px 10px;
+border-radius:20px;">
 ${applicant.status}
 </span>
 
@@ -243,7 +281,9 @@ ${applicant.status}
 
 </div>
 
-<table style="width:100%;border-collapse:collapse;">
+<table style="
+width:100%;
+border-collapse:collapse;">
 
 <tr><td><b>Passport</b></td><td>${applicant.passport}</td></tr>
 
@@ -263,12 +303,14 @@ ${applicant.status}
 
 </table>
 
-<div style="text-align:center;margin-top:25px;">
+<div style="
+text-align:center;
+margin-top:20px;">
 
-<img src="${qr}" width="160">
+<img src="${qr}" width="170">
 
-<p style="margin-top:10px;">
-Scan to Verify Permit
+<p>
+<b>Scan To Verify Permit</b>
 </p>
 
 </div>
@@ -279,11 +321,10 @@ Scan to Verify Permit
 
  detailsModal.style.display = "block";
 
-    }
-
-    // ===========================
+ }
+    // ======================================
     // Approve
-    // ===========================
+    // ======================================
 
     if (e.target.classList.contains("approve")) {
 
@@ -298,186 +339,284 @@ Scan to Verify Permit
         }
 
     }
-// ===========================
-// Approval Letter
-// ===========================
 
-if (e.target.classList.contains("letter")) {
+    // ======================================
+    // Approval Letter
+    // ======================================
 
-    const id = e.target.dataset.id;
+    if (e.target.classList.contains("letter")) {
 
-    const applicant = allApplications.find(app => app.id === id);
+        const id = e.target.dataset.id;
 
-    if (!applicant) return;
-let prefix = "GV";
+        const applicant = allApplications.find(app => app.id === id);
 
-switch (applicant.country) {
-    case "Canada":
-        prefix = "CA";
-        break;
-    case "Dubai":
-        prefix = "AE";
-        break;
-    case "Saudi Arabia":
-        prefix = "SA";
-        break;
-    case "Kuwait":
-        prefix = "KW";
-        break;
-    case "Qatar":
-        prefix = "QA";
-        break;
-}
+        if (!applicant) return;
 
-const permitId = `${prefix}-${applicant.applicantId}`;
+        let prefix = "GV";
 
-const verifyUrl =
-`https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
+        switch (applicant.country) {
 
-const qr = await QRCode.toDataURL(verifyUrl);
-    const letterWindow = window.open("", "_blank");
+            case "Canada":
+                prefix = "CA";
+                break;
 
-    letterWindow.document.write(`
+            case "Dubai":
+                prefix = "AE";
+                break;
+
+            case "Saudi Arabia":
+                prefix = "SA";
+                break;
+
+            case "Kuwait":
+                prefix = "KW";
+                break;
+
+            case "Qatar":
+                prefix = "QA";
+                break;
+
+        }
+
+        const permitId = `${prefix}-${applicant.applicantId}`;
+
+        const verifyUrl =
+`${COMPANY.website}verify.html?id=${permitId}`;
+
+        const qr = await QRCode.toDataURL(verifyUrl);
+
+        const letterWindow = window.open("", "_blank");
+
+        letterWindow.document.write(`
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
-<title>Approval Letter</title>
+
+<meta charset="UTF-8">
+
+<title>Application Acceptance Letter</title>
+
 <style>
+
 body{
+
 font-family:Arial,sans-serif;
+
 padding:40px;
+
 line-height:1.8;
+
+color:#333;
+
 }
-h1{
+
+.header{
+
+text-align:center;
+
+border-bottom:3px solid #0b4f8a;
+
+padding-bottom:20px;
+
+margin-bottom:30px;
+
+}
+
+.header img{
+
+width:90px;
+
+}
+
+.header h1{
+
+margin:10px 0;
+
 color:#0b4f8a;
-text-align:center;
+
 }
-.approved{
-color:green;
-font-size:24px;
-font-weight:bold;
-text-align:center;
+
+.header p{
+
+margin:4px;
+
+color:#666;
+
 }
+
 table{
+
 width:100%;
+
 border-collapse:collapse;
+
 margin-top:20px;
+
 }
+
 td{
+
 border:1px solid #ddd;
+
 padding:10px;
+
 }
+
 </style>
+
 </head>
+
 <body>
 
-<h1 style="text-align:center;color:#0b4f8a;margin-bottom:5px;">
-Guzo Go International Travel & Visa Consultancy
-</h1>
+<div class="header">
 
-<p style="text-align:center;font-size:15px;color:#666;">
-Professional Travel & Visa Consultancy
-</p>
+<img src="${COMPANY.logo}">
 
-<hr style="margin:20px 0;">
+<h1>${COMPANY.name}</h1>
+
+<p>Professional Travel & Visa Consultancy</p>
+
+<p>📧 ${COMPANY.email}</p>
+
+<p>☎ ${COMPANY.phone}</p>
+
+</div>
 
 <h2 style="text-align:center;color:#1b5e20;">
+
 APPLICATION ACCEPTANCE LETTER
+
 </h2>
 
-<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+<p><b>Date:</b> ${new Date().toLocaleDateString()}</p>
+
+<p><b>Applicant ID:</b> ${applicant.applicantId}</p>
+
+<p><b>Permit ID:</b> ${permitId}</p>
 
 <hr>
 
 <p>
-Dear <strong>${applicant.fullName}</strong>,
+
+Dear <b>${applicant.fullName}</b>,
+
 </p>
 
 <p>
-We are pleased to inform you that your application has been officially
-received and accepted for processing by
-<strong>Guzo Go International Travel & Visa Consultancy</strong>.
+
+We are pleased to inform you that your application has been accepted for processing by <b>${COMPANY.name}</b>.
+
+</p>
+<p>
+
+Following our initial review, your application has successfully passed the preliminary assessment and has been accepted for processing.
+
 </p>
 
 <p>
-Following our initial review, your application has qualified to proceed
-to the next stage of processing. Our professional team will guide and
-coordinate your application throughout the remaining procedures.
+
+To begin the processing, the applicant is required to pay <b>25%</b> of the agreed service fee. The remaining <b>75%</b> will be paid according to the agreed processing schedule.
+
 </p>
 
-<h3>Processing Arrangement</h3>
+<h3>Applicant Information</h3>
 
-<p>
-To begin the processing, the applicant is required to pay
-<strong>25%</strong> of the total agreed service fee.
-The remaining <strong>75%</strong> of the service fee will be managed
-according to the agreed processing schedule between the applicant and
-Guzo Go International Travel & Visa Consultancy.
-</p>
+<table>
 
-<h3>Applicant Responsibilities</h3>
+<tr>
+<td><b>Applicant Name</b></td>
+<td>${applicant.fullName}</td>
+</tr>
 
-<ul>
-<li>Provide complete and accurate documents.</li>
-<li>Follow all instructions from our processing team.</li>
-<li>Respond promptly to additional document requests.</li>
-<li>Maintain valid passport and contact information.</li>
-</ul>
+<tr>
+<td><b>Passport Number</b></td>
+<td>${applicant.passport}</td>
+</tr>
 
-<p>
-<strong>Important Notice:</strong><br>
-This letter confirms only that your application has been accepted for
-processing by Guzo Go International Travel & Visa Consultancy.
-Any visa or immigration decision remains solely under the authority of
-the relevant Embassy or Government Immigration Department.
-</p>
+<tr>
+<td><b>Destination Country</b></td>
+<td>${applicant.country}</td>
+</tr>
 
-<br>
+<tr>
+<td><b>Status</b></td>
+<td style="color:green;"><b>${applicant.status}</b></td>
+</tr>
 
-<table style="width:100%;border-collapse:collapse;">
-<tr><td><b>Applicant Name</b></td><td>${applicant.fullName}</td></tr>
-<tr><td><b>Passport No.</b></td><td>${applicant.passport}</td></tr>
-<tr><td><b>Destination</b></td><td>${applicant.country}</td></tr>
-<tr><td><b>Status</b></td><td>${applicant.status}</td></tr>
+<tr>
+<td><b>Permit ID</b></td>
+<td>${permitId}</td>
+</tr>
+
 </table>
 
-<br><br>
-
-<p>
-Thank you for choosing
-<b>Guzo Go International Travel & Visa Consultancy.</b>
-We appreciate your trust and look forward to serving you professionally.
-</p>
-
-<br><br>
-
-<p><b>Authorized Officer</b></p>
-
-<p>Guzo Go International Travel & Visa Consultancy</p>
 <br>
 
-<div style="text-align:center;">
-    <img src="${qr}" width="150">
-    <p><b>Scan to Verify this Approval Letter</b></p>
-    <p style="font-size:12px;color:#666;">
-        Permit ID: ${permitId}
-    </p>
+<p>
+
+<strong>Important Notice</strong><br>
+
+This letter confirms only that your application has been accepted for processing by <b>${COMPANY.name}</b>. Final visa, work permit or immigration approval remains under the authority of the relevant Embassy or Immigration Department.
+
+</p>
+
+<div style="text-align:center;margin-top:35px;">
+
+<img src="${qr}" width="170">
+
+<p><b>Scan to Verify Approval Letter</b></p>
+
+<p style="font-size:12px;color:#666;">
+
+${verifyUrl}
+
+</p>
+
 </div>
+
+<div style="margin-top:60px;">
+
+_____________________________<br>
+
+<b>Authorized Officer</b><br>
+
+${COMPANY.name}
+
+</div>
+
+<hr style="margin-top:40px;">
+
+<div style="text-align:center;color:#777;font-size:13px;">
+
+© 2026 ${COMPANY.name}<br>
+
+📧 ${COMPANY.email}<br>
+
+☎ ${COMPANY.phone}
+
+</div>
+
 <script>
+
 window.print();
+
 </script>
 
 </body>
+
 </html>
+
 `);
 
 letterWindow.document.close();
 
 }
-   // ===========================
+    // ======================================
     // Reject
-    // ===========================
+    // ======================================
 
     if (e.target.classList.contains("reject")) {
 
@@ -487,37 +626,49 @@ letterWindow.document.close();
 
         if (success) {
 
+            alert("Application Rejected Successfully.");
+
             loadApplications();
 
         }
 
     }
-// Delete Application
 
-if (e.target.classList.contains("delete")) {
+    // ======================================
+    // Delete Application
+    // ======================================
 
-    alert("Delete button clicked");
+    if (e.target.classList.contains("delete")) {
 
-    const ok = confirm("Are you sure you want to delete this application?");
-    if (!ok) return;
+        const ok = confirm(
+            "Are you sure you want to permanently delete this application?"
+        );
 
-    const id = e.target.dataset.id;
+        if (!ok) return;
 
-    console.log(id);
+        const id = e.target.dataset.id;
 
-    const success = await deleteApplication(id);
+        const success = await deleteApplication(id);
 
-    alert(success);
+        if (success) {
 
-    loadApplications();
+            alert("Application Deleted Successfully.");
 
-}
+            loadApplications();
 
-                          
-});
-// ===============================
+        } else {
+
+            alert("Delete Failed.");
+
+        }
+
+    }
+
+}); // End document click listener
+
+// ==========================================
 // Close Details Modal
-// ===============================
+// ==========================================
 
 closeModal.addEventListener("click", () => {
 
@@ -535,9 +686,9 @@ window.addEventListener("click", (e) => {
 
 });
 
-// ===============================
+// ==========================================
 // Logout
-// ===============================
+// ==========================================
 
 logoutBtn.addEventListener("click", async () => {
 
@@ -553,10 +704,14 @@ logoutBtn.addEventListener("click", async () => {
 
     } catch (error) {
 
-        alert("Logout failed.");
-
         console.error(error);
+
+        alert("Logout failed.");
 
     }
 
 });
+
+// ==========================================
+// End of Guzo Go Admin Dashboard v2.0
+// ==========================================    
