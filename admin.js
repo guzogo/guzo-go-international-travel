@@ -490,7 +490,9 @@ window.print();
 
 </body>
 </html>
-);
+`);
+
+letterWindow.document.close();
 
 }
    // ===========================
