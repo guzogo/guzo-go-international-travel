@@ -755,13 +755,12 @@ To begin processing, the applicant is required to pay <strong>25%</strong> of th
 <br><br>
 
 <div style="margin-top:45px;">
-
 <img
-src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000867481f4816ec6f35e1d4c8c.png"
+src="${SIGNATURE}"
 style="width:220px;display:block;">
 
 <img
-src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000ebcc81f48c8b3617bf707cbc.png"
+src="${SEAL}"
 style="width:110px;margin-top:-25px;margin-left:120px;">
 
 <p style="margin-top:10px;font-weight:bold;">
