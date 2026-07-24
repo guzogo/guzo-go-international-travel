@@ -677,21 +677,35 @@ VERIFIED & AUTHORIZED
 <p><strong>Permit ID:</strong> ${permitId}</p>
 
 <p>
-
 Dear <strong>${applicant.fullName}</strong>,
-
 </p>
 
 <p>
-
-We are pleased to inform you that your application has been officially accepted for processing by <strong>${COMPANY.name}</strong>.
-
+We are pleased to inform you that, following a comprehensive review of your submitted application and supporting documents, your application has been <strong>officially accepted for professional visa processing</strong> by <strong>${COMPANY.name}</strong>.
 </p>
 
 <p>
+This Acceptance Letter confirms that your application has successfully met our preliminary assessment requirements and has now entered the official processing stage.
+</p>
 
-To begin processing, the applicant is required to pay <strong>25%</strong> of the agreed service fee. The remaining balance will be completed according to the agreed payment schedule.
+<p>
+To commence the visa processing procedure, the applicant is required to make the <strong>initial payment of 25%</strong> of the agreed service fee. The remaining balance shall be paid according to the agreed payment schedule.
+</p>
 
+<p>
+Upon confirmation of the initial payment, <strong>${COMPANY.name}</strong> will professionally manage and coordinate every stage of your visa processing. Our experienced team will handle document verification, file preparation, application guidance, appointment coordination where applicable, continuous follow-up, and professional consultation throughout the agreed consultancy process.
+</p>
+
+<p>
+Our commitment is to ensure that your application is handled with the highest standards of professionalism, accuracy, confidentiality, transparency, and customer care until the completion of our consultancy services.
+</p>
+
+<p>
+Please note that this Acceptance Letter confirms that your application has been accepted for professional processing. The final decision regarding visa issuance remains solely under the authority of the relevant Embassy or Immigration Authority of the destination country.
+</p>
+
+<p>
+Thank you for choosing <strong>${COMPANY.name}</strong>. We appreciate your trust and look forward to assisting you throughout your immigration journey.
 </p>
 
 <table>
