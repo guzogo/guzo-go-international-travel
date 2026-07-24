@@ -12,10 +12,10 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-// ==========================================
+// =======================================
 // Guzo Go International Admin Dashboard
-// Version 2.0 Professional
-// ==========================================
+// Version 3.0 Professional
+// =======================================
 
 // HTML Elements
 
@@ -33,29 +33,41 @@ const detailsModal = document.getElementById("detailsModal");
 const detailsContent = document.getElementById("detailsContent");
 const closeModal = document.querySelector(".close");
 
-// Store All Applications
+// =======================================
+// Company Information
+// =======================================
+
+const COMPANY = {
+
+    name: "Guzo Go International Travel & Visa Consultancy",
+
+    email: "guzogointernational@gmail.com",
+
+    phone: "+251942188994",
+
+    website:
+    "https://guzogo.github.io/guzo-go-international-travel/",
+
+    logo: "IMG_20260724_195618_814.jpg"
+
+};
+
+// =======================================
+// Store Applications
+// =======================================
 
 let allApplications = [];
 
-// Company Information
-
-const COMPANY = {
-    name: "Guzo Go International Travel & Visa Consultancy",
-    email: "guzogointernational@gmail.com",
-    phone: "+251942188994",
-    website: "https://guzogo.github.io/guzo-go-international-travel/",
-    logo: "IMG_20260724_195618_814.jpg"
-};
-
-// ==========================================
+// =======================================
 // Authentication
-// ==========================================
+// =======================================
 
 onAuthStateChanged(auth, (user) => {
 
     if (!user) {
 
         window.location.href = "admin-login.html";
+
         return;
 
     }
@@ -63,21 +75,31 @@ onAuthStateChanged(auth, (user) => {
     loadApplications();
 
 });
-// ==========================================
+// =======================================
 // Load Applications
-// ==========================================
+// =======================================
 
 async function loadApplications() {
 
-    allApplications = await getApplications();
+    try {
 
-    displayApplications(allApplications);
+        allApplications = await getApplications();
+
+        displayApplications(allApplications);
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Failed to load applications.");
+
+    }
 
 }
 
-// ==========================================
+// =======================================
 // Display Applications
-// ==========================================
+// =======================================
 
 function displayApplications(applications) {
 
@@ -90,15 +112,10 @@ function displayApplications(applications) {
     applications.forEach((app) => {
 
         if (app.status === "Approved") approved++;
-        if (app.status === "Pending") pending++;
-        if (app.status === "Rejected") rejected++;
 
-        const badgeColor =
-            app.status === "Approved"
-                ? "#28a745"
-                : app.status === "Rejected"
-                ? "#dc3545"
-                : "#ffc107";
+        if (app.status === "Pending") pending++;
+
+        if (app.status === "Rejected") rejected++;
 
         table.innerHTML += `
 
@@ -111,15 +128,22 @@ function displayApplications(applications) {
 <td>${app.country}</td>
 
 <td>
+
 <span style="
-background:${badgeColor};
-color:white;
 padding:6px 12px;
 border-radius:20px;
-font-size:13px;
-font-weight:bold;">
+font-weight:bold;
+color:white;
+background:
+${app.status==="Approved" ? "#28a745" :
+app.status==="Rejected" ? "#dc3545" :
+"#ffc107"};
+">
+
 ${app.status}
+
 </span>
+
 </td>
 
 <td>
@@ -152,30 +176,30 @@ ${app.status}
 
     });
 
-    totalApps.textContent = applications.length;
-    approvedApps.textContent = approved;
-    pendingApps.textContent = pending;
-    rejectedApps.textContent = rejected;
+    totalApps.innerText = applications.length;
 
-}
-// ==========================================
+    approvedApps.innerText = approved;
+
+    pendingApps.innerText = pending;
+
+    rejectedApps.innerText = rejected;
+
+    }
+// =======================================
 // Search Applications
-// ==========================================
+// =======================================
 
 searchInput.addEventListener("input", () => {
 
-    const keyword = searchInput.value.toLowerCase();
+    const keyword = searchInput.value.toLowerCase().trim();
 
     const filtered = allApplications.filter((app) => {
 
         return (
-
             app.applicantId.toLowerCase().includes(keyword) ||
-
             app.fullName.toLowerCase().includes(keyword) ||
-
-            app.country.toLowerCase().includes(keyword)
-
+            app.country.toLowerCase().includes(keyword) ||
+            app.status.toLowerCase().includes(keyword)
         );
 
     });
@@ -184,171 +208,23 @@ searchInput.addEventListener("input", () => {
 
 });
 
-// ==========================================
+// =======================================
 // Button Actions
-// ==========================================
+// =======================================
 
 document.addEventListener("click", async (e) => {
 
-    // ======================================
+    const id = e.target.dataset.id;
+
+    if (!id) return;
+
+    const applicant = allApplications.find(app => app.id === id);
+
+    // ==========================
     // View Applicant
-    // ======================================
+    // ==========================
 
     if (e.target.classList.contains("view")) {
-
-        const id = e.target.dataset.id;
-
-        const applicant = allApplications.find(
-            app => app.id === id
-        );
-
-        if (!applicant) return;
-
-        let prefix = "GV";
-
-        switch (applicant.country) {
-
-            case "Canada":
-                prefix = "CA";
-                break;
-
-            case "Dubai":
-                prefix = "AE";
-                break;
-
-            case "Saudi Arabia":
-                prefix = "SA";
-                break;
-
-            case "Kuwait":
-                prefix = "KW";
-                break;
-
-            case "Qatar":
-                prefix = "QA";
-                break;
-
-        }
-
-        const permitId =
-            `${prefix}-${applicant.applicantId}`;
-
-        const verifyUrl =
-`${COMPANY.website}verify.html?id=${permitId}`;
-
-        const qr =
-            await QRCode.toDataURL(verifyUrl);
-
-        detailsContent.innerHTML = `
-
-<div style="font-family:Arial,sans-serif;">
-
-<h2 style="color:#0b4f8a;">
-Applicant Details
-</h2>
-
-<div style="
-background:#f8f9fa;
-padding:15px;
-border-radius:10px;
-margin-bottom:15px;">
-
-<h3>${applicant.fullName}</h3>
-
-<p><b>Applicant ID:</b>
-${applicant.applicantId}</p>
-
-<p><b>Permit ID:</b>
-${permitId}</p>
-
-<p>
-<b>Status:</b>
-
-<span style="
-background:
-${applicant.status==="Approved"
-?"#28a745"
-:applicant.status==="Rejected"
-?"#dc3545"
-:"#ffc107"};
-color:white;
-padding:5px 10px;
-border-radius:20px;">
-${applicant.status}
-</span>
-
-</p>
-
-</div>
-
-<table style="
-width:100%;
-border-collapse:collapse;">
-
-<tr><td><b>Passport</b></td><td>${applicant.passport}</td></tr>
-
-<tr><td><b>Country</b></td><td>${applicant.country}</td></tr>
-
-<tr><td><b>Phone</b></td><td>${applicant.phone}</td></tr>
-
-<tr><td><b>Email</b></td><td>${applicant.email}</td></tr>
-
-<tr><td><b>Date of Birth</b></td><td>${applicant.dob}</td></tr>
-
-<tr><td><b>Gender</b></td><td>${applicant.gender}</td></tr>
-
-<tr><td><b>Occupation</b></td><td>${applicant.occupation}</td></tr>
-
-<tr><td><b>Address</b></td><td>${applicant.address}</td></tr>
-
-</table>
-
-<div style="
-text-align:center;
-margin-top:20px;">
-
-<img src="${qr}" width="170">
-
-<p>
-<b>Scan To Verify Permit</b>
-</p>
-
-</div>
-
-</div>
-
-`;
-
- detailsModal.style.display = "block";
-
- }
-    // ======================================
-    // Approve
-    // ======================================
-
-    if (e.target.classList.contains("approve")) {
-
-        const id = e.target.dataset.id;
-
-        const success = await updateApplicationStatus(id, "Approved");
-
-        if (success) {
-
-            loadApplications();
-
-        }
-
-    }
-
-    // ======================================
-    // Approval Letter
-    // ======================================
-
-    if (e.target.classList.contains("letter")) {
-
-        const id = e.target.dataset.id;
-
-        const applicant = allApplications.find(app => app.id === id);
 
         if (!applicant) return;
 
@@ -381,13 +257,210 @@ margin-top:20px;">
         const permitId = `${prefix}-${applicant.applicantId}`;
 
         const verifyUrl =
-`${COMPANY.website}verify.html?id=${permitId}`;
+`https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
+
+        const qr = await QRCode.toDataURL(verifyUrl);
+        detailsContent.innerHTML = `
+
+<div style="font-family:Arial,sans-serif;padding:20px;">
+
+<div style="text-align:center;">
+
+<img src="${COMPANY.logo}"
+style="width:80px;height:80px;object-fit:contain;">
+
+<h2 style="color:#0b4f8a;margin:10px 0 5px;">
+${COMPANY.name}
+</h2>
+
+<p>${COMPANY.email}</p>
+<p>${COMPANY.phone}</p>
+
+<hr>
+
+</div>
+
+<h3 style="color:#0b4f8a;">
+Applicant Details
+</h3>
+
+<table style="width:100%;border-collapse:collapse;">
+
+<tr>
+<td><b>Applicant ID</b></td>
+<td>${applicant.applicantId}</td>
+</tr>
+
+<tr>
+<td><b>Full Name</b></td>
+<td>${applicant.fullName}</td>
+</tr>
+
+<tr>
+<td><b>Passport</b></td>
+<td>${applicant.passport}</td>
+</tr>
+
+<tr>
+<td><b>Country</b></td>
+<td>${applicant.country}</td>
+</tr>
+
+<tr>
+<td><b>Email</b></td>
+<td>${applicant.email}</td>
+</tr>
+
+<tr>
+<td><b>Phone</b></td>
+<td>${applicant.phone}</td>
+</tr>
+
+<tr>
+<td><b>Date of Birth</b></td>
+<td>${applicant.dob}</td>
+</tr>
+
+<tr>
+<td><b>Gender</b></td>
+<td>${applicant.gender}</td>
+</tr>
+
+<tr>
+<td><b>Occupation</b></td>
+<td>${applicant.occupation}</td>
+</tr>
+
+<tr>
+<td><b>Address</b></td>
+<td>${applicant.address}</td>
+</tr>
+
+<tr>
+<td><b>Permit ID</b></td>
+<td>${permitId}</td>
+</tr>
+
+<tr>
+<td><b>Status</b></td>
+<td>
+
+<span style="
+background:${applicant.status==="Approved"?"#28a745":applicant.status==="Rejected"?"#dc3545":"#ffc107"};
+color:white;
+padding:6px 12px;
+border-radius:20px;
+font-weight:bold;">
+
+${applicant.status}
+
+</span>
+
+</td>
+</tr>
+
+</table>
+
+<div style="text-align:center;margin-top:25px;">
+
+<img src="${qr}" width="160">
+
+<p><b>Scan to Verify Permit</b></p>
+
+</div>
+
+</div>
+
+`;
+
+   detailsModal.style.display = "block";
+
+    return;
+
+    }
+    // ===========================
+    // Approve Application
+    // ===========================
+
+    if (e.target.classList.contains("approve")) {
+
+        const success = await updateApplicationStatus(id, "Approved");
+
+        if (success) {
+
+            alert("Application Approved Successfully");
+
+            loadApplications();
+
+        }
+
+        return;
+
+    }
+
+    // ===========================
+    // Reject Application
+    // ===========================
+
+    if (e.target.classList.contains("reject")) {
+
+        const success = await updateApplicationStatus(id, "Rejected");
+
+        if (success) {
+
+            alert("Application Rejected");
+
+            loadApplications();
+
+        }
+
+        return;
+
+    }
+
+    // ===========================
+    // Approval Letter
+    // ===========================
+
+    if (e.target.classList.contains("letter")) {
+
+        if (!applicant) return;
+
+        let prefix = "GV";
+
+        switch (applicant.country) {
+
+            case "Canada":
+                prefix = "CA";
+                break;
+
+            case "Dubai":
+                prefix = "AE";
+                break;
+
+            case "Saudi Arabia":
+                prefix = "SA";
+                break;
+
+            case "Kuwait":
+                prefix = "KW";
+                break;
+
+            case "Qatar":
+                prefix = "QA";
+                break;
+
+        }
+
+        const permitId = `${prefix}-${applicant.applicantId}`;
+
+        const verifyUrl =
+`https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
 
         const qr = await QRCode.toDataURL(verifyUrl);
 
         const letterWindow = window.open("", "_blank");
-
-        letterWindow.document.write(`
+         letterWindow.document.write(`
 
 <!DOCTYPE html>
 
@@ -397,7 +470,7 @@ margin-top:20px;">
 
 <meta charset="UTF-8">
 
-<title>Application Acceptance Letter</title>
+<title>Approval Letter</title>
 
 <style>
 
@@ -405,11 +478,13 @@ body{
 
 font-family:Arial,sans-serif;
 
-padding:40px;
+padding:50px;
 
 line-height:1.8;
 
-color:#333;
+color:#222;
+
+background:white;
 
 }
 
@@ -419,31 +494,71 @@ text-align:center;
 
 border-bottom:3px solid #0b4f8a;
 
-padding-bottom:20px;
+padding-bottom:15px;
 
 margin-bottom:30px;
 
 }
 
-.header img{
+.logo{
 
-width:90px;
+width:80px;
+
+height:80px;
+
+object-fit:contain;
 
 }
 
-.header h1{
+.company{
 
-margin:10px 0;
+font-size:28px;
+
+font-weight:bold;
 
 color:#0b4f8a;
 
+margin-top:10px;
+
 }
 
-.header p{
+.contact{
 
-margin:4px;
+font-size:14px;
 
 color:#666;
+
+}
+
+.title{
+
+margin-top:25px;
+
+font-size:30px;
+
+font-weight:bold;
+
+color:#1b5e20;
+
+text-align:center;
+
+}
+
+.badge{
+
+display:inline-block;
+
+padding:8px 18px;
+
+background:#28a745;
+
+color:white;
+
+border-radius:30px;
+
+font-weight:bold;
+
+margin-top:15px;
 
 }
 
@@ -453,7 +568,7 @@ width:100%;
 
 border-collapse:collapse;
 
-margin-top:20px;
+margin-top:25px;
 
 }
 
@@ -461,7 +576,43 @@ td{
 
 border:1px solid #ddd;
 
-padding:10px;
+padding:12px;
+
+}
+
+.footer{
+
+margin-top:40px;
+
+border-top:1px solid #ddd;
+
+padding-top:20px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#666;
+
+}
+
+.watermark{
+
+position:fixed;
+
+top:40%;
+
+left:20%;
+
+font-size:90px;
+
+font-weight:bold;
+
+color:rgba(0,0,0,.05);
+
+transform:rotate(-30deg);
+
+z-index:-1;
 
 }
 
@@ -471,125 +622,147 @@ padding:10px;
 
 <body>
 
-<div class="header">
+<div class="watermark">
 
-<img src="${COMPANY.logo}">
-
-<h1>${COMPANY.name}</h1>
-
-<p>Professional Travel & Visa Consultancy</p>
-
-<p>📧 ${COMPANY.email}</p>
-
-<p>☎ ${COMPANY.phone}</p>
+GUZO GO
 
 </div>
 
-<h2 style="text-align:center;color:#1b5e20;">
+<div class="header">
+
+<img src="${COMPANY.logo}" class="logo">
+
+<div class="company">
+
+${COMPANY.name}
+
+</div>
+
+<div class="contact">
+
+📧 ${COMPANY.email}<br>
+
+☎ ${COMPANY.phone}<br>
+
+🌐 ${COMPANY.website}
+
+</div>
+
+</div>
+
+<div class="title">
 
 APPLICATION ACCEPTANCE LETTER
 
-</h2>
+</div>
 
-<p><b>Date:</b> ${new Date().toLocaleDateString()}</p>
+<div style="text-align:center;">
 
-<p><b>Applicant ID:</b> ${applicant.applicantId}</p>
+<span class="badge">
 
-<p><b>Permit ID:</b> ${permitId}</p>
+VERIFIED & AUTHORIZED
 
-<hr>
+</span>
+
+</div>
+
+<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+
+<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+
+<p><strong>Permit ID:</strong> ${permitId}</p>
 
 <p>
 
-Dear <b>${applicant.fullName}</b>,
+Dear <strong>${applicant.fullName}</strong>,
 
 </p>
 
 <p>
 
-We are pleased to inform you that your application has been accepted for processing by <b>${COMPANY.name}</b>.
-
-</p>
-<p>
-
-Following our initial review, your application has successfully passed the preliminary assessment and has been accepted for processing.
+We are pleased to inform you that your application has been officially accepted for processing by <strong>${COMPANY.name}</strong>.
 
 </p>
 
 <p>
 
-To begin the processing, the applicant is required to pay <b>25%</b> of the agreed service fee. The remaining <b>75%</b> will be paid according to the agreed processing schedule.
+To begin processing, the applicant is required to pay <strong>25%</strong> of the agreed service fee. The remaining balance will be completed according to the agreed payment schedule.
 
 </p>
-
-<h3>Applicant Information</h3>
 
 <table>
 
 <tr>
+
 <td><b>Applicant Name</b></td>
+
 <td>${applicant.fullName}</td>
+
 </tr>
 
 <tr>
+
 <td><b>Passport Number</b></td>
+
 <td>${applicant.passport}</td>
+
 </tr>
 
 <tr>
-<td><b>Destination Country</b></td>
+
+<td><b>Destination</b></td>
+
 <td>${applicant.country}</td>
+
 </tr>
 
 <tr>
+
 <td><b>Status</b></td>
-<td style="color:green;"><b>${applicant.status}</b></td>
+
+<td>${applicant.status}</td>
+
 </tr>
 
 <tr>
+
 <td><b>Permit ID</b></td>
+
 <td>${permitId}</td>
+
 </tr>
 
 </table>
 
 <br>
 
-<p>
-
-<strong>Important Notice</strong><br>
-
-This letter confirms only that your application has been accepted for processing by <b>${COMPANY.name}</b>. Final visa, work permit or immigration approval remains under the authority of the relevant Embassy or Immigration Department.
-
-</p>
-
-<div style="text-align:center;margin-top:35px;">
+<div style="text-align:center;">
 
 <img src="${qr}" width="170">
 
-<p><b>Scan to Verify Approval Letter</b></p>
+<p>
 
-<p style="font-size:12px;color:#666;">
-
-${verifyUrl}
+<b>Scan to Verify this Approval Letter</b>
 
 </p>
 
 </div>
 
-<div style="margin-top:60px;">
+<br><br>
 
-_____________________________<br>
+<p>
 
-<b>Authorized Officer</b><br>
+<b>Authorized Officer</b>
+
+</p>
+
+<p>
 
 ${COMPANY.name}
 
-</div>
+</p>
 
-<hr style="margin-top:40px;">
-
-<div style="text-align:center;color:#777;font-size:13px;">
+<div class="footer">
 
 © 2026 ${COMPANY.name}<br>
 
@@ -613,62 +786,42 @@ window.print();
 
 letterWindow.document.close();
 
-}
-    // ======================================
-    // Reject
-    // ======================================
+return;
 
-    if (e.target.classList.contains("reject")) {
-
-        const id = e.target.dataset.id;
-
-        const success = await updateApplicationStatus(id, "Rejected");
-
-        if (success) {
-
-            alert("Application Rejected Successfully.");
-
-            loadApplications();
-
-        }
-
-    }
-
-    // ======================================
+} 
+    // ===========================
     // Delete Application
-    // ======================================
+    // ===========================
 
     if (e.target.classList.contains("delete")) {
 
-        const ok = confirm(
-            "Are you sure you want to permanently delete this application?"
-        );
+        const ok = confirm("Are you sure you want to delete this application?");
 
         if (!ok) return;
-
-        const id = e.target.dataset.id;
 
         const success = await deleteApplication(id);
 
         if (success) {
 
-            alert("Application Deleted Successfully.");
+            alert("Application deleted successfully.");
 
             loadApplications();
 
         } else {
 
-            alert("Delete Failed.");
+            alert("Delete failed.");
 
         }
 
+        return;
+
     }
 
-}); // End document click listener
+});
 
-// ==========================================
+// =======================================
 // Close Details Modal
-// ==========================================
+// =======================================
 
 closeModal.addEventListener("click", () => {
 
@@ -686,15 +839,15 @@ window.addEventListener("click", (e) => {
 
 });
 
-// ==========================================
+// =======================================
 // Logout
-// ==========================================
+// =======================================
 
 logoutBtn.addEventListener("click", async () => {
 
-    const confirmLogout = confirm("Are you sure you want to logout?");
+    const ok = confirm("Are you sure you want to logout?");
 
-    if (!confirmLogout) return;
+    if (!ok) return;
 
     try {
 
@@ -712,6 +865,6 @@ logoutBtn.addEventListener("click", async () => {
 
 });
 
-// ==========================================
-// End of Guzo Go Admin Dashboard v2.0
-// ==========================================    
+// =======================================
+// End of Guzo Go Admin Dashboard v3.0
+// =======================================    
