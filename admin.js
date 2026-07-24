@@ -309,7 +309,32 @@ if (e.target.classList.contains("letter")) {
     const applicant = allApplications.find(app => app.id === id);
 
     if (!applicant) return;
+let prefix = "GV";
 
+switch (applicant.country) {
+    case "Canada":
+        prefix = "CA";
+        break;
+    case "Dubai":
+        prefix = "AE";
+        break;
+    case "Saudi Arabia":
+        prefix = "SA";
+        break;
+    case "Kuwait":
+        prefix = "KW";
+        break;
+    case "Qatar":
+        prefix = "QA";
+        break;
+}
+
+const permitId = `${prefix}-${applicant.applicantId}`;
+
+const verifyUrl =
+`https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
+
+const qr = await QRCode.toDataURL(verifyUrl);
     const letterWindow = window.open("", "_blank");
 
     letterWindow.document.write(`
@@ -430,7 +455,15 @@ We appreciate your trust and look forward to serving you professionally.
 <p><b>Authorized Officer</b></p>
 
 <p>Guzo Go International Travel & Visa Consultancy</p>
+<br>
 
+<div style="text-align:center;">
+    <img src="${qr}" width="150">
+    <p><b>Scan to Verify this Approval Letter</b></p>
+    <p style="font-size:12px;color:#666;">
+        Permit ID: ${permitId}
+    </p>
+</div>
 <script>
 window.print();
 </script>
