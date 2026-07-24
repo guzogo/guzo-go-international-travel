@@ -314,104 +314,237 @@ if (e.target.classList.contains("letter")) {
 
     letterWindow.document.write(`
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Approval Letter</title>
-<style>
-body{
-font-family:Arial,sans-serif;
-padding:40px;
-line-height:1.8;
-}
-h1{
-color:#0b4f8a;
-text-align:center;
-}
-.approved{
-color:green;
-font-size:24px;
-font-weight:bold;
-text-align:center;
-}
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:20px;
-}
-td{
-border:1px solid #ddd;
-padding:10px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status Letter - Guzo Go</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .letter-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 700px;
+            padding: 40px;
+            border: 1px solid #e1e4e8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-top: 8px solid #0056b3; /* የጉዞ ጎ መለያ ሰማያዊ ቀለም */
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .logo-placeholder {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .company-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #222;
+        }
+        .company-sub {
+            font-size: 14px;
+            color: #666;
+            margin-top: 3px;
+        }
+        .doc-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            letter-spacing: 1px;
+            margin: 25px 0;
+        }
+        .meta-info {
+            font-size: 15px;
+            margin-bottom: 20px;
+            color: #444;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .info-table td {
+            padding: 10px 0;
+            font-size: 15px;
+            color: #333;
+        }
+        .info-table td.label {
+            font-weight: 600;
+            width: 30%;
+            color: #555;
+        }
+        .status-badge {
+            background-color: #e6f4ea;
+            color: #137333;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #c2e7cd;
+            display: inline-block;
+        }
+        .divider {
+            border-top: 1px dashed #bbb;
+            margin: 20px 0;
+        }
+        .letter-body {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .letter-body p {
+            margin-bottom: 15px;
+        }
+        .footer-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+        }
+        .auth-side {
+            font-size: 15px;
+        }
+        .auth-title {
+            font-weight: 600;
+            margin-bottom: 35px;
+            color: #444;
+        }
+        .company-signature {
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .qr-side {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .qr-code {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 8px auto;
+            font-weight: bold;
+            color: #555;
+        }
+        .verify-link {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contact-info {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Guzo Go International Travel & Visa Consultancy</h1>
+<div class="letter-container">
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-placeholder">🌍 Guzo Go</div>
+        <div class="company-name">Guzo Go International Travel & Visa Consultancy</div>
+        <div class="company-sub">Professional Travel & Visa Services</div>
+    </div>
 
-<p class="approved">APPLICATION APPROVAL LETTER</p>
+    <!-- Document Title -->
+    <div class="doc-title">APPLICATION STATUS LETTER</div>
 
-<p>Dear <b>${applicant.fullName}</b>,</p>
+    <!-- Date -->
+    <div class="meta-info">
+        <strong>Date:</strong> 24 July 2026
+    </div>
 
-<p>
-We are pleased to inform you that your application submitted through
-<b>Guzo Go International Travel & Visa Consultancy</b> has been carefully
-reviewed and has been <b>approved</b>.
-</p>
+    <!-- Applicant Info Table -->
+    <table class="info-table">
+        <tr>
+            <td class="label">Applicant ID</td>
+            <td>: GG-123456</td>
+        </tr>
+        <tr>
+            <td class="label">Full Name</td>
+            <td>: Dawid Mohammed Adem</td>
+        </tr>
+        <tr>
+            <td class="label">Passport No.</td>
+            <td>: XXXXXXXX</td>
+        </tr>
+        <tr>
+            <td class="label">Country</td>
+            <td>: 🇨🇦 Canada</td>
+        </tr>
+        <tr>
+            <td class="label">Status</td>
+            <td>: <span class="status-badge">Approved for Next Processing Stage</span></td>
+        </tr>
+    </table>
 
-<p>
-This approval confirms that your application has successfully completed
-our initial verification process. Please keep this letter as part of
-your application records. You may be contacted for additional
-documentation, interview scheduling, medical examination, embassy
-appointment, or other procedures depending on the destination country's
-requirements.
-</p>
+    <div class="divider"></div>
 
-<p>
-Please note that this approval letter does not replace an official visa,
-work permit, or residence permit issued by the destination country's
-government. Final approval remains subject to the relevant immigration
-authority.
-</p>
+    <!-- Letter Body -->
+    <div class="letter-body">
+        <p>Dear Applicant,</p>
+        <p>Thank you for submitting your application through <strong>Guzo Go International Travel & Visa Consultancy</strong>.</p>
+        <p>Your application has successfully completed our initial review and has been accepted to proceed to the next stage of processing.</p>
+        <p>Please note that this letter confirms only the status of your application within our recruitment process. Any visa, work permit, or immigration decision remains the responsibility of the relevant government authorities.</p>
+    </div>
 
-<p>
-Thank you for choosing <b>Guzo Go International Travel & Visa Consultancy</b>.
-We appreciate your trust and wish you success in your international
-travel journey.
-</p>
+    <div class="divider"></div>
 
-<table>
+    <!-- Footer Signatures & QR -->
+    <div class="footer-section">
+        <div class="auth-side">
+            <div class="auth-title">Authorized Officer</div>
+            <div class="company-signature">Guzo Go International Travel & Visa Consultancy</div>
+        </div>
+        
+        <div class="qr-side">
+            <!-- QR code ቦታ (ትክክለኛ ምስል እዚህ መተካት ይችላሉ) -->
+            <div class="qr-code">[ QR CODE ]</div>
+            <div>Verify at:</div>
+            <div><a class="verify-link" href="https://github.io" target="_blank">guzogo.github.io/...</a></div>
+        </div>
+    </div>
 
-<tr><td>Applicant ID</td><td>${applicant.applicantId}</td></tr>
-
-<tr><td>Passport</td><td>${applicant.passport}</td></tr>
-
-<tr><td>Country</td><td>${applicant.country}</td></tr>
-
-<tr><td>Status</td><td>${applicant.status}</td></tr>
-
-<tr><td>Date</td><td>${new Date().toLocaleDateString()}</td></tr>
-
-</table>
-
-<br><br>
-
-<p>
-Please keep this approval letter for your records.
-</p>
-
-<br><br>
-
-<p><b>Authorized By</b></p>
-
-<p>Guzo Go International Travel & Visa Consultancy</p>
-
-<script>
-window.print();
-</script>
+    <!-- Contact Info -->
+    <div class="contact-info">
+        <strong>Email:</strong> info@guzogotravel.com<br>
+        <strong>Website:</strong> guzogo.github.io/guzo-go-international-travel
+    </div>
+</div>
 
 </body>
 </html>
+
 `);
 
 }
