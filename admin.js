@@ -346,12 +346,90 @@ padding:10px;
 </head>
 <body>
 
-<h1>Guzo Go International Travel & Visa Consultancy</h1>
+<h1 style="text-align:center;color:#0b4f8a;margin-bottom:5px;">
+Guzo Go International Travel & Visa Consultancy
+</h1>
 
-<p class="approved">APPLICATION APPROVAL LETTER</p>
+<p style="text-align:center;font-size:15px;color:#666;">
+Professional Travel & Visa Consultancy
+</p>
 
-<p>Dear <b>${applicant.fullName}</b>,</p>
+<hr style="margin:20px 0;">
 
+<h2 style="text-align:center;color:#1b5e20;">
+APPLICATION ACCEPTANCE LETTER
+</h2>
+
+<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+
+<hr>
+
+<p>
+Dear <strong>${applicant.fullName}</strong>,
+</p>
+
+<p>
+We are pleased to inform you that your application has been officially
+received and accepted for processing by
+<strong>Guzo Go International Travel & Visa Consultancy</strong>.
+</p>
+
+<p>
+Following our initial review, your application has qualified to proceed
+to the next stage of processing. Our professional team will guide and
+coordinate your application throughout the remaining procedures.
+</p>
+
+<h3>Processing Arrangement</h3>
+
+<p>
+To begin the processing, the applicant is required to pay
+<strong>25%</strong> of the total agreed service fee.
+The remaining <strong>75%</strong> of the service fee will be managed
+according to the agreed processing schedule between the applicant and
+Guzo Go International Travel & Visa Consultancy.
+</p>
+
+<h3>Applicant Responsibilities</h3>
+
+<ul>
+<li>Provide complete and accurate documents.</li>
+<li>Follow all instructions from our processing team.</li>
+<li>Respond promptly to additional document requests.</li>
+<li>Maintain valid passport and contact information.</li>
+</ul>
+
+<p>
+<strong>Important Notice:</strong><br>
+This letter confirms only that your application has been accepted for
+processing by Guzo Go International Travel & Visa Consultancy.
+Any visa or immigration decision remains solely under the authority of
+the relevant Embassy or Government Immigration Department.
+</p>
+
+<br>
+
+<table style="width:100%;border-collapse:collapse;">
+<tr><td><b>Applicant Name</b></td><td>${applicant.fullName}</td></tr>
+<tr><td><b>Passport No.</b></td><td>${applicant.passport}</td></tr>
+<tr><td><b>Destination</b></td><td>${applicant.country}</td></tr>
+<tr><td><b>Status</b></td><td>${applicant.status}</td></tr>
+</table>
+
+<br><br>
+
+<p>
+Thank you for choosing
+<b>Guzo Go International Travel & Visa Consultancy.</b>
+We appreciate your trust and look forward to serving you professionally.
+</p>
+
+<br><br>
+
+<p><b>Authorized Officer</b></p>
+
+<p>Guzo Go International Travel & Visa Consultancy</p>
 <p>
 We are pleased to inform you that your application submitted through
 <b>Guzo Go International Travel & Visa Consultancy</b> has been carefully
@@ -415,8 +493,7 @@ window.print();
 );
 
 }
-
-    // ===========================
+   // ===========================
     // Reject
     // ===========================
 
