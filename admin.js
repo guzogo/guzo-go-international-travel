@@ -51,7 +51,8 @@ const COMPANY = {
     logo: "IMG_20260724_195618_814.jpg"
 
 };
-
+const SIGNATURE_SEAL =
+"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png";
 // =======================================
 // Store Applications
 // =======================================
@@ -750,17 +751,31 @@ To begin processing, the applicant is required to pay <strong>25%</strong> of th
 
 <br><br>
 
-<p>
+<div style="display:flex;justify-content:space-between;align-items:flex-end;">
 
-<b>Authorized Officer</b>
+<div>
 
-</p>
+<img
+src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png"
+style="width:260px;">
 
-<p>
+<br>
+
+<b>Authorized Officer</b><br>
 
 ${COMPANY.name}
 
-</p>
+</div>
+
+<div>
+
+<img
+src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png"
+style="width:180px;opacity:.9;">
+
+</div>
+
+</div>
 
 <div class="footer">
 
