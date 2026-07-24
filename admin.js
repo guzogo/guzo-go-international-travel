@@ -51,8 +51,11 @@ const COMPANY = {
     logo: "IMG_20260724_195618_814.jpg"
 
 };
-const SIGNATURE_SEAL =
-"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png";
+const SIGNATURE =
+"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000867481f4816ec6f35e1d4c8c.png";
+
+const SEAL =
+"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000ebcc81f48c8b3617bf707cbc.png";
 // =======================================
 // Store Applications
 // =======================================
@@ -751,32 +754,25 @@ To begin processing, the applicant is required to pay <strong>25%</strong> of th
 
 <br><br>
 
-<div style="display:flex;justify-content:space-between;align-items:flex-end;">
-
-<div>
+<div style="margin-top:45px;">
 
 <img
-src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png"
-style="width:260px;">
+src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000867481f4816ec6f35e1d4c8c.png"
+style="width:220px;display:block;">
 
-<br>
+<img
+src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000ebcc81f48c8b3617bf707cbc.png"
+style="width:110px;margin-top:-25px;margin-left:120px;">
 
-<b>Authorized Officer</b><br>
+<p style="margin-top:10px;font-weight:bold;">
+Authorized Officer
+</p>
 
+<p>
 ${COMPANY.name}
+</p>
 
 </div>
-
-<div>
-
-<img
-src="https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000f77481f48a14d1b88ffd57bc.png"
-style="width:180px;opacity:.9;">
-
-</div>
-
-</div>
-
 <div class="footer">
 
 © 2026 ${COMPANY.name}<br>
