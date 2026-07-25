@@ -423,9 +423,8 @@ ${applicant.status}
         return;
 
   }
-    
-// =======================================
-// APPROVAL LETTER (ENTERPRISE VERSION)
+ // =======================================
+// APPROVAL LETTER (PROFESSIONAL v5.0)
 // =======================================
 
 if (e.target.classList.contains("letter")) {
@@ -439,18 +438,19 @@ if (e.target.classList.contains("letter")) {
     }
 
     const referenceNo =
-        "GGI-" +
-        new Date().getFullYear() +
-        "-" +
-        applicant.applicantId;
+        `GGI-${new Date().getFullYear()}-${applicant.applicantId}`;
 
     const issueDate = new Date().toLocaleDateString();
 
     const expiryDate = new Date(
-        Date.now() + 30 * 24 * 60 * 60 * 1000
+        Date.now() + (30 * 24 * 60 * 60 * 1000)
     ).toLocaleDateString();
 
-    const letterWindow = window.open("", "_blank");
+    const letterWindow = window.open(
+        "",
+        "_blank",
+        "width=1000,height=900"
+    );
 
     letterWindow.document.write(`
 
@@ -474,28 +474,29 @@ box-sizing:border-box;
 
 body{
 
-font-family:Arial,Helvetica,sans-serif;
-background:#fff;
-color:#222;
-padding:45px;
-line-height:1.8;
+font-family:"Times New Roman",serif;
+background:#ececec;
+padding:40px;
 
 }
 
 .page{
 
-max-width:900px;
+width:210mm;
+min-height:297mm;
 margin:auto;
 background:#fff;
+padding:40px 45px;
 position:relative;
+box-shadow:0 0 20px rgba(0,0,0,.15);
 
 }
 
-.top-bar{
+.top-line{
 
-height:10px;
+height:8px;
 background:#0b4f8a;
-margin-bottom:20px;
+margin:-40px -45px 30px;
 
 }
 
@@ -503,6 +504,7 @@ margin-bottom:20px;
 
 display:flex;
 align-items:center;
+justify-content:space-between;
 border-bottom:3px solid #0b4f8a;
 padding-bottom:20px;
 
@@ -513,13 +515,13 @@ padding-bottom:20px;
 width:90px;
 height:90px;
 object-fit:contain;
-margin-right:20px;
 
 }
 
 .company{
 
 flex:1;
+padding-left:20px;
 
 }
 
@@ -527,31 +529,31 @@ flex:1;
 
 font-size:28px;
 color:#0b4f8a;
-margin-bottom:5px;
+margin-bottom:8px;
 
 }
 
 .company p{
 
 font-size:14px;
-color:#666;
+color:#555;
+margin:3px 0;
 
 }
 
 .reference{
 
-margin-top:25px;
-display:flex;
-justify-content:space-between;
-font-size:14px;
+text-align:right;
+font-size:13px;
+line-height:1.8;
 
 }
 
 .title{
 
-text-align:center;
 margin-top:35px;
-font-size:34px;
+text-align:center;
+font-size:32px;
 font-weight:bold;
 color:#145a32;
 letter-spacing:1px;
@@ -560,8 +562,8 @@ letter-spacing:1px;
 
 .subtitle{
 
-text-align:center;
 margin-top:8px;
+text-align:center;
 font-size:15px;
 color:#666;
 
@@ -569,35 +571,36 @@ color:#666;
 
 .badge{
 
-width:270px;
+width:300px;
 margin:25px auto;
+padding:12px;
 background:#198754;
 color:#fff;
-padding:12px;
-text-align:center;
 font-weight:bold;
-border-radius:30px;
+border-radius:40px;
+text-align:center;
 
 }
 
 .watermark{
 
-position:fixed;
-top:40%;
-left:12%;
-font-size:95px;
+position:absolute;
+top:45%;
+left:50%;
+transform:translate(-50%,-50%) rotate(-30deg);
+font-size:90px;
 font-weight:bold;
 color:rgba(0,0,0,.04);
-transform:rotate(-28deg);
+white-space:nowrap;
 pointer-events:none;
-z-index:-1;
 
 }
 
 .content{
 
-margin-top:30px;
+margin-top:35px;
 font-size:16px;
+line-height:1.9;
 text-align:justify;
 
 }
@@ -606,39 +609,152 @@ text-align:justify;
 
 margin-bottom:18px;
 
+    }   
+    
+.info-box{
+
+margin-top:30px;
+border:2px solid #0b4f8a;
+border-radius:8px;
+overflow:hidden;
+
+}
+
+.info-title{
+
+background:#0b4f8a;
+color:#fff;
+padding:12px;
+font-size:18px;
+font-weight:bold;
+
 }
 
 .info-table{
 
 width:100%;
 border-collapse:collapse;
-margin-top:30px;
 
 }
 
 .info-table td{
 
-border:1px solid #dcdcdc;
-padding:12px;
+padding:12px 15px;
+border:1px solid #d9d9d9;
+font-size:15px;
 
 }
 
-.section-title{
+.info-table td:first-child{
+
+font-weight:bold;
+background:#f8f9fa;
+width:35%;
+
+}
+
+.verify-box{
 
 margin-top:35px;
-font-size:20px;
-font-weight:bold;
-color:#0b4f8a;
+border:2px dashed #198754;
+padding:20px;
+text-align:center;
+border-radius:10px;
+background:#f8fff9;
 
 }
-.footer{
+
+.verify-box img{
+
+width:170px;
+margin-bottom:10px;
+
+}
+
+.verify-box p{
+
+font-size:14px;
+color:#444;
+
+}
+
+.authorization{
 
 margin-top:50px;
-border-top:2px solid #0b4f8a;
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+
+}
+
+.signature-area{
+
+position:relative;
+width:320px;
+
+}
+
+.signature{
+
+width:220px;
+display:block;
+
+}
+
+.seal{
+
+position:absolute;
+left:120px;
+top:10px;
+width:110px;
+opacity:.95;
+
+}
+
+.sign-name{
+
+margin-top:18px;
+font-weight:bold;
+font-size:16px;
+
+}
+
+.document-status{
+
+text-align:right;
+font-size:14px;
+line-height:2;
+
+}
+
+.footer{
+
+margin-top:60px;
 padding-top:20px;
+border-top:3px solid #0b4f8a;
 text-align:center;
 font-size:13px;
 color:#666;
+
+}
+
+@media print{
+
+body{
+
+background:#fff;
+padding:0;
+
+}
+
+.page{
+
+box-shadow:none;
+margin:0;
+width:100%;
+min-height:auto;
+
+}
 
 }
 
@@ -648,53 +764,41 @@ color:#666;
 
 <body>
 
-<div class="watermark">
-
-GUZO GO INTERNATIONAL
-
-</div>
-
 <div class="page">
 
-<div class="top-bar"></div>
+<div class="watermark">
+GUZO GO INTERNATIONAL
+</div>
 
+<div class="top-line"></div>
 <div class="header">
 
-<img src="${COMPANY.logo}" class="logo">
+    <img src="${COMPANY.logo}" class="logo">
 
-<div class="company">
+    <div class="company">
 
-<h1>${COMPANY.name}</h1>
+        <h1>${COMPANY.name}</h1>
 
-<p>📧 ${COMPANY.email}</p>
+        <p>📧 ${COMPANY.email}</p>
 
-<p>☎ ${COMPANY.phone}</p>
+        <p>☎ ${COMPANY.phone}</p>
 
-<p>🌐 ${COMPANY.website}</p>
+        <p>🌐 ${COMPANY.website}</p>
 
-</div>
+    </div>
 
-</div>
+    <div class="reference">
 
-<div class="reference">
+        <strong>Reference No:</strong><br>
+        ${referenceNo}<br><br>
 
-<div>
+        <strong>Issue Date:</strong><br>
+        ${issueDate}<br><br>
 
-<b>Reference No:</b> ${referenceNo}
+        <strong>Valid Until:</strong><br>
+        ${expiryDate}
 
-</div>
-
-<div>
-
-<b>Issue Date:</b> ${issueDate}
-
-</div>
-
-<div>
-
-<b>Valid Until:</b> ${expiryDate}
-
-</div>
+    </div>
 
 </div>
 
@@ -706,17 +810,18 @@ APPLICATION ACCEPTANCE LETTER
 
 <div class="subtitle">
 
-Official Visa Consultancy & Processing Confirmation
+Official Confirmation of Professional Visa Consultancy Services
 
 </div>
 
 <div class="badge">
 
-✔ VERIFIED • AUTHORIZED • REGISTERED
+✔ APPROVED • VERIFIED • AUTHORIZED
 
 </div>
 
 <div class="content">
+
 <p>
 
 Dear <strong>${applicant.fullName}</strong>,
@@ -725,47 +830,32 @@ Dear <strong>${applicant.fullName}</strong>,
 
 <p>
 
-We are pleased to officially inform you that, after a comprehensive assessment of your submitted application and supporting documentation, your application has been <strong>successfully accepted</strong> by <strong>${COMPANY.name}</strong> for professional travel and visa consultancy services.
+We are pleased to officially inform you that your application has been
+<strong>successfully accepted</strong> by
+<strong>${COMPANY.name}</strong> after a comprehensive review of the
+documents and information you submitted.
 
 </p>
 
 <p>
 
-This Acceptance Letter serves as an official confirmation that your application has passed our preliminary evaluation and has been formally registered in our processing system under the reference and permit number shown in this document.
+This Acceptance Letter confirms that your application has been registered
+under our official consultancy system and assigned the unique
+<strong>Permit ID</strong> shown below.
 
 </p>
 
 <p>
 
-To commence the agreed consultancy service, the applicant is required to complete the initial payment of <strong>25%</strong> of the agreed professional service fee. The remaining balance shall be settled according to the agreed payment schedule between the applicant and the company.
+To begin the consultancy process, the applicant is required to complete
+the agreed initial payment according to the service agreement.
+After payment confirmation, our consultants will immediately begin the
+visa processing and document management procedures.
 
 </p>
+<div class="info-box">
 
-<p>
-
-Upon confirmation of the initial payment, <strong>${COMPANY.name}</strong> will professionally manage and coordinate your visa processing procedure. Our consultancy team will supervise document verification, application preparation, appointment scheduling where applicable, submission guidance, continuous follow-up, and professional consultation throughout the entire agreed service period.
-
-</p>
-
-<p>
-
-Our company is committed to providing services with the highest standards of professionalism, transparency, confidentiality, integrity, and customer care. Every stage of your application will be handled with due diligence until our consultancy responsibilities have been completed.
-
-</p>
-
-<p>
-
-Please note that this Acceptance Letter confirms only your acceptance into our professional consultancy and processing program. The final authority regarding visa approval or refusal remains exclusively with the respective Embassy, Consulate, Immigration Authority, or Government Institution of the destination country.
-
-</p>
-
-<p>
-
-We sincerely appreciate your confidence in <strong>${COMPANY.name}</strong> and look forward to assisting you throughout your travel and immigration journey with professional, reliable, and efficient consultancy services.
-
-</p>
-
-<div class="section-title">
+<div class="info-title">
 
 Applicant Information
 
@@ -775,7 +865,7 @@ Applicant Information
 
 <tr>
 
-<td><strong>Applicant Name</strong></td>
+<td>Applicant Name</td>
 
 <td>${applicant.fullName}</td>
 
@@ -783,7 +873,15 @@ Applicant Information
 
 <tr>
 
-<td><strong>Passport Number</strong></td>
+<td>Applicant ID</td>
+
+<td>${applicant.applicantId}</td>
+
+</tr>
+
+<tr>
+
+<td>Passport Number</td>
 
 <td>${applicant.passport}</td>
 
@@ -791,7 +889,7 @@ Applicant Information
 
 <tr>
 
-<td><strong>Destination Country</strong></td>
+<td>Destination Country</td>
 
 <td>${applicant.country}</td>
 
@@ -799,100 +897,114 @@ Applicant Information
 
 <tr>
 
-<td><strong>Application Status</strong></td>
+<td>Email Address</td>
 
-<td>${applicant.status}</td>
+<td>${applicant.email}</td>
 
 </tr>
 
 <tr>
 
-<td><strong>Permit ID</strong></td>
+<td>Phone Number</td>
 
-<td>${permitId}</td>
+<td>${applicant.phone}</td>
+
+</tr>
+
+<tr>
+
+<td>Application Status</td>
+
+<td style="color:#198754;font-weight:bold;">
+
+${applicant.status}
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>Permit ID</td>
+
+<td>
+
+<strong>${permitId}</strong>
+
+</td>
 
 </tr>
 
 </table>
-<div style="text-align:center;margin-top:40px;">
-
-<img src="${qr}" width="180">
-
-<p style="margin-top:12px;font-size:14px;">
-
-<b>Scan this QR Code to verify the authenticity of this Acceptance Letter.</b>
-
-</p>
 
 </div>
 
-<div class="section-title">
+<div class="verify-box">
 
-Official Authorization
+<img src="${qr}">
 
-</div>
+<h3 style="color:#198754;margin-bottom:10px;">
 
-<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:50px;">
+Verification QR Code
 
-<div style="position:relative;display:inline-block;">
-
-<img
-src="${SIGNATURE}"
-style="width:230px;display:block;">
-
-<img
-src="${SEAL}"
-style="
-position:absolute;
-left:120px;
-top:20px;
-width:110px;
-opacity:0.95;
-">
-
-<div style="margin-top:20px;">
-
-<b>Authorized Officer</b><br>
-
-${COMPANY.name}
-
-</div>
-
-</div>
-
-<div style="text-align:right;font-size:13px;color:#666;">
-
-<p><b>Document Status:</b> VERIFIED</p>
-
-<p><b>Reference:</b> ${referenceNo}</p>
-
-<p><b>Permit ID:</b> ${permitId}</p>
-
-</div>
-
-</div>
-
-<div class="section-title">
-
-Important Notice
-
-</div>
+</h3>
 
 <p>
 
-This document is an official Acceptance Letter issued by
-<strong>${COMPANY.name}</strong>.
-Any alteration, duplication, or unauthorized modification of this
-document may render it invalid. Authenticity can be verified using
-the QR Code or the Permit ID provided above.
+Scan this QR Code to verify the authenticity of this Acceptance Letter.
 
 </p>
+
+<p style="margin-top:10px;">
+
+Verification URL
+
+</p>
+
+<p style="font-size:13px;color:#666;word-break:break-all;">
+
+${verifyUrl}
+
+</p>
+
+</div>
+<div class="authorization">
+
+    <div class="signature-area">
+
+        <img src="${SIGNATURE}" class="signature">
+
+        <img src="${SEAL}" class="seal">
+
+        <div class="sign-name">
+
+            Authorized Officer<br>
+
+            ${COMPANY.name}
+
+        </div>
+
+    </div>
+
+    <div class="document-status">
+
+        <p><strong>Document Status:</strong> VERIFIED</p>
+
+        <p><strong>Reference No:</strong> ${referenceNo}</p>
+
+        <p><strong>Permit ID:</strong> ${permitId}</p>
+
+        <p><strong>Issue Date:</strong> ${issueDate}</p>
+
+    </div>
+
+</div>
 
 <div class="footer">
 
 <strong>${COMPANY.name}</strong><br>
 
-Professional Travel & Visa Consultancy<br>
+Professional Travel & Visa Consultancy<br><br>
 
 📧 ${COMPANY.email}<br>
 
@@ -900,7 +1012,12 @@ Professional Travel & Visa Consultancy<br>
 
 🌐 ${COMPANY.website}<br><br>
 
-© 2026 ${COMPANY.name}. All Rights Reserved.
+This Acceptance Letter is electronically generated by
+<strong>${COMPANY.name}</strong>.
+The authenticity of this document can be verified using the QR Code
+or the Permit ID shown above.<br><br>
+
+© ${new Date().getFullYear()} ${COMPANY.name}. All Rights Reserved.
 
 </div>
 
@@ -908,7 +1025,11 @@ Professional Travel & Visa Consultancy<br>
 
 <script>
 
-window.print();
+window.onload = () => {
+
+    window.print();
+
+};
 
 </script>
 
@@ -923,7 +1044,6 @@ letterWindow.document.close();
 return;
 
 }
-
     // =======================================
     // DELETE APPLICATION
     // =======================================
