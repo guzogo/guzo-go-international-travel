@@ -1,15 +1,3 @@
-// ===========================================================
-// GUZO GO INTERNATIONAL TRAVEL & VISA CONSULTANCY
-// PROFESSIONAL ADMIN DASHBOARD 2026
-// admin.js
-// PART 1 - Imports, Configuration & Global Variables
-// ===========================================================
-
-
-// ===========================================================
-// IMPORTS
-// ===========================================================
-
 import QRCode from "https://cdn.jsdelivr.net/npm/qrcode@1.5.3/+esm";
 
 import {
@@ -25,40 +13,15 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
 
-// ===========================================================
-// COMPANY INFORMATION
-// ===========================================================
-
-const COMPANY = Object.freeze({
-
-    name: "Guzo Go International Travel & Visa Consultancy",
-
-    shortName: "GUZO GO",
-
-    slogan: "Professional Travel & Visa Consultancy",
-
-    email: "guzogointernational@gmail.com",
-
-    phone: "+251942188994",
-
-    website: "https://guzogo.github.io/guzo-go-international-travel/",
-
-    address: "Addis Ababa, Ethiopia",
-
-    logo: "IMG_20260724_195618_814.jpg",
-
-    signature:
-        "https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000867481f4816ec6f35e1d4c8c.png",
-
-    seal:
-        "https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000ebcc81f48c8b3617bf707cbc.png"
-
-});
+// =======================================
+// GUZO GO INTERNATIONAL
+// PROFESSIONAL ADMIN DASHBOARD v4.0
+// =======================================
 
 
-// ===========================================================
+// ===============================
 // HTML ELEMENTS
-// ===========================================================
+// ===============================
 
 const table = document.getElementById("applicationsTable");
 
@@ -68,7 +31,6 @@ const pendingApps = document.getElementById("pendingApps");
 const rejectedApps = document.getElementById("rejectedApps");
 
 const searchInput = document.getElementById("searchInput");
-
 const logoutBtn = document.getElementById("logoutBtn");
 
 const detailsModal = document.getElementById("detailsModal");
@@ -76,108 +38,51 @@ const detailsContent = document.getElementById("detailsContent");
 const closeModal = document.querySelector(".close");
 
 
-// ===========================================================
+// ===============================
+// COMPANY INFORMATION
+// ===============================
+
+const COMPANY = {
+
+    name: "Guzo Go International Travel & Visa Consultancy",
+
+    email: "guzogointernational@gmail.com",
+
+    phone: "+251942188994",
+
+    website: "https://guzogo.github.io/guzo-go-international-travel/",
+
+    logo: "IMG_20260724_195618_814.jpg"
+
+};
+
+
+// ===============================
+// OFFICIAL SIGNATURE
+// ===============================
+
+const SIGNATURE =
+"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000867481f4816ec6f35e1d4c8c.png";
+
+
+// ===============================
+// OFFICIAL SEAL
+// ===============================
+
+const SEAL =
+"https://raw.githubusercontent.com/guzogo/guzo-go-international-travel/main/file_00000000ebcc81f48c8b3617bf707cbc.png";
+
+
+// ===============================
 // GLOBAL VARIABLES
-// ===========================================================
+// ===============================
 
-let applications = [];
-
-let selectedApplication = null;
+let allApplications = [];
 
 
-// ===========================================================
-// STATUS
-// ===========================================================
-
-const STATUS = {
-
-    APPROVED: "Approved",
-
-    PENDING: "Pending",
-
-    REJECTED: "Rejected"
-
-};
-
-
-// ===========================================================
-// COUNTRY PREFIX
-// ===========================================================
-
-const COUNTRY_PREFIX = {
-
-    Canada: "CA",
-
-    USA: "US",
-
-    UK: "GB",
-
-    Germany: "DE",
-
-    France: "FR",
-
-    Italy: "IT",
-
-    Dubai: "AE",
-
-    "Saudi Arabia": "SA",
-
-    Kuwait: "KW",
-
-    Qatar: "QA",
-
-    Oman: "OM",
-
-    Bahrain: "BH"
-
-};
-
-
-// ===========================================================
-// HELPER FUNCTIONS
-// ===========================================================
-
-function getPermitId(applicant) {
-
-    const prefix =
-        COUNTRY_PREFIX[applicant.country] || "GV";
-
-    return `${prefix}-${applicant.applicantId}`;
-
-}
-
-function getReferenceNumber(applicant) {
-
-    return `GGI-${new Date().getFullYear()}-${applicant.applicantId}`;
-
-}
-
-function formatDate(date = new Date()) {
-
-    return date.toLocaleDateString("en-GB");
-
-}
-
-function getExpiryDate(days = 30) {
-
-    const expiry = new Date();
-
-    expiry.setDate(expiry.getDate() + days);
-
-    return expiry.toLocaleDateString("en-GB");
-
-}
-
-async function createQRCode(url) {
-
-    return await QRCode.toDataURL(url);
-
-}
-
-
-// ===========================================================
+// ===============================
 // AUTHENTICATION
-// ===========================================================
+// ===============================
 
 onAuthStateChanged(auth, (user) => {
 
@@ -189,52 +94,24 @@ onAuthStateChanged(auth, (user) => {
 
     }
 
-    initializeDashboard();
+    loadApplications();
 
 });
+// =======================================
+// LOAD APPLICATIONS
+// =======================================
 
-
-// ===========================================================
-// INITIALIZER
-// ===========================================================
-
-async function initializeDashboard() {
-
-    // Part 2
-
-}
-
-
-// ===========================================================
-// END OF PART 1
-// ===========================================================
-// ===========================================================
-// PART 2
-// Dashboard Initialization, Statistics & Applications Table
-// ===========================================================
-
-
-// ===========================================================
-// INITIALIZE DASHBOARD
-// ===========================================================
-
-async function initializeDashboard() {
+async function loadApplications() {
 
     try {
 
-        applications = await getApplications();
+        allApplications = await getApplications();
 
-        renderApplications(applications);
-
-        updateStatistics(applications);
-
-        console.log(
-            `Dashboard Loaded (${applications.length} Applications)`
-        );
+        displayApplications(allApplications);
 
     } catch (error) {
 
-        console.error(error);
+        console.error("Load Error:", error);
 
         alert("Failed to load applications.");
 
@@ -243,63 +120,25 @@ async function initializeDashboard() {
 }
 
 
-// ===========================================================
-// UPDATE DASHBOARD STATISTICS
-// ===========================================================
+// =======================================
+// DISPLAY APPLICATIONS
+// =======================================
 
-function updateStatistics(list) {
-
-    totalApps.textContent = list.length;
-
-    approvedApps.textContent =
-        list.filter(app => app.status === STATUS.APPROVED).length;
-
-    pendingApps.textContent =
-        list.filter(app => app.status === STATUS.PENDING).length;
-
-    rejectedApps.textContent =
-        list.filter(app => app.status === STATUS.REJECTED).length;
-
-}
-
-
-// ===========================================================
-// RENDER APPLICATION TABLE
-// ===========================================================
-
-function renderApplications(list) {
+function displayApplications(applications) {
 
     table.innerHTML = "";
 
-    if (!list.length) {
+    let approved = 0;
+    let pending = 0;
+    let rejected = 0;
 
-        table.innerHTML = `
-        <tr>
-            <td colspan="5"
-                style="
-                    text-align:center;
-                    padding:40px;
-                    color:#777;
-                    font-weight:bold;
-                ">
-                No Applications Found
-            </td>
-        </tr>
-        `;
+    applications.forEach((app) => {
 
-        return;
+        if (app.status === "Approved") approved++;
 
-    }
+        if (app.status === "Pending") pending++;
 
-    list.forEach(app => {
-
-        let badgeColor = "#ffc107";
-
-        if (app.status === STATUS.APPROVED)
-            badgeColor = "#198754";
-
-        if (app.status === STATUS.REJECTED)
-            badgeColor = "#dc3545";
+        if (app.status === "Rejected") rejected++;
 
         table.innerHTML += `
 
@@ -314,13 +153,17 @@ function renderApplications(list) {
 <td>
 
 <span style="
-display:inline-block;
-padding:7px 15px;
+padding:6px 12px;
 border-radius:20px;
-background:${badgeColor};
-color:#fff;
 font-weight:bold;
-font-size:13px;
+color:white;
+background:${
+app.status==="Approved"
+? "#28a745"
+: app.status==="Rejected"
+? "#dc3545"
+: "#ffc107"
+};
 ">
 
 ${app.status}
@@ -359,77 +202,44 @@ ${app.status}
 
     });
 
-}
-
-
-// ===========================================================
-// REFRESH DASHBOARD
-// ===========================================================
-
-async function refreshDashboard() {
-
-    applications = await getApplications();
-
-    renderApplications(applications);
-
-    updateStatistics(applications);
+    totalApps.innerText = applications.length;
+    approvedApps.innerText = approved;
+    pendingApps.innerText = pending;
+    rejectedApps.innerText = rejected;
 
 }
 
 
-// ===========================================================
-// END OF PART 2
-// ===========================================================
-// ===========================================================
-// PART 3
-// Search + View Applicant + QR Verification
-// ===========================================================
-
-
-// ===========================================================
-// SEARCH
-// ===========================================================
+// =======================================
+// SEARCH APPLICATIONS
+// =======================================
 
 searchInput.addEventListener("input", () => {
 
-    const keyword = searchInput.value
-        .trim()
-        .toLowerCase();
+    const keyword = searchInput.value.toLowerCase().trim();
 
-    if (!keyword) {
+    const filtered = allApplications.filter((app) => {
 
-        renderApplications(applications);
+        return (
 
-        updateStatistics(applications);
+            app.applicantId.toLowerCase().includes(keyword) ||
 
-        return;
+            app.fullName.toLowerCase().includes(keyword) ||
 
-    }
+            app.country.toLowerCase().includes(keyword) ||
 
-    const filtered = applications.filter(app =>
+            app.status.toLowerCase().includes(keyword)
 
-        (app.applicantId || "").toLowerCase().includes(keyword) ||
+        );
 
-        (app.fullName || "").toLowerCase().includes(keyword) ||
+    });
 
-        (app.country || "").toLowerCase().includes(keyword) ||
-
-        (app.status || "").toLowerCase().includes(keyword) ||
-
-        (app.passport || "").toLowerCase().includes(keyword)
-
-    );
-
-    renderApplications(filtered);
-
-    updateStatistics(filtered);
+    displayApplications(filtered);
 
 });
-
-
-// ===========================================================
-// BUTTON EVENTS
-// ===========================================================
+// =======================================
+// BUTTON ACTIONS
+// =======================================
 
 document.addEventListener("click", async (e) => {
 
@@ -437,55 +247,65 @@ document.addEventListener("click", async (e) => {
 
     if (!id) return;
 
-    selectedApplication =
-        applications.find(app => app.id === id);
+    const applicant = allApplications.find(app => app.id === id);
 
-    if (!selectedApplication) return;
+    if (!applicant) return;
 
+    // ===================================
+    // COUNTRY PREFIX
+    // ===================================
 
-    const permitId =
-        getPermitId(selectedApplication);
+    let prefix = "GV";
+
+    switch (applicant.country) {
+
+        case "Canada":
+            prefix = "CA";
+            break;
+
+        case "Dubai":
+            prefix = "AE";
+            break;
+
+        case "Saudi Arabia":
+            prefix = "SA";
+            break;
+
+        case "Kuwait":
+            prefix = "KW";
+            break;
+
+        case "Qatar":
+            prefix = "QA";
+            break;
+
+        default:
+            prefix = "GV";
+
+    }
+
+    const permitId = `${prefix}-${applicant.applicantId}`;
 
     const verifyUrl =
-        `${COMPANY.website}verify.html?id=${permitId}`;
+`https://guzogo.github.io/guzo-go-international-travel/verify.html?id=${permitId}`;
 
-    const qr =
-        await createQRCode(verifyUrl);
+    const qr = await QRCode.toDataURL(verifyUrl);
 
-
-    // =======================================================
+    // ===================================
     // VIEW APPLICANT
-    // =======================================================
+    // ===================================
 
     if (e.target.classList.contains("view")) {
 
         detailsContent.innerHTML = `
+<div style="font-family:Arial,sans-serif;padding:20px;">
 
-<div style="font-family:Arial,sans-serif;padding:30px;max-width:900px;margin:auto;">
+<div style="text-align:center;">
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:3px solid #0b4f8a;
-padding-bottom:20px;
-margin-bottom:25px;
-">
+<img src="${COMPANY.logo}"
+style="width:80px;height:80px;object-fit:contain;">
 
-<div style="display:flex;align-items:center;">
-
-<img
-src="${COMPANY.logo}"
-style="
-width:90px;
-height:90px;
-margin-right:20px;
-object-fit:contain;
-">
-
-<div>
-
-<h2 style="margin:0;color:#0b4f8a;">
+<h2 style="color:#0b4f8a;">
 ${COMPANY.name}
 </h2>
 
@@ -493,57 +313,37 @@ ${COMPANY.name}
 
 <p>${COMPANY.phone}</p>
 
-</div>
+<hr>
 
 </div>
 
-<img
-src="${qr}"
-style="
-width:120px;
-height:120px;
-">
-
-</div>
-
-
-<h2 style="
-text-align:center;
-color:#0b4f8a;
-margin-bottom:25px;
-">
-
+<h3 style="color:#0b4f8a;">
 Applicant Details
+</h3>
 
-</h2>
+<table style="width:100%;border-collapse:collapse;">
 
+<tr><td><b>Applicant ID</b></td><td>${applicant.applicantId}</td></tr>
 
-<table style="
-width:100%;
-border-collapse:collapse;
-">
+<tr><td><b>Full Name</b></td><td>${applicant.fullName}</td></tr>
 
-<tr><td><b>Applicant ID</b></td><td>${selectedApplication.applicantId}</td></tr>
+<tr><td><b>Passport</b></td><td>${applicant.passport}</td></tr>
+
+<tr><td><b>Country</b></td><td>${applicant.country}</td></tr>
+
+<tr><td><b>Email</b></td><td>${applicant.email}</td></tr>
+
+<tr><td><b>Phone</b></td><td>${applicant.phone}</td></tr>
+
+<tr><td><b>Date of Birth</b></td><td>${applicant.dob}</td></tr>
+
+<tr><td><b>Gender</b></td><td>${applicant.gender}</td></tr>
+
+<tr><td><b>Occupation</b></td><td>${applicant.occupation}</td></tr>
+
+<tr><td><b>Address</b></td><td>${applicant.address}</td></tr>
 
 <tr><td><b>Permit ID</b></td><td>${permitId}</td></tr>
-
-<tr><td><b>Full Name</b></td><td>${selectedApplication.fullName}</td></tr>
-
-<tr><td><b>Passport</b></td><td>${selectedApplication.passport}</td></tr>
-
-<tr><td><b>Country</b></td><td>${selectedApplication.country}</td></tr>
-
-<tr><td><b>Email</b></td><td>${selectedApplication.email}</td></tr>
-
-<tr><td><b>Phone</b></td><td>${selectedApplication.phone}</td></tr>
-
-<tr><td><b>Date of Birth</b></td><td>${selectedApplication.dob}</td></tr>
-
-<tr><td><b>Gender</b></td><td>${selectedApplication.gender}</td></tr>
-
-<tr><td><b>Occupation</b></td><td>${selectedApplication.occupation}</td></tr>
-
-<tr><td><b>Address</b></td><td>${selectedApplication.address}</td></tr>
 
 <tr>
 
@@ -551,21 +351,13 @@ border-collapse:collapse;
 
 <td>
 
-<span style="
-padding:8px 18px;
-border-radius:20px;
-font-weight:bold;
-color:white;
-background:${
-selectedApplication.status === STATUS.APPROVED
-? "#198754"
-: selectedApplication.status === STATUS.REJECTED
-? "#dc3545"
-: "#ffc107"
-};
-">
+<span style="padding:6px 12px;border-radius:20px;color:white;background:${
+applicant.status==="Approved" ? "#28a745" :
+applicant.status==="Rejected" ? "#dc3545" :
+"#ffc107"
+};">
 
-${selectedApplication.status}
+${applicant.status}
 
 </span>
 
@@ -575,69 +367,35 @@ ${selectedApplication.status}
 
 </table>
 
-<div style="
-margin-top:35px;
-text-align:center;
-">
+<div style="text-align:center;margin-top:25px;">
 
-<img
-src="${qr}"
-style="
-width:160px;
-height:160px;
-">
+<img src="${qr}" width="160">
 
-<p style="margin-top:10px;">
-<b>Scan QR Code to Verify</b>
-</p>
+<p><b>Scan to Verify Permit</b></p>
 
 </div>
 
 </div>
-
 `;
 
         detailsModal.style.display = "block";
 
         return;
 
-    }
-
-    // =======================================================
-    // Remaining Actions
-    // (Approve / Reject / Letter / Delete)
-    // Part 4
-    // =======================================================
-
-});
-    // =======================================================
+        }
+    // =======================================
     // APPROVE APPLICATION
-    // =======================================================
+    // =======================================
 
     if (e.target.classList.contains("approve")) {
 
-        const ok = confirm(
-            `Approve ${selectedApplication.fullName}'s application?`
-        );
+        const success = await updateApplicationStatus(id, "Approved");
 
-        if (!ok) return;
+        if (success) {
 
-        try {
+            alert("Application Approved Successfully");
 
-            await updateApplicationStatus(
-                selectedApplication.id,
-                STATUS.APPROVED
-            );
-
-            alert("Application Approved Successfully.");
-
-            await refreshDashboard();
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Failed to approve application.");
+            loadApplications();
 
         }
 
@@ -646,34 +404,19 @@ height:160px;
     }
 
 
-    // =======================================================
+    // =======================================
     // REJECT APPLICATION
-    // =======================================================
+    // =======================================
 
     if (e.target.classList.contains("reject")) {
 
-        const ok = confirm(
-            `Reject ${selectedApplication.fullName}'s application?`
-        );
+        const success = await updateApplicationStatus(id, "Rejected");
 
-        if (!ok) return;
+        if (success) {
 
-        try {
+            alert("Application Rejected Successfully");
 
-            await updateApplicationStatus(
-                selectedApplication.id,
-                STATUS.REJECTED
-            );
-
-            alert("Application Rejected Successfully.");
-
-            await refreshDashboard();
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Failed to reject application.");
+            loadApplications();
 
         }
 
@@ -682,78 +425,16 @@ height:160px;
     }
 
 
-    // =======================================================
-    // DELETE APPLICATION
-    // =======================================================
-
-    if (e.target.classList.contains("delete")) {
-
-        const ok = confirm(
-            `Delete ${selectedApplication.fullName}'s application?\n\nThis action cannot be undone.`
-        );
-
-        if (!ok) return;
-
-        try {
-
-            await deleteApplication(selectedApplication.id);
-
-            alert("Application Deleted Successfully.");
-
-            await refreshDashboard();
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert("Failed to delete application.");
-
-        }
-
-        return;
-
-    }
-
-
-    // =======================================================
+    // =======================================
     // APPROVAL LETTER
-    // =======================================================
+    // =======================================
 
     if (e.target.classList.contains("letter")) {
 
-        if (selectedApplication.status !== STATUS.APPROVED) {
+        const letterWindow = window.open("", "_blank");
 
-            alert("Please approve the application first.");
-
-            return;
-
-        }
-
-        // Part 4B
-
-        return;
-
-    }
-
-});
-const permitId = getPermitId(selectedApplication);
-
-const referenceNo = getReferenceNumber(selectedApplication);
-
-const issueDate = formatDate();
-
-const expiryDate = getExpiryDate();
-
-const verifyUrl =
-`${COMPANY.website}verify.html?id=${permitId}`;
-
-const qr = await createQRCode(verifyUrl);
-
-const letterWindow = window.open("", "_blank");
-
-letterWindow.document.write(`
-
-<!DOCTYPE html>
+ letterWindow.document.write(` 
+ <!DOCTYPE html>
 
 <html lang="en">
 
@@ -761,157 +442,142 @@ letterWindow.document.write(`
 
 <meta charset="UTF-8">
 
-<title>Official Approval Letter</title>
+<title>Application Acceptance Letter</title>
 
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body{
 
-font-family:Arial,Helvetica,sans-serif;
-background:#f5f5f5;
-padding:35px;
-
-}
-
-.page{
-
-max-width:900px;
-margin:auto;
-background:#fff;
-padding:45px;
-position:relative;
-box-shadow:0 0 20px rgba(0,0,0,.15);
-
-}
-
-.top-bar{
-
-height:10px;
-background:#0b4f8a;
-margin:-45px -45px 35px;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#ffffff;
+    color:#222;
+    padding:45px;
+    line-height:1.8;
 
 }
 
 .header{
 
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:3px solid #0b4f8a;
-padding-bottom:20px;
-
-}
-
-.left{
-
-display:flex;
-align-items:center;
+    display:flex;
+    align-items:center;
+    border-bottom:4px solid #0b4f8a;
+    padding-bottom:18px;
+    margin-bottom:30px;
 
 }
 
 .logo{
 
-width:90px;
-height:90px;
-object-fit:contain;
-margin-right:20px;
+    width:85px;
+    height:85px;
+    object-fit:contain;
+    margin-right:20px;
 
 }
 
 .company h1{
 
-font-size:28px;
-color:#0b4f8a;
-margin-bottom:8px;
+    color:#0b4f8a;
+    font-size:28px;
+    margin-bottom:5px;
 
 }
 
 .company p{
 
-font-size:14px;
-color:#555;
-margin:2px 0;
-
-}
-
-.qr img{
-
-width:120px;
-
-}
-
-.reference{
-
-display:flex;
-justify-content:space-between;
-margin-top:25px;
-font-size:14px;
+    font-size:14px;
+    color:#555;
 
 }
 
 .title{
 
-text-align:center;
-font-size:34px;
-font-weight:bold;
-color:#145a32;
-margin-top:35px;
+    text-align:center;
+    font-size:30px;
+    color:#1b5e20;
+    font-weight:bold;
+    margin-top:20px;
+    margin-bottom:10px;
 
 }
 
 .subtitle{
 
-text-align:center;
-font-size:15px;
-color:#666;
-margin-top:8px;
-
-}
-
-.watermark{
-
-position:fixed;
-top:40%;
-left:12%;
-font-size:90px;
-font-weight:bold;
-color:rgba(0,0,0,.04);
-transform:rotate(-28deg);
-pointer-events:none;
+    text-align:center;
+    color:#666;
+    font-size:15px;
+    margin-bottom:25px;
 
 }
 
 .badge{
 
-width:300px;
-margin:30px auto;
-background:#198754;
-color:#fff;
-padding:12px;
-border-radius:30px;
-text-align:center;
-font-weight:bold;
+    width:240px;
+    margin:0 auto 30px auto;
+    text-align:center;
+    background:#28a745;
+    color:white;
+    padding:10px;
+    border-radius:30px;
+    font-weight:bold;
 
 }
 
-.content{
+.info{
 
-margin-top:35px;
-font-size:16px;
-line-height:1.9;
-text-align:justify;
+    margin-bottom:25px;
 
 }
 
-.content p{
+.info p{
 
-margin-bottom:18px;
+    margin-bottom:8px;
+
+}
+
+table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:25px;
+    margin-bottom:30px;
+
+}
+
+table td{
+
+    border:1px solid #dcdcdc;
+    padding:12px;
+
+}
+
+.footer{
+
+    margin-top:50px;
+    text-align:center;
+    font-size:13px;
+    color:#666;
+    border-top:1px solid #ddd;
+    padding-top:20px;
+
+}
+
+.watermark{
+
+    position:fixed;
+    top:38%;
+    left:10%;
+    font-size:90px;
+    color:rgba(0,0,0,.04);
+    transform:rotate(-28deg);
+    font-weight:bold;
+    z-index:-1;
 
 }
 
@@ -923,69 +589,23 @@ margin-bottom:18px;
 
 <div class="watermark">
 
-${COMPANY.shortName}
+GUZO GO INTERNATIONAL
 
 </div>
 
-<div class="page">
-
-<div class="top-bar"></div>
-
 <div class="header">
 
-<div class="left">
-
-<img
-src="${COMPANY.logo}"
-class="logo">
+<img src="${COMPANY.logo}" class="logo">
 
 <div class="company">
 
 <h1>${COMPANY.name}</h1>
 
-<p>${COMPANY.slogan}</p>
+<p>📧 ${COMPANY.email}</p>
 
-<p>${COMPANY.email}</p>
+<p>☎ ${COMPANY.phone}</p>
 
-<p>${COMPANY.phone}</p>
-
-<p>${COMPANY.website}</p>
-
-</div>
-
-</div>
-
-<div class="qr">
-
-<img src="${qr}">
-
-</div>
-
-</div>
-
-<div class="reference">
-
-<div>
-
-<b>Reference No.</b><br>
-
-${referenceNo}
-
-</div>
-
-<div>
-
-<b>Issue Date</b><br>
-
-${issueDate}
-
-</div>
-
-<div>
-
-<b>Expiry Date</b><br>
-
-${expiryDate}
+<p>🌐 ${COMPANY.website}</p>
 
 </div>
 
@@ -993,308 +613,195 @@ ${expiryDate}
 
 <div class="title">
 
-APPLICATION APPROVAL LETTER
+APPLICATION ACCEPTANCE LETTER
 
 </div>
 
 <div class="subtitle">
 
-Official Travel & Visa Consultancy Approval
+Official Visa Processing Confirmation
 
 </div>
 
 <div class="badge">
 
-✔ VERIFIED • AUTHORIZED • REGISTERED
+✔ VERIFIED & AUTHORIZED
+
+</div>
+
+<div class="info">
+
+<p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+
+<p><strong>Applicant ID:</strong> ${applicant.applicantId}</p>
+
+<p><strong>Permit ID:</strong> ${permitId}</p>
+
+<p><strong>Applicant:</strong> ${applicant.fullName}</p>
 
 </div>
 <p>
 
-Dear <strong>${selectedApplication.fullName}</strong>,
+Dear <strong>${applicant.fullName}</strong>,
 
 </p>
 
 <p>
 
-We are pleased to officially inform you that your application has been
-<strong>approved</strong> by
-<strong>${COMPANY.name}</strong> after a comprehensive review of the
-information and supporting documents you submitted.
+We are pleased to officially inform you that, following a careful assessment of your submitted application and supporting documents, your application has been <strong>successfully accepted</strong> by <strong>${COMPANY.name}</strong> for professional visa consultancy and processing services.
 
 </p>
 
 <p>
 
-This Approval Letter confirms that your application has been accepted
-for professional travel and visa consultancy services and has been
-officially registered under the reference number and permit ID shown
-in this document.
+This Acceptance Letter confirms that your application has successfully passed our preliminary review and is now registered in our official processing system under the above Permit ID.
 
 </p>
 
 <p>
 
-To proceed with your application, you are requested to complete the
-required initial payment according to the agreed consultancy terms.
-Once payment confirmation is received, our professional team will begin
-processing your case immediately.
+To initiate the processing procedure, the applicant is required to complete the initial payment of <strong>25%</strong> of the agreed professional service fee. The remaining balance shall be settled according to the mutually agreed payment schedule.
 
 </p>
 
 <p>
 
-Our services include document verification, application preparation,
-appointment guidance, submission assistance, continuous follow-up,
-professional consultation, and customer support throughout the agreed
-service period.
+Upon confirmation of the initial payment, <strong>${COMPANY.name}</strong> will professionally manage and coordinate every stage of your visa processing. Our experienced consultancy team will oversee document verification, application preparation, professional guidance, appointment coordination where applicable, submission support, continuous follow-up, and communication throughout the agreed consultancy process.
 
 </p>
 
 <p>
 
-Please note that this Approval Letter confirms acceptance into our
-consultancy program only. The final decision regarding visa issuance
-remains solely with the respective Embassy, Consulate, Immigration
-Authority, or Government Institution of the destination country.
+Our organization is committed to handling your application with the highest standards of professionalism, confidentiality, transparency, accuracy, and customer service until completion of our consultancy responsibilities.
 
 </p>
 
 <p>
 
-Thank you for choosing
-<strong>${COMPANY.name}</strong>.
-We appreciate your trust and look forward to serving you with
-professionalism, integrity, confidentiality, and excellence.
+Please note that this Acceptance Letter confirms acceptance into our professional consultancy process only. The final decision regarding visa approval or refusal remains the exclusive responsibility of the respective Embassy, Consulate, or Immigration Authority of your destination country.
 
 </p>
 
-<h2 style="
-margin-top:40px;
-margin-bottom:15px;
-color:#0b4f8a;
-">
+<p>
 
-Applicant Information
+We sincerely appreciate your confidence in <strong>${COMPANY.name}</strong> and look forward to providing you with reliable, professional, and efficient visa consultancy services throughout your immigration journey.
 
-</h2>
+</p>
 
-<table style="
-width:100%;
-border-collapse:collapse;
-font-size:15px;
-">
+<table>
 
 <tr>
 
-<td style="border:1px solid #ddd;padding:12px;">
-<strong>Applicant Name</strong>
-</td>
+<td><strong>Applicant Name</strong></td>
 
-<td style="border:1px solid #ddd;padding:12px;">
-${selectedApplication.fullName}
-</td>
+<td>${applicant.fullName}</td>
 
 </tr>
 
 <tr>
 
-<td style="border:1px solid #ddd;padding:12px;">
-<strong>Passport Number</strong>
-</td>
+<td><strong>Passport Number</strong></td>
 
-<td style="border:1px solid #ddd;padding:12px;">
-${selectedApplication.passport}
-</td>
+<td>${applicant.passport}</td>
 
 </tr>
 
 <tr>
 
-<td style="border:1px solid #ddd;padding:12px;">
-<strong>Destination Country</strong>
-</td>
+<td><strong>Destination Country</strong></td>
 
-<td style="border:1px solid #ddd;padding:12px;">
-${selectedApplication.country}
-</td>
+<td>${applicant.country}</td>
 
 </tr>
 
 <tr>
 
-<td style="border:1px solid #ddd;padding:12px;">
-<strong>Permit ID</strong>
-</td>
+<td><strong>Application Status</strong></td>
 
-<td style="border:1px solid #ddd;padding:12px;">
-${permitId}
-</td>
+<td>${applicant.status}</td>
 
 </tr>
 
 <tr>
 
-<td style="border:1px solid #ddd;padding:12px;">
-<strong>Application Status</strong>
-</td>
+<td><strong>Permit ID</strong></td>
 
-<td style="border:1px solid #ddd;padding:12px;color:#198754;font-weight:bold;">
-APPROVED
-</td>
+<td>${permitId}</td>
 
 </tr>
 
 </table>
 
-<div style="
-text-align:center;
-margin-top:40px;
-">
+<div style="text-align:center;margin-top:35px;">
 
-<img
-src="${qr}"
-style="
-width:180px;
-height:180px;
-">
+<img src="${qr}" width="170">
 
-<p style="
-margin-top:15px;
-font-size:14px;
-">
+<p style="margin-top:10px;">
 
-<b>Scan this QR Code to verify the authenticity of this Approval Letter.</b>
+<b>Scan the QR Code to Verify This Acceptance Letter</b>
 
 </p>
 
 </div>
+<br><br>
 
-<div class="content">
-<h2 style="
-margin-top:45px;
-color:#0b4f8a;
-">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:50px;">
 
-Official Authorization
-
-</h2>
-
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-margin-top:60px;
-">
-
-<!-- Signature -->
-
-<div style="
-text-align:center;
-width:45%;
-">
+<div style="position:relative;display:inline-block;">
 
 <img
-src="${COMPANY.signature}"
+src="${SIGNATURE}"
+style="width:220px;display:block;">
+
+<img
+src="${SEAL}"
 style="
-width:220px;
-height:auto;
+position:absolute;
+left:120px;
+top:20px;
+width:110px;
+opacity:0.95;
 ">
 
-<hr style="
-margin-top:10px;
-border:1px solid #333;
-">
+<div style="margin-top:20px;">
 
-<b>Authorized Signature</b><br>
+<b>Authorized Officer</b><br>
 
 ${COMPANY.name}
 
 </div>
 
-
-<!-- Seal -->
-
-<div style="
-text-align:center;
-width:45%;
-">
-
-<img
-src="${COMPANY.seal}"
-style="
-width:150px;
-height:150px;
-">
-
-<hr style="
-margin-top:10px;
-border:1px solid #333;
-">
-
-<b>Official Company Seal</b>
-
 </div>
 
-</div>
+<div style="text-align:center;">
 
+<p style="font-size:12px;color:#666;">
 
-<h2 style="
-margin-top:50px;
-color:#0b4f8a;
-">
-
-Important Notice
-
-</h2>
-
-<p>
-
-This document is an officially generated Approval Letter issued by
-<strong>${COMPANY.name}</strong>.
-
-Any unauthorized alteration, duplication, or misuse of this document
-may render it invalid.
-
-Its authenticity can be verified using the QR Code or the Permit ID
-displayed above.
+Official Company Seal & Signature
 
 </p>
 
+</div>
 
-<div style="
-margin-top:60px;
-padding-top:20px;
-border-top:2px solid #0b4f8a;
-text-align:center;
-font-size:13px;
-color:#666;
-">
+</div>
+
+<div class="footer">
 
 <strong>${COMPANY.name}</strong><br>
-
-${COMPANY.slogan}<br><br>
 
 📧 ${COMPANY.email}<br>
 
 ☎ ${COMPANY.phone}<br>
 
-🌐 ${COMPANY.website}<br>
+🌐 ${COMPANY.website}<br><br>
 
-📍 ${COMPANY.address}<br><br>
-
-© ${new Date().getFullYear()} ${COMPANY.name}. All Rights Reserved.
-
-</div>
+© 2026 All Rights Reserved.
 
 </div>
 
 <script>
 
-window.onload = () => {
-
-    window.print();
-
-};
+window.print();
 
 </script>
 
@@ -1307,30 +814,61 @@ window.onload = () => {
 letterWindow.document.close();
 
 return;
-letterWindow.document.close();
 
-return;
+    }
+     // =======================================
+    // DELETE APPLICATION
+    // =======================================
 
-} // END LETTER
+    if (e.target.classList.contains("delete")) {
 
-}); // END DOCUMENT CLICK EVENT
-// ===========================================================
+        const ok = confirm("Are you sure you want to delete this application?");
+
+        if (!ok) return;
+
+        const success = await deleteApplication(id);
+
+        if (success) {
+
+            alert("Application deleted successfully.");
+
+            loadApplications();
+
+        } else {
+
+            alert("Delete failed.");
+
+        }
+
+        return;
+
+    }
+
+});
+
+// =======================================
 // CLOSE DETAILS MODAL
-// ===========================================================
+// =======================================
 
 closeModal.addEventListener("click", () => {
+
     detailsModal.style.display = "none";
+
 });
 
 window.addEventListener("click", (e) => {
+
     if (e.target === detailsModal) {
+
         detailsModal.style.display = "none";
+
     }
+
 });
 
-// ===========================================================
+// =======================================
 // LOGOUT
-// ===========================================================
+// =======================================
 
 logoutBtn.addEventListener("click", async () => {
 
@@ -1354,8 +892,8 @@ logoutBtn.addEventListener("click", async () => {
 
 });
 
-// ===========================================================
+// =======================================
 // END OF FILE
-// GUZO GO INTERNATIONAL
-// PROFESSIONAL ADMIN DASHBOARD 2026
-// ===========================================================
+// Guzo Go International Admin Dashboard
+// Professional Version 2026
+// =======================================   
